@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(catalog = "afsolu_neptunosg", schema = "", uniqueConstraints = {
+@Table(name = "submenu", catalog = "afsolu_neptunosg", schema = "", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"idemen"})})
 @XmlRootElement
 @NamedQueries({
