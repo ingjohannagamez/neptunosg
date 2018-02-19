@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoDocumentoEditDlg" widgetVar="TipoDocumentoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoDocumentoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoDocumentoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoDocumentoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoDocumentoLabel_idetdo}" for="idetdo" />
+                        <h:panelGroup>
+                            <h:outputText id="idetdo" value="#{tipoDocumentoController.selected.idetdo}" />
+                            <p:tooltip for="idetdo" value="#{tipoDocumentoController.getComponentMessages('idetdo', myBundle.EditTipoDocumentoHelpText_idetdo)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoDocumentoLabel_tiptdo}" for="tiptdo" />
+                        <h:panelGroup>
+                            <p:inputText id="tiptdo" value="#{tipoDocumentoController.selected.tiptdo}" title="#{myBundle.EditTipoDocumentoTitle_tiptdo}" required="true" requiredMessage="#{myBundle.EditTipoDocumentoRequiredMessage_tiptdo}" size="2" maxlength="2"/>
+                            <p:tooltip for="tiptdo" value="#{tipoDocumentoController.getComponentMessages('tiptdo', myBundle.EditTipoDocumentoHelpText_tiptdo)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoDocumentoLabel_destdo}" for="destdo" />
+                        <h:panelGroup>
+                            <p:inputTextarea rows="4" cols="30" id="destdo" value="#{tipoDocumentoController.selected.destdo}" title="#{myBundle.EditTipoDocumentoTitle_destdo}" required="true" requiredMessage="#{myBundle.EditTipoDocumentoRequiredMessage_destdo}"/>
+                            <p:tooltip for="destdo" value="#{tipoDocumentoController.getComponentMessages('destdo', myBundle.EditTipoDocumentoHelpText_destdo)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoDocumentoLabel_rentdo}" for="rentdo" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="rentdo" value="#{tipoDocumentoController.selected.rentdo}" required="true" requiredMessage="#{myBundle.EditTipoDocumentoRequiredMessage_rentdo}"/>
+                            <p:tooltip for="rentdo" value="#{tipoDocumentoController.getComponentMessages('rentdo', myBundle.EditTipoDocumentoHelpText_rentdo)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoDocumentoController.save}" value="#{myBundle.Save}" update="display,:TipoDocumentoListForm:datalist,:TipoDocumentoListForm:TipoDocumentoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoDocumentoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoDocumentoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

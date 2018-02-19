@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RegionEditDlg" widgetVar="RegionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRegionTitle}" closeOnEscape="true">
+
+            <h:form id="RegionEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{regionController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRegionLabel_idereg}" for="idereg" />
+                        <h:panelGroup>
+                            <h:outputText id="idereg" value="#{regionController.selected.idereg}" />
+                            <p:tooltip for="idereg" value="#{regionController.getComponentMessages('idereg', myBundle.EditRegionHelpText_idereg)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditRegionLabel_nomreg}" for="nomreg" />
+                        <h:panelGroup>
+                            <p:inputText id="nomreg" value="#{regionController.selected.nomreg}" title="#{myBundle.EditRegionTitle_nomreg}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomreg" value="#{regionController.getComponentMessages('nomreg', myBundle.EditRegionHelpText_nomreg)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditRegionLabel_idepai}" for="idepai" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idepai" value="#{regionController.selected.idepai}"  converter="paisConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{paisController.items}"
+                                               var="idepaiItem"
+                                               itemValue="#{idepaiItem}"
+                                               itemLabel="#{idepaiItem.idepai.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idepai" value="#{regionController.getComponentMessages('idepai', myBundle.EditRegionHelpText_idepai)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{regionController.save}" value="#{myBundle.Save}" update="display,:RegionListForm:datalist,:RegionListForm:RegionDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RegionEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RegionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

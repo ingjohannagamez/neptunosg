@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpresaViewDlg" widgetVar="EmpresaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="EmpresaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{empresaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_ideemp}"/>
+                        <h:outputText value="#{empresaController.selected.ideemp}" title="#{myBundle.ViewEmpresaTitle_ideemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_nomemp}"/>
+                        <h:outputText value="#{empresaController.selected.nomemp}" title="#{myBundle.ViewEmpresaTitle_nomemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_rcoemp}"/>
+                        <h:outputText value="#{empresaController.selected.rcoemp}" title="#{myBundle.ViewEmpresaTitle_rcoemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_nitemp}"/>
+                        <h:outputText value="#{empresaController.selected.nitemp}" title="#{myBundle.ViewEmpresaTitle_nitemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_codemp}"/>
+                        <h:outputText value="#{empresaController.selected.codemp}" title="#{myBundle.ViewEmpresaTitle_codemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_tluemp}"/>
+                        <h:outputText value="#{empresaController.selected.tluemp}" title="#{myBundle.ViewEmpresaTitle_tluemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_tldemp}"/>
+                        <h:outputText value="#{empresaController.selected.tldemp}" title="#{myBundle.ViewEmpresaTitle_tldemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_diremp}"/>
+                        <h:outputText value="#{empresaController.selected.diremp}" title="#{myBundle.ViewEmpresaTitle_diremp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_freemp}"/>
+                        <h:outputText value="#{empresaController.selected.freemp}" title="#{myBundle.ViewEmpresaTitle_freemp}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_logemp}"/>
+                        <h:outputText value="#{empresaController.selected.logemp}" title="#{myBundle.ViewEmpresaTitle_logemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_idetem}"/>
+                        <h:outputText value="#{empresaController.selected.idetem.idetem}"/>
+
+                        <h:outputText value="#{myBundle.ViewEmpresaLabel_idetre}"/>
+                        <h:outputText value="#{empresaController.selected.idetre.idetre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('EmpresaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

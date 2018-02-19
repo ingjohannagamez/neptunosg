@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoEmpresaViewDlg" widgetVar="TipoEmpresaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipoEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoEmpresaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoEmpresaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipoEmpresaLabel_idetem}"/>
+                        <h:outputText value="#{tipoEmpresaController.selected.idetem}" title="#{myBundle.ViewTipoEmpresaTitle_idetem}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoEmpresaLabel_nomtem}"/>
+                        <h:outputText value="#{tipoEmpresaController.selected.nomtem}" title="#{myBundle.ViewTipoEmpresaTitle_nomtem}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoEmpresaLabel_destem}"/>
+                        <h:outputText value="#{tipoEmpresaController.selected.destem}" title="#{myBundle.ViewTipoEmpresaTitle_destem}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TipoEmpresaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

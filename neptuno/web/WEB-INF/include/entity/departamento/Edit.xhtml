@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DepartamentoEditDlg" widgetVar="DepartamentoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDepartamentoTitle}" closeOnEscape="true">
+
+            <h:form id="DepartamentoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{departamentoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDepartamentoLabel_idedep}" for="idedep" />
+                        <h:panelGroup>
+                            <h:outputText id="idedep" value="#{departamentoController.selected.idedep}" />
+                            <p:tooltip for="idedep" value="#{departamentoController.getComponentMessages('idedep', myBundle.EditDepartamentoHelpText_idedep)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditDepartamentoLabel_nomdep}" for="nomdep" />
+                        <h:panelGroup>
+                            <p:inputText id="nomdep" value="#{departamentoController.selected.nomdep}" title="#{myBundle.EditDepartamentoTitle_nomdep}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomdep" value="#{departamentoController.getComponentMessages('nomdep', myBundle.EditDepartamentoHelpText_nomdep)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditDepartamentoLabel_idereg}" for="idereg" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idereg" value="#{departamentoController.selected.idereg}"  converter="regionConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{regionController.items}"
+                                               var="ideregItem"
+                                               itemValue="#{ideregItem}"
+                                               itemLabel="#{ideregItem.idereg.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idereg" value="#{departamentoController.getComponentMessages('idereg', myBundle.EditDepartamentoHelpText_idereg)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departamentoController.save}" value="#{myBundle.Save}" update="display,:DepartamentoListForm:datalist,:DepartamentoListForm:DepartamentoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DepartamentoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DepartamentoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

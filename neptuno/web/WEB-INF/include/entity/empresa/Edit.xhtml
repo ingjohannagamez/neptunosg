@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="EmpresaEditDlg" widgetVar="EmpresaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="EmpresaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{empresaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditEmpresaLabel_ideemp}" for="ideemp" />
+                        <h:panelGroup>
+                            <h:outputText id="ideemp" value="#{empresaController.selected.ideemp}" />
+                            <p:tooltip for="ideemp" value="#{empresaController.getComponentMessages('ideemp', myBundle.EditEmpresaHelpText_ideemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_nomemp}" for="nomemp" />
+                        <h:panelGroup>
+                            <p:inputText id="nomemp" value="#{empresaController.selected.nomemp}" title="#{myBundle.EditEmpresaTitle_nomemp}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomemp" value="#{empresaController.getComponentMessages('nomemp', myBundle.EditEmpresaHelpText_nomemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_rcoemp}" for="rcoemp" />
+                        <h:panelGroup>
+                            <p:inputText id="rcoemp" value="#{empresaController.selected.rcoemp}" title="#{myBundle.EditEmpresaTitle_rcoemp}" size="80" maxlength="80"/>
+                            <p:tooltip for="rcoemp" value="#{empresaController.getComponentMessages('rcoemp', myBundle.EditEmpresaHelpText_rcoemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_nitemp}" for="nitemp" />
+                        <h:panelGroup>
+                            <p:inputText id="nitemp" value="#{empresaController.selected.nitemp}" title="#{myBundle.EditEmpresaTitle_nitemp}" size="50" maxlength="50"/>
+                            <p:tooltip for="nitemp" value="#{empresaController.getComponentMessages('nitemp', myBundle.EditEmpresaHelpText_nitemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_codemp}" for="codemp" />
+                        <h:panelGroup>
+                            <p:inputText id="codemp" value="#{empresaController.selected.codemp}" title="#{myBundle.EditEmpresaTitle_codemp}" size="50" maxlength="50"/>
+                            <p:tooltip for="codemp" value="#{empresaController.getComponentMessages('codemp', myBundle.EditEmpresaHelpText_codemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_tluemp}" for="tluemp" />
+                        <h:panelGroup>
+                            <p:inputText id="tluemp" value="#{empresaController.selected.tluemp}" title="#{myBundle.EditEmpresaTitle_tluemp}" size="11" maxlength="11"/>
+                            <p:tooltip for="tluemp" value="#{empresaController.getComponentMessages('tluemp', myBundle.EditEmpresaHelpText_tluemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_tldemp}" for="tldemp" />
+                        <h:panelGroup>
+                            <p:inputText id="tldemp" value="#{empresaController.selected.tldemp}" title="#{myBundle.EditEmpresaTitle_tldemp}" size="11" maxlength="11"/>
+                            <p:tooltip for="tldemp" value="#{empresaController.getComponentMessages('tldemp', myBundle.EditEmpresaHelpText_tldemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_diremp}" for="diremp" />
+                        <h:panelGroup>
+                            <p:inputTextarea rows="4" cols="30" id="diremp" value="#{empresaController.selected.diremp}" title="#{myBundle.EditEmpresaTitle_diremp}" />
+                            <p:tooltip for="diremp" value="#{empresaController.getComponentMessages('diremp', myBundle.EditEmpresaHelpText_diremp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_freemp}" for="freemp" />
+                        <h:panelGroup>
+                            <p:calendar id="freemp" pattern="MM/dd/yyyy HH:mm:ss" value="#{empresaController.selected.freemp}" title="#{myBundle.EditEmpresaTitle_freemp}"  showOn="button"/>
+                            <p:tooltip for="freemp" value="#{empresaController.getComponentMessages('freemp', myBundle.EditEmpresaHelpText_freemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_logemp}" for="logemp" />
+                        <h:panelGroup>
+                            <p:inputText id="logemp" value="#{empresaController.selected.logemp}" title="#{myBundle.EditEmpresaTitle_logemp}" size="200" maxlength="200"/>
+                            <p:tooltip for="logemp" value="#{empresaController.getComponentMessages('logemp', myBundle.EditEmpresaHelpText_logemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_idetem}" for="idetem" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idetem" value="#{empresaController.selected.idetem}"  converter="tipoEmpresaConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoEmpresaController.items}"
+                                               var="idetemItem"
+                                               itemValue="#{idetemItem}"
+                                               itemLabel="#{idetemItem.idetem.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idetem" value="#{empresaController.getComponentMessages('idetem', myBundle.EditEmpresaHelpText_idetem)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditEmpresaLabel_idetre}" for="idetre" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idetre" value="#{empresaController.selected.idetre}"  converter="tipoRegimenConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoRegimenController.items}"
+                                               var="idetreItem"
+                                               itemValue="#{idetreItem}"
+                                               itemLabel="#{idetreItem.idetre.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idetre" value="#{empresaController.getComponentMessages('idetre', myBundle.EditEmpresaHelpText_idetre)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empresaController.save}" value="#{myBundle.Save}" update="display,:EmpresaListForm:datalist,:EmpresaListForm:EmpresaDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('EmpresaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EmpresaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

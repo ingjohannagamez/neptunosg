@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="SubmenuViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewSubmenuTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:SubmenuListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="SubmenuViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{submenuController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewSubmenuLabel_idesub}"/>
+                            <h:outputText value="#{submenuController.selected.idesub}" title="#{myBundle.ViewSubmenuTitle_idesub}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewSubmenuLabel_labsub}"/>
+                            <h:outputText value="#{submenuController.selected.labsub}" title="#{myBundle.ViewSubmenuTitle_labsub}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewSubmenuLabel_icosub}"/>
+                            <h:outputText value="#{submenuController.selected.icosub}" title="#{myBundle.ViewSubmenuTitle_icosub}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewSubmenuLabel_comsub}"/>
+                            <h:outputText value="#{submenuController.selected.comsub}" title="#{myBundle.ViewSubmenuTitle_comsub}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewSubmenuLabel_titsub}"/>
+                            <h:outputText value="#{submenuController.selected.titsub}" title="#{myBundle.ViewSubmenuTitle_titsub}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewSubmenuLabel_rensub}"/>
+                            <h:selectBooleanCheckbox id="rensub" value="#{submenuController.selected.rensub}" title="#{myBundle.EditSubmenuTitle_rensub}" required="true" requiredMessage="#{myBundle.EditSubmenuRequiredMessage_rensub}" disabled="true"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewSubmenuLabel_idemen}"/>
+                            <h:outputText value="#{submenuController.selected.idemen.idemen}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

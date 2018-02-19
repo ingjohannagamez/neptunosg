@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="AccesoEditDlg" widgetVar="AccesoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditAccesoTitle}" closeOnEscape="true">
+
+            <h:form id="AccesoEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{accesoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditAccesoLabel_ideacc}" for="ideacc" />
+                        <h:panelGroup>
+                            <h:outputText id="ideacc" value="#{accesoController.selected.ideacc}" />
+                            <p:tooltip for="ideacc" value="#{accesoController.getComponentMessages('ideacc', myBundle.EditAccesoHelpText_ideacc)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditAccesoLabel_nikacc}" for="nikacc" />
+                        <h:panelGroup>
+                            <p:inputText id="nikacc" value="#{accesoController.selected.nikacc}" title="#{myBundle.EditAccesoTitle_nikacc}" size="50" maxlength="50"/>
+                            <p:tooltip for="nikacc" value="#{accesoController.getComponentMessages('nikacc', myBundle.EditAccesoHelpText_nikacc)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditAccesoLabel_pswacc}" for="pswacc" />
+                        <h:panelGroup>
+                            <p:inputText id="pswacc" value="#{accesoController.selected.pswacc}" title="#{myBundle.EditAccesoTitle_pswacc}" size="32" maxlength="32"/>
+                            <p:tooltip for="pswacc" value="#{accesoController.getComponentMessages('pswacc', myBundle.EditAccesoHelpText_pswacc)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditAccesoLabel_freacc}" for="freacc" />
+                        <h:panelGroup>
+                            <p:calendar id="freacc" pattern="MM/dd/yyyy HH:mm:ss" value="#{accesoController.selected.freacc}" title="#{myBundle.EditAccesoTitle_freacc}"  showOn="button"/>
+                            <p:tooltip for="freacc" value="#{accesoController.getComponentMessages('freacc', myBundle.EditAccesoHelpText_freacc)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditAccesoLabel_estacc}" for="estacc" />
+                        <h:panelGroup>
+                            <p:inputText id="estacc" value="#{accesoController.selected.estacc}" title="#{myBundle.EditAccesoTitle_estacc}"/>
+                            <p:tooltip for="estacc" value="#{accesoController.getComponentMessages('estacc', myBundle.EditAccesoHelpText_estacc)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditAccesoLabel_iderol}" for="iderol" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="iderol" value="#{accesoController.selected.iderol}"  converter="rolConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{rolController.items}"
+                                               var="iderolItem"
+                                               itemValue="#{iderolItem}"
+                                               itemLabel="#{iderolItem.iderol.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="iderol" value="#{accesoController.getComponentMessages('iderol', myBundle.EditAccesoHelpText_iderol)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditAccesoLabel_ideusr}" for="ideusr" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="ideusr" value="#{accesoController.selected.ideusr}"  converter="usuarioConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{usuarioController.items}"
+                                               var="ideusrItem"
+                                               itemValue="#{ideusrItem}"
+                                               itemLabel="#{ideusrItem.ideusr.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="ideusr" value="#{accesoController.getComponentMessages('ideusr', myBundle.EditAccesoHelpText_ideusr)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{accesoController.save}" value="#{myBundle.Save}" update="display,:AccesoListForm:datalist,:AccesoListForm:AccesoDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('AccesoEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('AccesoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

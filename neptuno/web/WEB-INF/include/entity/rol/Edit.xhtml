@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="RolEditDlg" widgetVar="RolEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditRolTitle}" closeOnEscape="true">
+
+            <h:form id="RolEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{rolController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditRolLabel_iderol}" for="iderol" />
+                        <h:panelGroup>
+                            <h:outputText id="iderol" value="#{rolController.selected.iderol}" />
+                            <p:tooltip for="iderol" value="#{rolController.getComponentMessages('iderol', myBundle.EditRolHelpText_iderol)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditRolLabel_nomrol}" for="nomrol" />
+                        <h:panelGroup>
+                            <p:inputText id="nomrol" value="#{rolController.selected.nomrol}" title="#{myBundle.EditRolTitle_nomrol}" required="true" requiredMessage="#{myBundle.EditRolRequiredMessage_nomrol}" size="20" maxlength="20"/>
+                            <p:tooltip for="nomrol" value="#{rolController.getComponentMessages('nomrol', myBundle.EditRolHelpText_nomrol)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditRolLabel_desrol}" for="desrol" />
+                        <h:panelGroup>
+                            <p:inputText id="desrol" value="#{rolController.selected.desrol}" title="#{myBundle.EditRolTitle_desrol}" required="true" requiredMessage="#{myBundle.EditRolRequiredMessage_desrol}" size="200" maxlength="200"/>
+                            <p:tooltip for="desrol" value="#{rolController.getComponentMessages('desrol', myBundle.EditRolHelpText_desrol)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditRolLabel_ideper}" for="ideper" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="ideper" value="#{rolController.selected.ideper}" required="true" requiredMessage="#{myBundle.EditRolRequiredMessage_ideper}" converter="permisosConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{permisosController.items}"
+                                               var="ideperItem"
+                                               itemValue="#{ideperItem}"
+                                               itemLabel="#{ideperItem.ideper.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="ideper" value="#{rolController.getComponentMessages('ideper', myBundle.EditRolHelpText_ideper)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rolController.save}" value="#{myBundle.Save}" update="display,:RolListForm:datalist,:RolListForm:RolDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RolEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RolEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

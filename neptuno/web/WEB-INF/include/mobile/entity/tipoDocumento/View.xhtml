@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TipoDocumentoViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewTipoDocumentoTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:TipoDocumentoListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TipoDocumentoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{tipoDocumentoController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_idetdo}"/>
+                            <h:outputText value="#{tipoDocumentoController.selected.idetdo}" title="#{myBundle.ViewTipoDocumentoTitle_idetdo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_tiptdo}"/>
+                            <h:outputText value="#{tipoDocumentoController.selected.tiptdo}" title="#{myBundle.ViewTipoDocumentoTitle_tiptdo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_destdo}"/>
+                            <h:outputText value="#{tipoDocumentoController.selected.destdo}" title="#{myBundle.ViewTipoDocumentoTitle_destdo}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_rentdo}"/>
+                            <h:selectBooleanCheckbox id="rentdo" value="#{tipoDocumentoController.selected.rentdo}" title="#{myBundle.EditTipoDocumentoTitle_rentdo}" required="true" requiredMessage="#{myBundle.EditTipoDocumentoRequiredMessage_rentdo}" disabled="true"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

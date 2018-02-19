@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoEmpresaCreateDlg" widgetVar="TipoEmpresaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTipoEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoEmpresaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tipoEmpresaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTipoEmpresaLabel_nomtem}" for="nomtem" />
+                        <h:panelGroup>
+                            <p:inputText id="nomtem" value="#{tipoEmpresaController.selected.nomtem}" title="#{myBundle.CreateTipoEmpresaTitle_nomtem}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomtem" value="#{tipoEmpresaController.getComponentMessages('nomtem', myBundle.CreateTipoEmpresaHelpText_nomtem)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateTipoEmpresaLabel_destem}" for="destem" />
+                        <h:panelGroup>
+                            <p:inputTextarea rows="4" cols="30" id="destem" value="#{tipoEmpresaController.selected.destem}" title="#{myBundle.CreateTipoEmpresaTitle_destem}" />
+                            <p:tooltip for="destem" value="#{tipoEmpresaController.getComponentMessages('destem', myBundle.CreateTipoEmpresaHelpText_destem)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoEmpresaController.saveNew}" value="#{myBundle.Save}" update="display,:TipoEmpresaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoEmpresaCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoEmpresaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

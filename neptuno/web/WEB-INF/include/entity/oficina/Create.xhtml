@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OficinaCreateDlg" widgetVar="OficinaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateOficinaTitle}" closeOnEscape="true">
+
+            <h:form id="OficinaCreateForm">
+
+                <h:panelGroup id="display" rendered="#{oficinaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateOficinaLabel_nomofi}" for="nomofi" />
+                        <h:panelGroup>
+                            <p:inputText id="nomofi" value="#{oficinaController.selected.nomofi}" title="#{myBundle.CreateOficinaTitle_nomofi}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomofi" value="#{oficinaController.getComponentMessages('nomofi', myBundle.CreateOficinaHelpText_nomofi)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateOficinaLabel_dirofi}" for="dirofi" />
+                        <h:panelGroup>
+                            <p:inputTextarea rows="4" cols="30" id="dirofi" value="#{oficinaController.selected.dirofi}" title="#{myBundle.CreateOficinaTitle_dirofi}" />
+                            <p:tooltip for="dirofi" value="#{oficinaController.getComponentMessages('dirofi', myBundle.CreateOficinaHelpText_dirofi)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateOficinaLabel_objofi}" for="objofi" />
+                        <h:panelGroup>
+                            <p:inputTextarea rows="4" cols="30" id="objofi" value="#{oficinaController.selected.objofi}" title="#{myBundle.CreateOficinaTitle_objofi}" />
+                            <p:tooltip for="objofi" value="#{oficinaController.getComponentMessages('objofi', myBundle.CreateOficinaHelpText_objofi)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateOficinaLabel_estofi}" for="estofi" />
+                        <h:panelGroup>
+                            <p:inputText id="estofi" value="#{oficinaController.selected.estofi}" title="#{myBundle.CreateOficinaTitle_estofi}"/>
+                            <p:tooltip for="estofi" value="#{oficinaController.getComponentMessages('estofi', myBundle.CreateOficinaHelpText_estofi)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateOficinaLabel_ideemp}" for="ideemp" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="ideemp" value="#{oficinaController.selected.ideemp}"  converter="empresaConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{empresaController.items}"
+                                               var="ideempItem"
+                                               itemValue="#{ideempItem}"
+                                               itemLabel="#{ideempItem.ideemp.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="ideemp" value="#{oficinaController.getComponentMessages('ideemp', myBundle.CreateOficinaHelpText_ideemp)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateOficinaLabel_idemun}" for="idemun" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idemun" value="#{oficinaController.selected.idemun}"  converter="municipioConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{municipioController.items}"
+                                               var="idemunItem"
+                                               itemValue="#{idemunItem}"
+                                               itemLabel="#{idemunItem.idemun.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idemun" value="#{oficinaController.getComponentMessages('idemun', myBundle.CreateOficinaHelpText_idemun)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{oficinaController.saveNew}" value="#{myBundle.Save}" update="display,:OficinaListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('OficinaCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('OficinaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

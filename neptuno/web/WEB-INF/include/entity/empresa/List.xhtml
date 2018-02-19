@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="EmpresaListForm">
+
+        <p:panel header="#{myBundle.ListEmpresaTitle}">
+            <p:contextMenu id="EmpresaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('EmpresaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('EmpresaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('EmpresaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('EmpresaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.EmpresaMenuItem_oficinaList}" icon="ui-icon-search"  action="#{empresaController.navigateOficinaList}" disabled="#{empresaController.isOficinaListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.EmpresaMenuItem_idetem}" icon="ui-icon-search"  actionListener="#{empresaController.prepareIdetem}" update=":TipoEmpresaViewForm" oncomplete="PF('TipoEmpresaViewDialog').show()" disabled="#{empty empresaController.selected.idetem}"/>  
+                <p:menuitem value="#{myBundle.EmpresaMenuItem_idetre}" icon="ui-icon-search"  actionListener="#{empresaController.prepareIdetre}" update=":TipoRegimenViewForm" oncomplete="PF('TipoRegimenViewDialog').show()" disabled="#{empty empresaController.selected.idetre}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{empresaController.items}"
+                         lazy="false"
+                         rowKey="#{item.ideemp}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{empresaController.selected}"
+                         filteredValue="#{empresaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{empresaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.ideemp}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpresaDataTableContextMenu" listener="#{empresaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:EmpresaDataTableContextMenu" listener="#{empresaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{empresaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('EmpresaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.ideemp}" filterBy="#{item.ideemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpresaTitle_ideemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ideemp}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomemp}" filterBy="#{item.nomemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpresaTitle_nomemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomemp}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rcoemp}" filterBy="#{item.rcoemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpresaTitle_rcoemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rcoemp}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nitemp}" filterBy="#{item.nitemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpresaTitle_nitemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nitemp}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.codemp}" filterBy="#{item.codemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpresaTitle_codemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codemp}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.tluemp}" filterBy="#{item.tluemp}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListEmpresaTitle_tluemp}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tluemp}"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.tldemp}" filterBy="#{item.tldemp}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListEmpresaTitle_tldemp}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tldemp}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.diremp}" filterBy="#{item.diremp}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListEmpresaTitle_diremp}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.diremp}"/>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.freemp}" filterBy="#{item.freemp}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListEmpresaTitle_freemp}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.freemp}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                </ui:remove>
+                <ui:remove>
+                    <p:column sortBy="#{item.logemp}" filterBy="#{item.logemp}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListEmpresaTitle_logemp}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.logemp}"/>
+                    </p:column>
+                </ui:remove>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{empresaController.prepareCreate}" update=":EmpresaCreateForm" oncomplete="PF('EmpresaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":EmpresaViewForm" oncomplete="PF('EmpresaViewDialog').show()" disabled="#{empty empresaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":EmpresaEditForm" oncomplete="PF('EmpresaEditDialog').show()" disabled="#{empty empresaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{empresaController.delete}" update=":growl,datalist" disabled="#{empty empresaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

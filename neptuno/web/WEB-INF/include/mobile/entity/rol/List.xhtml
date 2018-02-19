@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="RolListPage">
+        <pm:header title="#{myBundle.ListRolTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":RolCreatePage:RolCreateForm" actionListener="#{rolController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:RolCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="RolListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{rolController.items}"
+                             var="item"
+                             rowKey="#{item.iderol}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{rolController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{rolController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{rolController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('RolListPage:RolListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('RolListPage:RolListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('RolListPage:RolListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.iderol}" filterBy="#{item.iderol}" headerText="#{myBundle.ListRolTitle_iderol}">
+                        <h:outputText value="#{item.iderol}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.nomrol}" filterBy="#{item.nomrol}" headerText="#{myBundle.ListRolTitle_nomrol}">
+                        <h:outputText value="#{item.nomrol}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.desrol}" filterBy="#{item.desrol}" headerText="#{myBundle.ListRolTitle_desrol}">
+                        <h:outputText value="#{item.desrol}"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":RolEditPage:RolEditForm" disabled="#{empty rolController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:RolEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{rolController.delete}" update=":growl,datalist" disabled="#{empty rolController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty rolController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.RolHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.RolMenuItem_accesoList}" icon="ui-icon-search"  action="#{mobilePageController.navigateWithHistory}" disabled="#{empty rolController.selected.accesoList}" ajax="false">
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="#{rolController.navigateAccesoList()}"/>
+                        </p:menuitem>  
+                        <p:menuitem value="#{myBundle.RolMenuItem_menuRolList}" icon="ui-icon-search"  action="#{mobilePageController.navigateWithHistory}" disabled="#{empty rolController.selected.menuRolList}" ajax="false">
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="#{rolController.navigateMenuRolList()}"/>
+                        </p:menuitem>  
+                        <p:menuitem value="#{myBundle.RolMenuItem_ideper}" icon="ui-icon-search" update=":PermisosEditPage:PermisosEditForm" disabled="#{empty rolController.selected.ideper}" actionListener="#{rolController.prepareIdeper}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:PermisosEditPage"/>
+                        </p:menuitem>
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

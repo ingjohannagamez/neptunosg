@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PaisListPage">
+        <pm:header title="#{myBundle.ListPaisTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":PaisCreatePage:PaisCreateForm" actionListener="#{paisController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:PaisCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PaisListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{paisController.items}"
+                             var="item"
+                             rowKey="#{item.idepai}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{paisController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{paisController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{paisController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('PaisListPage:PaisListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('PaisListPage:PaisListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('PaisListPage:PaisListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.idepai}" filterBy="#{item.idepai}" headerText="#{myBundle.ListPaisTitle_idepai}">
+                        <h:outputText value="#{item.idepai}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.nompai}" filterBy="#{item.nompai}" headerText="#{myBundle.ListPaisTitle_nompai}">
+                        <h:outputText value="#{item.nompai}"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PaisEditPage:PaisEditForm" disabled="#{empty paisController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:PaisEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{paisController.delete}" update=":growl,datalist" disabled="#{empty paisController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty paisController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.PaisHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.PaisMenuItem_idecon}" icon="ui-icon-search" update=":ContinenteEditPage:ContinenteEditForm" disabled="#{empty paisController.selected.idecon}" actionListener="#{paisController.prepareIdecon}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:ContinenteEditPage"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{myBundle.PaisMenuItem_regionList}" icon="ui-icon-search"  action="#{mobilePageController.navigateWithHistory}" disabled="#{empty paisController.selected.regionList}" ajax="false">
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="#{paisController.navigateRegionList()}"/>
+                        </p:menuitem>  
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

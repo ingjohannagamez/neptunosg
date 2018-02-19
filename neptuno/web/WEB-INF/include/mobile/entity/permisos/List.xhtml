@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PermisosListPage">
+        <pm:header title="#{myBundle.ListPermisosTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":PermisosCreatePage:PermisosCreateForm" actionListener="#{permisosController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:PermisosCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PermisosListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{permisosController.items}"
+                             var="item"
+                             rowKey="#{item.ideper}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{permisosController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('PermisosListPage:PermisosListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('PermisosListPage:PermisosListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('PermisosListPage:PermisosListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.ideper}" filterBy="#{item.ideper}" headerText="#{myBundle.ListPermisosTitle_ideper}">
+                        <h:outputText value="#{item.ideper}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.lecper}" filterBy="#{item.lecper}" headerText="#{myBundle.ListPermisosTitle_lecper}">
+                        <h:selectBooleanCheckbox id="lecper" value="#{item.lecper}" title="#{myBundle.EditPermisosTitle_lecper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_lecper}" disabled="true"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.escper}" filterBy="#{item.escper}" headerText="#{myBundle.ListPermisosTitle_escper}">
+                        <h:selectBooleanCheckbox id="escper" value="#{item.escper}" title="#{myBundle.EditPermisosTitle_escper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_escper}" disabled="true"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.modper}" filterBy="#{item.modper}" headerText="#{myBundle.ListPermisosTitle_modper}">
+                        <h:selectBooleanCheckbox id="modper" value="#{item.modper}" title="#{myBundle.EditPermisosTitle_modper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_modper}" disabled="true"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.eliper}" filterBy="#{item.eliper}" headerText="#{myBundle.ListPermisosTitle_eliper}">
+                        <h:selectBooleanCheckbox id="eliper" value="#{item.eliper}" title="#{myBundle.EditPermisosTitle_eliper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_eliper}" disabled="true"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PermisosEditPage:PermisosEditForm" disabled="#{empty permisosController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:PermisosEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{permisosController.delete}" update=":growl,datalist" disabled="#{empty permisosController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty permisosController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.PermisosHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.PermisosMenuItem_rolList}" icon="ui-icon-search"  action="#{mobilePageController.navigateWithHistory}" disabled="#{empty permisosController.selected.rolList}" ajax="false">
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="#{permisosController.navigateRolList()}"/>
+                        </p:menuitem>  
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

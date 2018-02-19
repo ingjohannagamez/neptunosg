@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="EmpresaViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewEmpresaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:EmpresaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="EmpresaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{empresaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_ideemp}"/>
+                            <h:outputText value="#{empresaController.selected.ideemp}" title="#{myBundle.ViewEmpresaTitle_ideemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_nomemp}"/>
+                            <h:outputText value="#{empresaController.selected.nomemp}" title="#{myBundle.ViewEmpresaTitle_nomemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_rcoemp}"/>
+                            <h:outputText value="#{empresaController.selected.rcoemp}" title="#{myBundle.ViewEmpresaTitle_rcoemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_nitemp}"/>
+                            <h:outputText value="#{empresaController.selected.nitemp}" title="#{myBundle.ViewEmpresaTitle_nitemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_codemp}"/>
+                            <h:outputText value="#{empresaController.selected.codemp}" title="#{myBundle.ViewEmpresaTitle_codemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_tluemp}"/>
+                            <h:outputText value="#{empresaController.selected.tluemp}" title="#{myBundle.ViewEmpresaTitle_tluemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_tldemp}"/>
+                            <h:outputText value="#{empresaController.selected.tldemp}" title="#{myBundle.ViewEmpresaTitle_tldemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_diremp}"/>
+                            <h:outputText value="#{empresaController.selected.diremp}" title="#{myBundle.ViewEmpresaTitle_diremp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_freemp}"/>
+                            <h:outputText value="#{empresaController.selected.freemp}" title="#{myBundle.ViewEmpresaTitle_freemp}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_logemp}"/>
+                            <h:outputText value="#{empresaController.selected.logemp}" title="#{myBundle.ViewEmpresaTitle_logemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_idetem}"/>
+                            <h:outputText value="#{empresaController.selected.idetem.idetem}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewEmpresaLabel_idetre}"/>
+                            <h:outputText value="#{empresaController.selected.idetre.idetre}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PermisosCreateDlg" widgetVar="PermisosCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePermisosTitle}" closeOnEscape="true">
+
+            <h:form id="PermisosCreateForm">
+
+                <h:panelGroup id="display" rendered="#{permisosController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePermisosLabel_lecper}" for="lecper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="lecper" value="#{permisosController.selected.lecper}" required="true" requiredMessage="#{myBundle.CreatePermisosRequiredMessage_lecper}"/>
+                            <p:tooltip for="lecper" value="#{permisosController.getComponentMessages('lecper', myBundle.CreatePermisosHelpText_lecper)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePermisosLabel_escper}" for="escper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="escper" value="#{permisosController.selected.escper}" required="true" requiredMessage="#{myBundle.CreatePermisosRequiredMessage_escper}"/>
+                            <p:tooltip for="escper" value="#{permisosController.getComponentMessages('escper', myBundle.CreatePermisosHelpText_escper)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePermisosLabel_modper}" for="modper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="modper" value="#{permisosController.selected.modper}" required="true" requiredMessage="#{myBundle.CreatePermisosRequiredMessage_modper}"/>
+                            <p:tooltip for="modper" value="#{permisosController.getComponentMessages('modper', myBundle.CreatePermisosHelpText_modper)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePermisosLabel_eliper}" for="eliper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="eliper" value="#{permisosController.selected.eliper}" required="true" requiredMessage="#{myBundle.CreatePermisosRequiredMessage_eliper}"/>
+                            <p:tooltip for="eliper" value="#{permisosController.getComponentMessages('eliper', myBundle.CreatePermisosHelpText_eliper)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{permisosController.saveNew}" value="#{myBundle.Save}" update="display,:PermisosListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PermisosCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PermisosCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

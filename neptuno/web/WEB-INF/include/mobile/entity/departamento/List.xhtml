@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="DepartamentoListPage">
+        <pm:header title="#{myBundle.ListDepartamentoTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":DepartamentoCreatePage:DepartamentoCreateForm" actionListener="#{departamentoController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:DepartamentoCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="DepartamentoListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{departamentoController.items}"
+                             var="item"
+                             rowKey="#{item.idedep}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{departamentoController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{departamentoController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{departamentoController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('DepartamentoListPage:DepartamentoListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('DepartamentoListPage:DepartamentoListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('DepartamentoListPage:DepartamentoListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.idedep}" filterBy="#{item.idedep}" headerText="#{myBundle.ListDepartamentoTitle_idedep}">
+                        <h:outputText value="#{item.idedep}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.nomdep}" filterBy="#{item.nomdep}" headerText="#{myBundle.ListDepartamentoTitle_nomdep}">
+                        <h:outputText value="#{item.nomdep}"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DepartamentoEditPage:DepartamentoEditForm" disabled="#{empty departamentoController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:DepartamentoEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{departamentoController.delete}" update=":growl,datalist" disabled="#{empty departamentoController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty departamentoController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.DepartamentoHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.DepartamentoMenuItem_municipioList}" icon="ui-icon-search"  action="#{mobilePageController.navigateWithHistory}" disabled="#{empty departamentoController.selected.municipioList}" ajax="false">
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="#{departamentoController.navigateMunicipioList()}"/>
+                        </p:menuitem>  
+                        <p:menuitem value="#{myBundle.DepartamentoMenuItem_idereg}" icon="ui-icon-search" update=":RegionEditPage:RegionEditForm" disabled="#{empty departamentoController.selected.idereg}" actionListener="#{departamentoController.prepareIdereg}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:RegionEditPage"/>
+                        </p:menuitem>
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoEmpresaEditDlg" widgetVar="TipoEmpresaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoEmpresaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoEmpresaEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoEmpresaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoEmpresaLabel_idetem}" for="idetem" />
+                        <h:panelGroup>
+                            <h:outputText id="idetem" value="#{tipoEmpresaController.selected.idetem}" />
+                            <p:tooltip for="idetem" value="#{tipoEmpresaController.getComponentMessages('idetem', myBundle.EditTipoEmpresaHelpText_idetem)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoEmpresaLabel_nomtem}" for="nomtem" />
+                        <h:panelGroup>
+                            <p:inputText id="nomtem" value="#{tipoEmpresaController.selected.nomtem}" title="#{myBundle.EditTipoEmpresaTitle_nomtem}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomtem" value="#{tipoEmpresaController.getComponentMessages('nomtem', myBundle.EditTipoEmpresaHelpText_nomtem)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoEmpresaLabel_destem}" for="destem" />
+                        <h:panelGroup>
+                            <p:inputTextarea rows="4" cols="30" id="destem" value="#{tipoEmpresaController.selected.destem}" title="#{myBundle.EditTipoEmpresaTitle_destem}" />
+                            <p:tooltip for="destem" value="#{tipoEmpresaController.getComponentMessages('destem', myBundle.EditTipoEmpresaHelpText_destem)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoEmpresaController.save}" value="#{myBundle.Save}" update="display,:TipoEmpresaListForm:datalist,:TipoEmpresaListForm:TipoEmpresaDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoEmpresaEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoEmpresaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

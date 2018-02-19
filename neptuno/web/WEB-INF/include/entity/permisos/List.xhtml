@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PermisosListForm">
+
+        <p:panel header="#{myBundle.ListPermisosTitle}">
+            <p:contextMenu id="PermisosDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PermisosListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PermisosListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PermisosListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PermisosListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PermisosMenuItem_rolList}" icon="ui-icon-search"  action="#{permisosController.navigateRolList}" disabled="#{permisosController.isRolListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{permisosController.items}"
+                         lazy="false"
+                         rowKey="#{item.ideper}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{permisosController.selected}"
+                         filteredValue="#{permisosController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{permisosController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.ideper}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PermisosDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PermisosDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PermisosListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.ideper}" filterBy="#{item.ideper}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermisosTitle_ideper}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ideper}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.lecper}" filterBy="#{item.lecper}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermisosTitle_lecper}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="lecper" value="#{item.lecper}" title="#{myBundle.EditPermisosTitle_lecper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_lecper}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.escper}" filterBy="#{item.escper}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermisosTitle_escper}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="escper" value="#{item.escper}" title="#{myBundle.EditPermisosTitle_escper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_escper}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.modper}" filterBy="#{item.modper}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermisosTitle_modper}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="modper" value="#{item.modper}" title="#{myBundle.EditPermisosTitle_modper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_modper}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.eliper}" filterBy="#{item.eliper}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPermisosTitle_eliper}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="eliper" value="#{item.eliper}" title="#{myBundle.EditPermisosTitle_eliper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_eliper}" disabled="true"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{permisosController.prepareCreate}" update=":PermisosCreateForm" oncomplete="PF('PermisosCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PermisosViewForm" oncomplete="PF('PermisosViewDialog').show()" disabled="#{empty permisosController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PermisosEditForm" oncomplete="PF('PermisosEditDialog').show()" disabled="#{empty permisosController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{permisosController.delete}" update=":growl,datalist" disabled="#{empty permisosController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

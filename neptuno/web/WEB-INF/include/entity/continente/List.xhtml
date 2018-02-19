@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ContinenteListForm">
+
+        <p:panel header="#{myBundle.ListContinenteTitle}">
+            <p:contextMenu id="ContinenteDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ContinenteListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ContinenteListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ContinenteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ContinenteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ContinenteMenuItem_paisList}" icon="ui-icon-search"  action="#{continenteController.navigatePaisList}" disabled="#{continenteController.isPaisListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{continenteController.items}"
+                         lazy="false"
+                         rowKey="#{item.idecon}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{continenteController.selected}"
+                         filteredValue="#{continenteController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{continenteController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idecon}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ContinenteDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ContinenteDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ContinenteListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idecon}" filterBy="#{item.idecon}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListContinenteTitle_idecon}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idecon}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomcon}" filterBy="#{item.nomcon}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListContinenteTitle_nomcon}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomcon}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{continenteController.prepareCreate}" update=":ContinenteCreateForm" oncomplete="PF('ContinenteCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ContinenteViewForm" oncomplete="PF('ContinenteViewDialog').show()" disabled="#{empty continenteController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ContinenteEditForm" oncomplete="PF('ContinenteEditDialog').show()" disabled="#{empty continenteController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{continenteController.delete}" update=":growl,datalist" disabled="#{empty continenteController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

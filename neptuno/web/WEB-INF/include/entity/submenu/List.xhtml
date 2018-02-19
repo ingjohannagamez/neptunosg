@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="SubmenuListForm">
+
+        <p:panel header="#{myBundle.ListSubmenuTitle}">
+            <p:contextMenu id="SubmenuDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('SubmenuListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('SubmenuListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('SubmenuListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('SubmenuListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.SubmenuMenuItem_menuRolList}" icon="ui-icon-search"  action="#{submenuController.navigateMenuRolList}" disabled="#{submenuController.isMenuRolListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.SubmenuMenuItem_idemen}" icon="ui-icon-search"  actionListener="#{submenuController.prepareIdemen}" update=":MenuViewForm" oncomplete="PF('MenuViewDialog').show()" disabled="#{empty submenuController.selected.idemen}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{submenuController.items}"
+                         lazy="false"
+                         rowKey="#{item.idesub}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{submenuController.selected}"
+                         filteredValue="#{submenuController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{submenuController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idesub}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SubmenuDataTableContextMenu" listener="#{submenuController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:SubmenuDataTableContextMenu" listener="#{submenuController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{submenuController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('SubmenuListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idesub}" filterBy="#{item.idesub}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSubmenuTitle_idesub}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idesub}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.labsub}" filterBy="#{item.labsub}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSubmenuTitle_labsub}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.labsub}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.icosub}" filterBy="#{item.icosub}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSubmenuTitle_icosub}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.icosub}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.comsub}" filterBy="#{item.comsub}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSubmenuTitle_comsub}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.comsub}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.titsub}" filterBy="#{item.titsub}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSubmenuTitle_titsub}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.titsub}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rensub}" filterBy="#{item.rensub}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListSubmenuTitle_rensub}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="rensub" value="#{item.rensub}" title="#{myBundle.EditSubmenuTitle_rensub}" required="true" requiredMessage="#{myBundle.EditSubmenuRequiredMessage_rensub}" disabled="true"/>
+                </p:column>
+
+                <ui:remove>
+                    <p:column sortBy="#{item.idemen.idemen}" filterBy="#{item.idemen.idemen}">
+                        <f:facet name="header">
+                            <h:outputText value="#{myBundle.ListSubmenuTitle_idemen}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idemen.idemen}"/>
+                    </p:column>
+                </ui:remove>
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{submenuController.prepareCreate}" update=":SubmenuCreateForm" oncomplete="PF('SubmenuCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":SubmenuViewForm" oncomplete="PF('SubmenuViewDialog').show()" disabled="#{empty submenuController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":SubmenuEditForm" oncomplete="PF('SubmenuEditDialog').show()" disabled="#{empty submenuController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{submenuController.delete}" update=":growl,datalist" disabled="#{empty submenuController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

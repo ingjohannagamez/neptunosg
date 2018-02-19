@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OficinaViewDlg" widgetVar="OficinaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewOficinaTitle}" closeOnEscape="true">
+
+            <h:form id="OficinaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{oficinaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewOficinaLabel_ideofi}"/>
+                        <h:outputText value="#{oficinaController.selected.ideofi}" title="#{myBundle.ViewOficinaTitle_ideofi}"/>
+
+                        <h:outputText value="#{myBundle.ViewOficinaLabel_nomofi}"/>
+                        <h:outputText value="#{oficinaController.selected.nomofi}" title="#{myBundle.ViewOficinaTitle_nomofi}"/>
+
+                        <h:outputText value="#{myBundle.ViewOficinaLabel_dirofi}"/>
+                        <h:outputText value="#{oficinaController.selected.dirofi}" title="#{myBundle.ViewOficinaTitle_dirofi}"/>
+
+                        <h:outputText value="#{myBundle.ViewOficinaLabel_objofi}"/>
+                        <h:outputText value="#{oficinaController.selected.objofi}" title="#{myBundle.ViewOficinaTitle_objofi}"/>
+
+                        <h:outputText value="#{myBundle.ViewOficinaLabel_estofi}"/>
+                        <h:outputText value="#{oficinaController.selected.estofi}" title="#{myBundle.ViewOficinaTitle_estofi}"/>
+
+                        <h:outputText value="#{myBundle.ViewOficinaLabel_ideemp}"/>
+                        <h:outputText value="#{oficinaController.selected.ideemp.ideemp}"/>
+
+                        <h:outputText value="#{myBundle.ViewOficinaLabel_idemun}"/>
+                        <h:outputText value="#{oficinaController.selected.idemun.idemun}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('OficinaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

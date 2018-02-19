@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_ideusr}"/>
+                        <h:outputText value="#{usuarioController.selected.ideusr}" title="#{myBundle.ViewUsuarioTitle_ideusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_epsusr}"/>
+                        <h:outputText value="#{usuarioController.selected.epsusr}" title="#{myBundle.ViewUsuarioTitle_epsusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_docusr}"/>
+                        <h:outputText value="#{usuarioController.selected.docusr}" title="#{myBundle.ViewUsuarioTitle_docusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_pnousr}"/>
+                        <h:outputText value="#{usuarioController.selected.pnousr}" title="#{myBundle.ViewUsuarioTitle_pnousr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_snousr}"/>
+                        <h:outputText value="#{usuarioController.selected.snousr}" title="#{myBundle.ViewUsuarioTitle_snousr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_papusr}"/>
+                        <h:outputText value="#{usuarioController.selected.papusr}" title="#{myBundle.ViewUsuarioTitle_papusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_sapusr}"/>
+                        <h:outputText value="#{usuarioController.selected.sapusr}" title="#{myBundle.ViewUsuarioTitle_sapusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_emlusr}"/>
+                        <h:outputText value="#{usuarioController.selected.emlusr}" title="#{myBundle.ViewUsuarioTitle_emlusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_sexusr}"/>
+                        <h:outputText value="#{usuarioController.selected.sexusr}" title="#{myBundle.ViewUsuarioTitle_sexusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_fnausr}"/>
+                        <h:outputText value="#{usuarioController.selected.fnausr}" title="#{myBundle.ViewUsuarioTitle_fnausr}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_fafusr}"/>
+                        <h:outputText value="#{usuarioController.selected.fafusr}" title="#{myBundle.ViewUsuarioTitle_fafusr}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_dirusr}"/>
+                        <h:outputText value="#{usuarioController.selected.dirusr}" title="#{myBundle.ViewUsuarioTitle_dirusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_telusr}"/>
+                        <h:outputText value="#{usuarioController.selected.telusr}" title="#{myBundle.ViewUsuarioTitle_telusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_extusr}"/>
+                        <h:outputText value="#{usuarioController.selected.extusr}" title="#{myBundle.ViewUsuarioTitle_extusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_fotusr}"/>
+                        <h:outputText value="#{usuarioController.selected.fotusr}" title="#{myBundle.ViewUsuarioTitle_fotusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_notusr}"/>
+                        <h:outputText value="#{usuarioController.selected.notusr}" title="#{myBundle.ViewUsuarioTitle_notusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_estusr}"/>
+                        <h:outputText value="#{usuarioController.selected.estusr}" title="#{myBundle.ViewUsuarioTitle_estusr}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_ideofi}"/>
+                        <h:outputText value="#{usuarioController.selected.ideofi.ideofi}"/>
+
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_idetdo}"/>
+                        <h:outputText value="#{usuarioController.selected.idetdo.idetdo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

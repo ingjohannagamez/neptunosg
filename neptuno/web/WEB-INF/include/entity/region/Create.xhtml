@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RegionCreateDlg" widgetVar="RegionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateRegionTitle}" closeOnEscape="true">
+
+            <h:form id="RegionCreateForm">
+
+                <h:panelGroup id="display" rendered="#{regionController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateRegionLabel_nomreg}" for="nomreg" />
+                        <h:panelGroup>
+                            <p:inputText id="nomreg" value="#{regionController.selected.nomreg}" title="#{myBundle.CreateRegionTitle_nomreg}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomreg" value="#{regionController.getComponentMessages('nomreg', myBundle.CreateRegionHelpText_nomreg)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateRegionLabel_idepai}" for="idepai" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idepai" value="#{regionController.selected.idepai}"  converter="paisConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{paisController.items}"
+                                               var="idepaiItem"
+                                               itemValue="#{idepaiItem}"
+                                               itemLabel="#{idepaiItem.idepai.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idepai" value="#{regionController.getComponentMessages('idepai', myBundle.CreateRegionHelpText_idepai)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{regionController.saveNew}" value="#{myBundle.Save}" update="display,:RegionListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('RegionCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('RegionCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

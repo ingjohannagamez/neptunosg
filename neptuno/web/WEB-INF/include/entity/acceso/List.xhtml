@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="AccesoListForm">
+
+        <p:panel header="#{myBundle.ListAccesoTitle}">
+            <p:contextMenu id="AccesoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('AccesoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('AccesoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('AccesoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('AccesoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.AccesoMenuItem_iderol}" icon="ui-icon-search"  actionListener="#{accesoController.prepareIderol}" update=":RolViewForm" oncomplete="PF('RolViewDialog').show()" disabled="#{empty accesoController.selected.iderol}"/>  
+                <p:menuitem value="#{myBundle.AccesoMenuItem_ideusr}" icon="ui-icon-search"  actionListener="#{accesoController.prepareIdeusr}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty accesoController.selected.ideusr}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{accesoController.items}"
+                         lazy="false"
+                         rowKey="#{item.ideacc}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{accesoController.selected}"
+                         filteredValue="#{accesoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{accesoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.ideacc}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AccesoDataTableContextMenu" listener="#{accesoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:AccesoDataTableContextMenu" listener="#{accesoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{accesoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('AccesoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.ideacc}" filterBy="#{item.ideacc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccesoTitle_ideacc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ideacc}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nikacc}" filterBy="#{item.nikacc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccesoTitle_nikacc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nikacc}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.pswacc}" filterBy="#{item.pswacc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccesoTitle_pswacc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pswacc}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.freacc}" filterBy="#{item.freacc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccesoTitle_freacc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.freacc}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estacc}" filterBy="#{item.estacc}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListAccesoTitle_estacc}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estacc}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{accesoController.prepareCreate}" update=":AccesoCreateForm" oncomplete="PF('AccesoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":AccesoViewForm" oncomplete="PF('AccesoViewDialog').show()" disabled="#{empty accesoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AccesoEditForm" oncomplete="PF('AccesoEditDialog').show()" disabled="#{empty accesoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{accesoController.delete}" update=":growl,datalist" disabled="#{empty accesoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

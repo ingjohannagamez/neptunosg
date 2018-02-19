@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="OficinaViewPage" lazy="true">
+        <pm:header title="#{myBundle.ViewOficinaTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:OficinaListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="OficinaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{oficinaController.selected != null}">
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewOficinaLabel_ideofi}"/>
+                            <h:outputText value="#{oficinaController.selected.ideofi}" title="#{myBundle.ViewOficinaTitle_ideofi}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewOficinaLabel_nomofi}"/>
+                            <h:outputText value="#{oficinaController.selected.nomofi}" title="#{myBundle.ViewOficinaTitle_nomofi}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewOficinaLabel_dirofi}"/>
+                            <h:outputText value="#{oficinaController.selected.dirofi}" title="#{myBundle.ViewOficinaTitle_dirofi}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewOficinaLabel_objofi}"/>
+                            <h:outputText value="#{oficinaController.selected.objofi}" title="#{myBundle.ViewOficinaTitle_objofi}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewOficinaLabel_estofi}"/>
+                            <h:outputText value="#{oficinaController.selected.estofi}" title="#{myBundle.ViewOficinaTitle_estofi}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewOficinaLabel_ideemp}"/>
+                            <h:outputText value="#{oficinaController.selected.ideemp.ideemp}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            <h:outputText value="#{myBundle.ViewOficinaLabel_idemun}"/>
+                            <h:outputText value="#{oficinaController.selected.idemun.idemun}"/>
+                        </pm:field>
+                    </p:outputPanel>
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

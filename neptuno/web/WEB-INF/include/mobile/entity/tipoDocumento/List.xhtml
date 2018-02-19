@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TipoDocumentoListPage">
+        <pm:header title="#{myBundle.ListTipoDocumentoTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":TipoDocumentoCreatePage:TipoDocumentoCreateForm" actionListener="#{tipoDocumentoController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:TipoDocumentoCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TipoDocumentoListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{tipoDocumentoController.items}"
+                             var="item"
+                             rowKey="#{item.idetdo}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{tipoDocumentoController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('TipoDocumentoListPage:TipoDocumentoListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('TipoDocumentoListPage:TipoDocumentoListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('TipoDocumentoListPage:TipoDocumentoListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.idetdo}" filterBy="#{item.idetdo}" headerText="#{myBundle.ListTipoDocumentoTitle_idetdo}">
+                        <h:outputText value="#{item.idetdo}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.tiptdo}" filterBy="#{item.tiptdo}" headerText="#{myBundle.ListTipoDocumentoTitle_tiptdo}">
+                        <h:outputText value="#{item.tiptdo}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.destdo}" filterBy="#{item.destdo}" headerText="#{myBundle.ListTipoDocumentoTitle_destdo}">
+                        <h:outputText value="#{item.destdo}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.rentdo}" filterBy="#{item.rentdo}" headerText="#{myBundle.ListTipoDocumentoTitle_rentdo}">
+                        <h:selectBooleanCheckbox id="rentdo" value="#{item.rentdo}" title="#{myBundle.EditTipoDocumentoTitle_rentdo}" required="true" requiredMessage="#{myBundle.EditTipoDocumentoRequiredMessage_rentdo}" disabled="true"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TipoDocumentoEditPage:TipoDocumentoEditForm" disabled="#{empty tipoDocumentoController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:TipoDocumentoEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tipoDocumentoController.delete}" update=":growl,datalist" disabled="#{empty tipoDocumentoController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty tipoDocumentoController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.TipoDocumentoHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.TipoDocumentoMenuItem_usuarioList}" icon="ui-icon-search"  action="#{mobilePageController.navigateWithHistory}" disabled="#{empty tipoDocumentoController.selected.usuarioList}" ajax="false">
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="#{tipoDocumentoController.navigateUsuarioList()}"/>
+                        </p:menuitem>  
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

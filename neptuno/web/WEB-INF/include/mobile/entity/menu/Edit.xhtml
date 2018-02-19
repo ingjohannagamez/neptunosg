@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MenuEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditMenuTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:MenuListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MenuEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{menuController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditMenuLabel_idemen}" for="idemen" />
+                            <h:panelGroup>
+                                <h:outputText id="idemen" value="#{menuController.selected.idemen}" />
+                                <p:tooltip for="idemen" value="#{menuController.getComponentMessages('idemen', myBundle.EditMenuHelpText_idemen)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMenuLabel_nommen}" for="nommen" />
+                            <h:panelGroup>
+                                <p:inputText id="nommen" value="#{menuController.selected.nommen}" title="#{myBundle.EditMenuTitle_nommen}" required="true" requiredMessage="#{myBundle.EditMenuRequiredMessage_nommen}" size="50" maxlength="50"/>
+                                <p:tooltip for="nommen" value="#{menuController.getComponentMessages('nommen', myBundle.EditMenuHelpText_nommen)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMenuLabel_icomen}" for="icomen" />
+                            <h:panelGroup>
+                                <p:inputText id="icomen" value="#{menuController.selected.icomen}" title="#{myBundle.EditMenuTitle_icomen}" required="true" requiredMessage="#{myBundle.EditMenuRequiredMessage_icomen}" size="200" maxlength="200"/>
+                                <p:tooltip for="icomen" value="#{menuController.getComponentMessages('icomen', myBundle.EditMenuHelpText_icomen)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMenuLabel_estmen}" for="estmen" />
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox id="estmen" value="#{menuController.selected.estmen}" required="true" requiredMessage="#{myBundle.EditMenuRequiredMessage_estmen}"/>
+                                <p:tooltip for="estmen" value="#{menuController.getComponentMessages('estmen', myBundle.EditMenuHelpText_estmen)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditMenuLabel_submenu}" for="submenu" />
+                            <h:panelGroup>
+                                <p:selectOneMenu id="submenu" value="#{menuController.selected.submenu}"  converter="submenuConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{submenuController.items}"
+                                                   var="submenuItem"
+                                                   itemValue="#{submenuItem}"
+                                                   itemLabel="#{submenuItem.idesub.toString()}"
+                                                   />
+
+                                </p:selectOneMenu>
+                                <p:tooltip for="submenu" value="#{menuController.getComponentMessages('submenu', myBundle.EditMenuHelpText_submenu)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{menuController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:MenuListPage:MenuListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:MenuListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

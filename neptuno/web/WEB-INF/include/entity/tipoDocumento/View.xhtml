@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoDocumentoViewDlg" widgetVar="TipoDocumentoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipoDocumentoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoDocumentoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoDocumentoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_idetdo}"/>
+                        <h:outputText value="#{tipoDocumentoController.selected.idetdo}" title="#{myBundle.ViewTipoDocumentoTitle_idetdo}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_tiptdo}"/>
+                        <h:outputText value="#{tipoDocumentoController.selected.tiptdo}" title="#{myBundle.ViewTipoDocumentoTitle_tiptdo}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_destdo}"/>
+                        <h:outputText value="#{tipoDocumentoController.selected.destdo}" title="#{myBundle.ViewTipoDocumentoTitle_destdo}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoDocumentoLabel_rentdo}"/>
+                        <p:selectBooleanCheckbox id="rentdo" value="#{tipoDocumentoController.selected.rentdo}" title="#{myBundle.EditTipoDocumentoTitle_rentdo}" required="true" requiredMessage="#{myBundle.EditTipoDocumentoRequiredMessage_rentdo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TipoDocumentoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

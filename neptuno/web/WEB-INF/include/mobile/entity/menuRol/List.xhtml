@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MenuRolListPage">
+        <pm:header title="#{myBundle.ListMenuRolTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":MenuRolCreatePage:MenuRolCreateForm" actionListener="#{menuRolController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:MenuRolCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MenuRolListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{menuRolController.items}"
+                             var="item"
+                             rowKey="#{item.idemro}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{menuRolController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{menuRolController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{menuRolController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('MenuRolListPage:MenuRolListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('MenuRolListPage:MenuRolListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('MenuRolListPage:MenuRolListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.idemro}" filterBy="#{item.idemro}" headerText="#{myBundle.ListMenuRolTitle_idemro}">
+                        <h:outputText value="#{item.idemro}"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MenuRolEditPage:MenuRolEditForm" disabled="#{empty menuRolController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:MenuRolEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{menuRolController.delete}" update=":growl,datalist" disabled="#{empty menuRolController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty menuRolController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.MenuRolHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.MenuRolMenuItem_iderol}" icon="ui-icon-search" update=":RolEditPage:RolEditForm" disabled="#{empty menuRolController.selected.iderol}" actionListener="#{menuRolController.prepareIderol}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:RolEditPage"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{myBundle.MenuRolMenuItem_idesub}" icon="ui-icon-search" update=":SubmenuEditPage:SubmenuEditForm" disabled="#{empty menuRolController.selected.idesub}" actionListener="#{menuRolController.prepareIdesub}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:SubmenuEditPage"/>
+                        </p:menuitem>
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

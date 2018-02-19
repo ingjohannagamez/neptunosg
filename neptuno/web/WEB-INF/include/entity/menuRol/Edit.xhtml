@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MenuRolEditDlg" widgetVar="MenuRolEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMenuRolTitle}" closeOnEscape="true">
+
+            <h:form id="MenuRolEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{menuRolController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditMenuRolLabel_idemro}" for="idemro" />
+                        <h:panelGroup>
+                            <h:outputText id="idemro" value="#{menuRolController.selected.idemro}" />
+                            <p:tooltip for="idemro" value="#{menuRolController.getComponentMessages('idemro', myBundle.EditMenuRolHelpText_idemro)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMenuRolLabel_iderol}" for="iderol" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="iderol" value="#{menuRolController.selected.iderol}" required="true" requiredMessage="#{myBundle.EditMenuRolRequiredMessage_iderol}" converter="rolConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{rolController.items}"
+                                               var="iderolItem"
+                                               itemValue="#{iderolItem}"
+                                               itemLabel="#{iderolItem.iderol.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="iderol" value="#{menuRolController.getComponentMessages('iderol', myBundle.EditMenuRolHelpText_iderol)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMenuRolLabel_idesub}" for="idesub" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idesub" value="#{menuRolController.selected.idesub}" required="true" requiredMessage="#{myBundle.EditMenuRolRequiredMessage_idesub}" converter="submenuConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{submenuController.items}"
+                                               var="idesubItem"
+                                               itemValue="#{idesubItem}"
+                                               itemLabel="#{idesubItem.idesub.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idesub" value="#{menuRolController.getComponentMessages('idesub', myBundle.EditMenuRolHelpText_idesub)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{menuRolController.save}" value="#{myBundle.Save}" update="display,:MenuRolListForm:datalist,:MenuRolListForm:MenuRolDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MenuRolEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MenuRolEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

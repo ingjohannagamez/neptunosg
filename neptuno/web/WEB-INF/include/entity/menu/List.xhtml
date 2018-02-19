@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="MenuListForm">
+
+        <p:panel header="#{myBundle.ListMenuTitle}">
+            <p:contextMenu id="MenuDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('MenuListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MenuListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MenuListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MenuListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.MenuMenuItem_submenu}" icon="ui-icon-search"  actionListener="#{menuController.prepareSubmenu}" update=":SubmenuViewForm" oncomplete="PF('SubmenuViewDialog').show()" disabled="#{empty menuController.selected.submenu}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{menuController.items}"
+                         lazy="false"
+                         rowKey="#{item.idemen}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{menuController.selected}"
+                         filteredValue="#{menuController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{menuController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idemen}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MenuDataTableContextMenu" listener="#{menuController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MenuDataTableContextMenu" listener="#{menuController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{menuController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('MenuListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idemen}" filterBy="#{item.idemen}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMenuTitle_idemen}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idemen}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nommen}" filterBy="#{item.nommen}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMenuTitle_nommen}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nommen}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.icomen}" filterBy="#{item.icomen}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMenuTitle_icomen}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.icomen}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estmen}" filterBy="#{item.estmen}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMenuTitle_estmen}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="estmen" value="#{item.estmen}" title="#{myBundle.EditMenuTitle_estmen}" required="true" requiredMessage="#{myBundle.EditMenuRequiredMessage_estmen}" disabled="true"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.submenu.idesub}" filterBy="#{item.submenu.idesub}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMenuTitle_submenu}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.submenu.idesub}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{menuController.prepareCreate}" update=":MenuCreateForm" oncomplete="PF('MenuCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":MenuViewForm" oncomplete="PF('MenuViewDialog').show()" disabled="#{empty menuController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MenuEditForm" oncomplete="PF('MenuEditDialog').show()" disabled="#{empty menuController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{menuController.delete}" update=":growl,datalist" disabled="#{empty menuController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

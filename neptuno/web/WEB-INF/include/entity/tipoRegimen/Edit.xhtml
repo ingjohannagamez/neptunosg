@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoRegimenEditDlg" widgetVar="TipoRegimenEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoRegimenTitle}" closeOnEscape="true">
+
+            <h:form id="TipoRegimenEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoRegimenController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoRegimenLabel_idetre}" for="idetre" />
+                        <h:panelGroup>
+                            <h:outputText id="idetre" value="#{tipoRegimenController.selected.idetre}" />
+                            <p:tooltip for="idetre" value="#{tipoRegimenController.getComponentMessages('idetre', myBundle.EditTipoRegimenHelpText_idetre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoRegimenLabel_rgmtre}" for="rgmtre" />
+                        <h:panelGroup>
+                            <p:inputText id="rgmtre" value="#{tipoRegimenController.selected.rgmtre}" title="#{myBundle.EditTipoRegimenTitle_rgmtre}" size="1" maxlength="1"/>
+                            <p:tooltip for="rgmtre" value="#{tipoRegimenController.getComponentMessages('rgmtre', myBundle.EditTipoRegimenHelpText_rgmtre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoRegimenLabel_nomtre}" for="nomtre" />
+                        <h:panelGroup>
+                            <p:inputText id="nomtre" value="#{tipoRegimenController.selected.nomtre}" title="#{myBundle.EditTipoRegimenTitle_nomtre}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomtre" value="#{tipoRegimenController.getComponentMessages('nomtre', myBundle.EditTipoRegimenHelpText_nomtre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoRegimenLabel_destre}" for="destre" />
+                        <h:panelGroup>
+                            <p:inputTextarea rows="4" cols="30" id="destre" value="#{tipoRegimenController.selected.destre}" title="#{myBundle.EditTipoRegimenTitle_destre}" />
+                            <p:tooltip for="destre" value="#{tipoRegimenController.getComponentMessages('destre', myBundle.EditTipoRegimenHelpText_destre)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoRegimenController.save}" value="#{myBundle.Save}" update="display,:TipoRegimenListForm:datalist,:TipoRegimenListForm:TipoRegimenDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('TipoRegimenEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoRegimenEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

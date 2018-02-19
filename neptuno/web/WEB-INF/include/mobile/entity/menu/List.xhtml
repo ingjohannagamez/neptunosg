@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="MenuListPage">
+        <pm:header title="#{myBundle.ListMenuTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":MenuCreatePage:MenuCreateForm" actionListener="#{menuController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:MenuCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="MenuListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{menuController.items}"
+                             var="item"
+                             rowKey="#{item.idemen}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{menuController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{menuController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{menuController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('MenuListPage:MenuListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('MenuListPage:MenuListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('MenuListPage:MenuListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.idemen}" filterBy="#{item.idemen}" headerText="#{myBundle.ListMenuTitle_idemen}">
+                        <h:outputText value="#{item.idemen}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.nommen}" filterBy="#{item.nommen}" headerText="#{myBundle.ListMenuTitle_nommen}">
+                        <h:outputText value="#{item.nommen}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.icomen}" filterBy="#{item.icomen}" headerText="#{myBundle.ListMenuTitle_icomen}">
+                        <h:outputText value="#{item.icomen}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.estmen}" filterBy="#{item.estmen}" headerText="#{myBundle.ListMenuTitle_estmen}">
+                        <h:selectBooleanCheckbox id="estmen" value="#{item.estmen}" title="#{myBundle.EditMenuTitle_estmen}" required="true" requiredMessage="#{myBundle.EditMenuRequiredMessage_estmen}" disabled="true"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.submenu.idesub}" filterBy="#{item.submenu.idesub}" headerText="#{myBundle.ListMenuTitle_submenu}">
+                        <h:outputText value="#{item.submenu.idesub}"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":MenuEditPage:MenuEditForm" disabled="#{empty menuController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:MenuEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{menuController.delete}" update=":growl,datalist" disabled="#{empty menuController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty menuController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.MenuHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.MenuMenuItem_submenu}" icon="ui-icon-search" update=":SubmenuEditPage:SubmenuEditForm" disabled="#{empty menuController.selected.submenu}" actionListener="#{menuController.prepareSubmenu}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:SubmenuEditPage"/>
+                        </p:menuitem>
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

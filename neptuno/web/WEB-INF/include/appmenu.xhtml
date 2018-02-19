@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.AccesoHeading}..." outcome="/app/acceso/index" />
+                    <p:menuitem value="#{myBundle.ContinenteHeading}..." outcome="/app/continente/index" />
+                    <p:menuitem value="#{myBundle.DepartamentoHeading}..." outcome="/app/departamento/index" />
+                    <p:menuitem value="#{myBundle.EmpresaHeading}..." outcome="/app/empresa/index" />
+                    <p:menuitem value="#{myBundle.MenuHeading}..." outcome="/app/menu/index" />
+                    <p:menuitem value="#{myBundle.MenuRolHeading}..." outcome="/app/menuRol/index" />
+                    <p:menuitem value="#{myBundle.MunicipioHeading}..." outcome="/app/municipio/index" />
+                    <p:menuitem value="#{myBundle.OficinaHeading}..." outcome="/app/oficina/index" />
+                    <p:menuitem value="#{myBundle.PaisHeading}..." outcome="/app/pais/index" />
+                    <p:menuitem value="#{myBundle.PermisosHeading}..." outcome="/app/permisos/index" />
+                    <p:menuitem value="#{myBundle.RegionHeading}..." outcome="/app/region/index" />
+                    <p:menuitem value="#{myBundle.RolHeading}..." outcome="/app/rol/index" />
+                    <p:menuitem value="#{myBundle.SubmenuHeading}..." outcome="/app/submenu/index" />
+                    <p:menuitem value="#{myBundle.TipoDocumentoHeading}..." outcome="/app/tipoDocumento/index" />
+                    <p:menuitem value="#{myBundle.TipoEmpresaHeading}..." outcome="/app/tipoEmpresa/index" />
+                    <p:menuitem value="#{myBundle.TipoRegimenHeading}..." outcome="/app/tipoRegimen/index" />
+                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/app/usuario/index" />
+                </p:submenu>
+                <p:menuitem value="#{myBundle.Mobile}" outcome="/mobile/index" icon="ui-icon-signal"/>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ContinenteEditDlg" widgetVar="ContinenteEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditContinenteTitle}" closeOnEscape="true">
+
+            <h:form id="ContinenteEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{continenteController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditContinenteLabel_idecon}" for="idecon" />
+                        <h:panelGroup>
+                            <h:outputText id="idecon" value="#{continenteController.selected.idecon}" />
+                            <p:tooltip for="idecon" value="#{continenteController.getComponentMessages('idecon', myBundle.EditContinenteHelpText_idecon)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditContinenteLabel_nomcon}" for="nomcon" />
+                        <h:panelGroup>
+                            <p:inputText id="nomcon" value="#{continenteController.selected.nomcon}" title="#{myBundle.EditContinenteTitle_nomcon}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomcon" value="#{continenteController.getComponentMessages('nomcon', myBundle.EditContinenteHelpText_nomcon)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{continenteController.save}" value="#{myBundle.Save}" update="display,:ContinenteListForm:datalist,:ContinenteListForm:ContinenteDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('ContinenteEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ContinenteEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

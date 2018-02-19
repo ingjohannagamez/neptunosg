@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MenuViewDlg" widgetVar="MenuViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMenuTitle}" closeOnEscape="true">
+
+            <h:form id="MenuViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{menuController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_idemen}"/>
+                        <h:outputText value="#{menuController.selected.idemen}" title="#{myBundle.ViewMenuTitle_idemen}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_nommen}"/>
+                        <h:outputText value="#{menuController.selected.nommen}" title="#{myBundle.ViewMenuTitle_nommen}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_icomen}"/>
+                        <h:outputText value="#{menuController.selected.icomen}" title="#{myBundle.ViewMenuTitle_icomen}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_estmen}"/>
+                        <p:selectBooleanCheckbox id="estmen" value="#{menuController.selected.estmen}" title="#{myBundle.EditMenuTitle_estmen}" required="true" requiredMessage="#{myBundle.EditMenuRequiredMessage_estmen}"/>
+
+                        <h:outputText value="#{myBundle.ViewMenuLabel_submenu}"/>
+                        <h:outputText value="#{menuController.selected.submenu.idesub}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MenuViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

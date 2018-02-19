@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="AccesoListPage">
+        <pm:header title="#{myBundle.ListAccesoTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":AccesoCreatePage:AccesoCreateForm" actionListener="#{accesoController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:AccesoCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="AccesoListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{accesoController.items}"
+                             var="item"
+                             rowKey="#{item.ideacc}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{accesoController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{accesoController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{accesoController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('AccesoListPage:AccesoListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('AccesoListPage:AccesoListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('AccesoListPage:AccesoListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.ideacc}" filterBy="#{item.ideacc}" headerText="#{myBundle.ListAccesoTitle_ideacc}">
+                        <h:outputText value="#{item.ideacc}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.nikacc}" filterBy="#{item.nikacc}" headerText="#{myBundle.ListAccesoTitle_nikacc}">
+                        <h:outputText value="#{item.nikacc}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.pswacc}" filterBy="#{item.pswacc}" headerText="#{myBundle.ListAccesoTitle_pswacc}">
+                        <h:outputText value="#{item.pswacc}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.freacc}" filterBy="#{item.freacc}" headerText="#{myBundle.ListAccesoTitle_freacc}">
+                        <h:outputText value="#{item.freacc}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.estacc}" filterBy="#{item.estacc}" headerText="#{myBundle.ListAccesoTitle_estacc}">
+                        <h:outputText value="#{item.estacc}"/>
+                    </p:column>
+
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":AccesoEditPage:AccesoEditForm" disabled="#{empty accesoController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:AccesoEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{accesoController.delete}" update=":growl,datalist" disabled="#{empty accesoController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty accesoController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.AccesoHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.AccesoMenuItem_iderol}" icon="ui-icon-search" update=":RolEditPage:RolEditForm" disabled="#{empty accesoController.selected.iderol}" actionListener="#{accesoController.prepareIderol}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:RolEditPage"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{myBundle.AccesoMenuItem_ideusr}" icon="ui-icon-search" update=":UsuarioEditPage:UsuarioEditForm" disabled="#{empty accesoController.selected.ideusr}" actionListener="#{accesoController.prepareIdeusr}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:UsuarioEditPage"/>
+                        </p:menuitem>
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

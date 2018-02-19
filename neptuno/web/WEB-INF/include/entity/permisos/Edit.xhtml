@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PermisosEditDlg" widgetVar="PermisosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPermisosTitle}" closeOnEscape="true">
+
+            <h:form id="PermisosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{permisosController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPermisosLabel_ideper}" for="ideper" />
+                        <h:panelGroup>
+                            <h:outputText id="ideper" value="#{permisosController.selected.ideper}" />
+                            <p:tooltip for="ideper" value="#{permisosController.getComponentMessages('ideper', myBundle.EditPermisosHelpText_ideper)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditPermisosLabel_lecper}" for="lecper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="lecper" value="#{permisosController.selected.lecper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_lecper}"/>
+                            <p:tooltip for="lecper" value="#{permisosController.getComponentMessages('lecper', myBundle.EditPermisosHelpText_lecper)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditPermisosLabel_escper}" for="escper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="escper" value="#{permisosController.selected.escper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_escper}"/>
+                            <p:tooltip for="escper" value="#{permisosController.getComponentMessages('escper', myBundle.EditPermisosHelpText_escper)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditPermisosLabel_modper}" for="modper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="modper" value="#{permisosController.selected.modper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_modper}"/>
+                            <p:tooltip for="modper" value="#{permisosController.getComponentMessages('modper', myBundle.EditPermisosHelpText_modper)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditPermisosLabel_eliper}" for="eliper" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="eliper" value="#{permisosController.selected.eliper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_eliper}"/>
+                            <p:tooltip for="eliper" value="#{permisosController.getComponentMessages('eliper', myBundle.EditPermisosHelpText_eliper)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{permisosController.save}" value="#{myBundle.Save}" update="display,:PermisosListForm:datalist,:PermisosListForm:PermisosDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PermisosEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PermisosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

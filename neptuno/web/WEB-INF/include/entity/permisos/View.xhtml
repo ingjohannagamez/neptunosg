@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PermisosViewDlg" widgetVar="PermisosViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewPermisosTitle}" closeOnEscape="true">
+
+            <h:form id="PermisosViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{permisosController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewPermisosLabel_ideper}"/>
+                        <h:outputText value="#{permisosController.selected.ideper}" title="#{myBundle.ViewPermisosTitle_ideper}"/>
+
+                        <h:outputText value="#{myBundle.ViewPermisosLabel_lecper}"/>
+                        <p:selectBooleanCheckbox id="lecper" value="#{permisosController.selected.lecper}" title="#{myBundle.EditPermisosTitle_lecper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_lecper}"/>
+
+                        <h:outputText value="#{myBundle.ViewPermisosLabel_escper}"/>
+                        <p:selectBooleanCheckbox id="escper" value="#{permisosController.selected.escper}" title="#{myBundle.EditPermisosTitle_escper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_escper}"/>
+
+                        <h:outputText value="#{myBundle.ViewPermisosLabel_modper}"/>
+                        <p:selectBooleanCheckbox id="modper" value="#{permisosController.selected.modper}" title="#{myBundle.EditPermisosTitle_modper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_modper}"/>
+
+                        <h:outputText value="#{myBundle.ViewPermisosLabel_eliper}"/>
+                        <p:selectBooleanCheckbox id="eliper" value="#{permisosController.selected.eliper}" title="#{myBundle.EditPermisosTitle_eliper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_eliper}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('PermisosViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

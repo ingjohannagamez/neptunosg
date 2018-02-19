@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubmenuViewDlg" widgetVar="SubmenuViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewSubmenuTitle}" closeOnEscape="true">
+
+            <h:form id="SubmenuViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{submenuController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewSubmenuLabel_idesub}"/>
+                        <h:outputText value="#{submenuController.selected.idesub}" title="#{myBundle.ViewSubmenuTitle_idesub}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubmenuLabel_labsub}"/>
+                        <h:outputText value="#{submenuController.selected.labsub}" title="#{myBundle.ViewSubmenuTitle_labsub}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubmenuLabel_icosub}"/>
+                        <h:outputText value="#{submenuController.selected.icosub}" title="#{myBundle.ViewSubmenuTitle_icosub}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubmenuLabel_comsub}"/>
+                        <h:outputText value="#{submenuController.selected.comsub}" title="#{myBundle.ViewSubmenuTitle_comsub}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubmenuLabel_titsub}"/>
+                        <h:outputText value="#{submenuController.selected.titsub}" title="#{myBundle.ViewSubmenuTitle_titsub}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubmenuLabel_rensub}"/>
+                        <p:selectBooleanCheckbox id="rensub" value="#{submenuController.selected.rensub}" title="#{myBundle.EditSubmenuTitle_rensub}" required="true" requiredMessage="#{myBundle.EditSubmenuRequiredMessage_rensub}"/>
+
+                        <h:outputText value="#{myBundle.ViewSubmenuLabel_idemen}"/>
+                        <h:outputText value="#{submenuController.selected.idemen.idemen}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('SubmenuViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

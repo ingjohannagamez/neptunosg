@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TipoRegimenListForm">
+
+        <p:panel header="#{myBundle.ListTipoRegimenTitle}">
+            <p:contextMenu id="TipoRegimenDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TipoRegimenListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TipoRegimenListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TipoRegimenListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TipoRegimenListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TipoRegimenMenuItem_empresaList}" icon="ui-icon-search"  action="#{tipoRegimenController.navigateEmpresaList}" disabled="#{tipoRegimenController.isEmpresaListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{tipoRegimenController.items}"
+                         lazy="false"
+                         rowKey="#{item.idetre}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tipoRegimenController.selected}"
+                         filteredValue="#{tipoRegimenController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{tipoRegimenController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idetre}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipoRegimenDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipoRegimenDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TipoRegimenListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idetre}" filterBy="#{item.idetre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoRegimenTitle_idetre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idetre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.rgmtre}" filterBy="#{item.rgmtre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoRegimenTitle_rgmtre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.rgmtre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomtre}" filterBy="#{item.nomtre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoRegimenTitle_nomtre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomtre}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.destre}" filterBy="#{item.destre}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoRegimenTitle_destre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.destre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tipoRegimenController.prepareCreate}" update=":TipoRegimenCreateForm" oncomplete="PF('TipoRegimenCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TipoRegimenViewForm" oncomplete="PF('TipoRegimenViewDialog').show()" disabled="#{empty tipoRegimenController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TipoRegimenEditForm" oncomplete="PF('TipoRegimenEditDialog').show()" disabled="#{empty tipoRegimenController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tipoRegimenController.delete}" update=":growl,datalist" disabled="#{empty tipoRegimenController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

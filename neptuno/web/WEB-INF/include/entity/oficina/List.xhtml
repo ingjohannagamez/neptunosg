@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="OficinaListForm">
+
+        <p:panel header="#{myBundle.ListOficinaTitle}">
+            <p:contextMenu id="OficinaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('OficinaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('OficinaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('OficinaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('OficinaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.OficinaMenuItem_ideemp}" icon="ui-icon-search"  actionListener="#{oficinaController.prepareIdeemp}" update=":EmpresaViewForm" oncomplete="PF('EmpresaViewDialog').show()" disabled="#{empty oficinaController.selected.ideemp}"/>  
+                <p:menuitem value="#{myBundle.OficinaMenuItem_idemun}" icon="ui-icon-search"  actionListener="#{oficinaController.prepareIdemun}" update=":MunicipioViewForm" oncomplete="PF('MunicipioViewDialog').show()" disabled="#{empty oficinaController.selected.idemun}"/>  
+                <p:menuitem value="#{myBundle.OficinaMenuItem_usuarioList}" icon="ui-icon-search"  action="#{oficinaController.navigateUsuarioList}" disabled="#{oficinaController.isUsuarioListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{oficinaController.items}"
+                         lazy="false"
+                         rowKey="#{item.ideofi}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{oficinaController.selected}"
+                         filteredValue="#{oficinaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{oficinaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.ideofi}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:OficinaDataTableContextMenu" listener="#{oficinaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:OficinaDataTableContextMenu" listener="#{oficinaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{oficinaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('OficinaListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.ideofi}" filterBy="#{item.ideofi}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOficinaTitle_ideofi}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ideofi}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomofi}" filterBy="#{item.nomofi}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOficinaTitle_nomofi}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomofi}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.dirofi}" filterBy="#{item.dirofi}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOficinaTitle_dirofi}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dirofi}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.objofi}" filterBy="#{item.objofi}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOficinaTitle_objofi}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.objofi}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.estofi}" filterBy="#{item.estofi}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListOficinaTitle_estofi}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.estofi}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{oficinaController.prepareCreate}" update=":OficinaCreateForm" oncomplete="PF('OficinaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":OficinaViewForm" oncomplete="PF('OficinaViewDialog').show()" disabled="#{empty oficinaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":OficinaEditForm" oncomplete="PF('OficinaEditDialog').show()" disabled="#{empty oficinaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{oficinaController.delete}" update=":growl,datalist" disabled="#{empty oficinaController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

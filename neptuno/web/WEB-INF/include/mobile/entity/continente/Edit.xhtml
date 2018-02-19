@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="ContinenteEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditContinenteTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:ContinenteListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="ContinenteEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{continenteController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditContinenteLabel_idecon}" for="idecon" />
+                            <h:panelGroup>
+                                <h:outputText id="idecon" value="#{continenteController.selected.idecon}" />
+                                <p:tooltip for="idecon" value="#{continenteController.getComponentMessages('idecon', myBundle.EditContinenteHelpText_idecon)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditContinenteLabel_nomcon}" for="nomcon" />
+                            <h:panelGroup>
+                                <p:inputText id="nomcon" value="#{continenteController.selected.nomcon}" title="#{myBundle.EditContinenteTitle_nomcon}" size="200" maxlength="200"/>
+                                <p:tooltip for="nomcon" value="#{continenteController.getComponentMessages('nomcon', myBundle.EditContinenteHelpText_nomcon)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{continenteController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:ContinenteListPage:ContinenteListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:ContinenteListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

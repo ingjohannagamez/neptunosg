@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DepartamentoListForm">
+
+        <p:panel header="#{myBundle.ListDepartamentoTitle}">
+            <p:contextMenu id="DepartamentoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DepartamentoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DepartamentoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DepartamentoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DepartamentoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DepartamentoMenuItem_municipioList}" icon="ui-icon-search"  action="#{departamentoController.navigateMunicipioList}" disabled="#{departamentoController.isMunicipioListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.DepartamentoMenuItem_idereg}" icon="ui-icon-search"  actionListener="#{departamentoController.prepareIdereg}" update=":RegionViewForm" oncomplete="PF('RegionViewDialog').show()" disabled="#{empty departamentoController.selected.idereg}"/>  
+            </p:contextMenu>
+            <p:dataTable id="datalist"
+                         value="#{departamentoController.items}"
+                         lazy="false"
+                         rowKey="#{item.idedep}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{departamentoController.selected}"
+                         filteredValue="#{departamentoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{departamentoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.idedep}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DepartamentoDataTableContextMenu" listener="#{departamentoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DepartamentoDataTableContextMenu" listener="#{departamentoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{departamentoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DepartamentoListForm:viewButton').click();"/>
+
+                <p:column sortBy="#{item.idedep}" filterBy="#{item.idedep}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDepartamentoTitle_idedep}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idedep}"/>
+                </p:column>
+
+
+                <p:column sortBy="#{item.nomdep}" filterBy="#{item.nomdep}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDepartamentoTitle_nomdep}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomdep}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{departamentoController.prepareCreate}" update=":DepartamentoCreateForm" oncomplete="PF('DepartamentoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DepartamentoViewForm" oncomplete="PF('DepartamentoViewDialog').show()" disabled="#{empty departamentoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DepartamentoEditForm" oncomplete="PF('DepartamentoEditDialog').show()" disabled="#{empty departamentoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{departamentoController.delete}" update=":growl,datalist" disabled="#{empty departamentoController.selected}">
+                <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+            </p:commandButton>
+
+        </p:panel>
+        <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
+    </h:form>
+
+</ui:composition>

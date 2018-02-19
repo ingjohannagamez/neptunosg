@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SubmenuCreateDlg" widgetVar="SubmenuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateSubmenuTitle}" closeOnEscape="true">
+
+            <h:form id="SubmenuCreateForm">
+
+                <h:panelGroup id="display" rendered="#{submenuController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateSubmenuLabel_labsub}" for="labsub" />
+                        <h:panelGroup>
+                            <p:inputText id="labsub" value="#{submenuController.selected.labsub}" title="#{myBundle.CreateSubmenuTitle_labsub}" required="true" requiredMessage="#{myBundle.CreateSubmenuRequiredMessage_labsub}" size="50" maxlength="50"/>
+                            <p:tooltip for="labsub" value="#{submenuController.getComponentMessages('labsub', myBundle.CreateSubmenuHelpText_labsub)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateSubmenuLabel_icosub}" for="icosub" />
+                        <h:panelGroup>
+                            <p:inputText id="icosub" value="#{submenuController.selected.icosub}" title="#{myBundle.CreateSubmenuTitle_icosub}" required="true" requiredMessage="#{myBundle.CreateSubmenuRequiredMessage_icosub}" size="100" maxlength="100"/>
+                            <p:tooltip for="icosub" value="#{submenuController.getComponentMessages('icosub', myBundle.CreateSubmenuHelpText_icosub)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateSubmenuLabel_comsub}" for="comsub" />
+                        <h:panelGroup>
+                            <p:inputText id="comsub" value="#{submenuController.selected.comsub}" title="#{myBundle.CreateSubmenuTitle_comsub}" required="true" requiredMessage="#{myBundle.CreateSubmenuRequiredMessage_comsub}" size="200" maxlength="200"/>
+                            <p:tooltip for="comsub" value="#{submenuController.getComponentMessages('comsub', myBundle.CreateSubmenuHelpText_comsub)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateSubmenuLabel_titsub}" for="titsub" />
+                        <h:panelGroup>
+                            <p:inputText id="titsub" value="#{submenuController.selected.titsub}" title="#{myBundle.CreateSubmenuTitle_titsub}" required="true" requiredMessage="#{myBundle.CreateSubmenuRequiredMessage_titsub}" size="50" maxlength="50"/>
+                            <p:tooltip for="titsub" value="#{submenuController.getComponentMessages('titsub', myBundle.CreateSubmenuHelpText_titsub)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateSubmenuLabel_rensub}" for="rensub" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="rensub" value="#{submenuController.selected.rensub}" required="true" requiredMessage="#{myBundle.CreateSubmenuRequiredMessage_rensub}"/>
+                            <p:tooltip for="rensub" value="#{submenuController.getComponentMessages('rensub', myBundle.CreateSubmenuHelpText_rensub)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateSubmenuLabel_idemen}" for="idemen" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idemen" value="#{submenuController.selected.idemen}" required="true" requiredMessage="#{myBundle.CreateSubmenuRequiredMessage_idemen}" converter="menuConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{menuController.items}"
+                                               var="idemenItem"
+                                               itemValue="#{idemenItem}"
+                                               itemLabel="#{idemenItem.idemen.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idemen" value="#{submenuController.getComponentMessages('idemen', myBundle.CreateSubmenuHelpText_idemen)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{submenuController.saveNew}" value="#{myBundle.Save}" update="display,:SubmenuListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('SubmenuCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('SubmenuCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

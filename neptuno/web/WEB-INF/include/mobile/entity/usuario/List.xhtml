@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="UsuarioListPage">
+        <pm:header title="#{myBundle.ListUsuarioTitle}">
+            <h:form>
+                <p:commandButton id="backButton"   styleClass="ui-btn-left  ui-btn-inline" icon="ui-icon-arrow-l" value="#{myBundle.Back}" action="#{mobilePageController.navigateBackInHistory('/mobile/index')}"/>
+                <p:commandButton id="createButton" styleClass="ui-btn-right ui-btn-inline" icon="ui-icon-plus"    value="#{myBundle.Create}" update=":UsuarioCreatePage:UsuarioCreateForm" actionListener="#{usuarioController.prepareCreate}" action="#{mobilePageController.navigateWithHistory('pm:UsuarioCreatePage')}">
+                    <f:actionListener binding="#{currentPageListener}"/>
+                </p:commandButton>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="UsuarioListForm">
+
+                <p:dataTable id="datalist"
+                             value="#{usuarioController.items}"
+                             var="item"
+                             rowKey="#{item.ideusr}"
+                             paginator="true"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             selectionMode="single"
+                             selection="#{usuarioController.selected}"
+                             reflow="true">
+
+                    <p:ajax event="rowSelect"   update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{usuarioController.resetParents}"/>
+                    <p:ajax event="rowUnselect" update="@form:editButton,@form:deleteButton,@form:navigationMenuButton,@form:navigationMenuPanel" listener="#{usuarioController.resetParents}"/>
+                    <p:ajax event="swipeleft"   oncomplete="document.getElementById('UsuarioListPage:UsuarioListForm:deleteButton').click();"/>
+                    <p:ajax event="tap"         oncomplete="document.getElementById('UsuarioListPage:UsuarioListForm:editButton').click();"/>
+                    <p:ajax event="taphold"     oncomplete="document.getElementById('UsuarioListPage:UsuarioListForm:navigationMenuButton').click();"/>
+
+                    <p:column sortBy="#{item.ideusr}" filterBy="#{item.ideusr}" headerText="#{myBundle.ListUsuarioTitle_ideusr}">
+                        <h:outputText value="#{item.ideusr}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.epsusr}" filterBy="#{item.epsusr}" headerText="#{myBundle.ListUsuarioTitle_epsusr}">
+                        <h:outputText value="#{item.epsusr}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.docusr}" filterBy="#{item.docusr}" headerText="#{myBundle.ListUsuarioTitle_docusr}">
+                        <h:outputText value="#{item.docusr}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.pnousr}" filterBy="#{item.pnousr}" headerText="#{myBundle.ListUsuarioTitle_pnousr}">
+                        <h:outputText value="#{item.pnousr}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.snousr}" filterBy="#{item.snousr}" headerText="#{myBundle.ListUsuarioTitle_snousr}">
+                        <h:outputText value="#{item.snousr}"/>
+                    </p:column>
+
+
+                    <p:column sortBy="#{item.papusr}" filterBy="#{item.papusr}" headerText="#{myBundle.ListUsuarioTitle_papusr}">
+                        <h:outputText value="#{item.papusr}"/>
+                    </p:column>
+
+                    <ui:remove>
+                        <p:column sortBy="#{item.sapusr}" filterBy="#{item.sapusr}" headerText="#{myBundle.ListUsuarioTitle_sapusr}">
+                            <h:outputText value="#{item.sapusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.emlusr}" filterBy="#{item.emlusr}" headerText="#{myBundle.ListUsuarioTitle_emlusr}">
+                            <h:outputText value="#{item.emlusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.sexusr}" filterBy="#{item.sexusr}" headerText="#{myBundle.ListUsuarioTitle_sexusr}">
+                            <h:outputText value="#{item.sexusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.fnausr}" filterBy="#{item.fnausr}" headerText="#{myBundle.ListUsuarioTitle_fnausr}">
+                            <h:outputText value="#{item.fnausr}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.fafusr}" filterBy="#{item.fafusr}" headerText="#{myBundle.ListUsuarioTitle_fafusr}">
+                            <h:outputText value="#{item.fafusr}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.dirusr}" filterBy="#{item.dirusr}" headerText="#{myBundle.ListUsuarioTitle_dirusr}">
+                            <h:outputText value="#{item.dirusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.telusr}" filterBy="#{item.telusr}" headerText="#{myBundle.ListUsuarioTitle_telusr}">
+                            <h:outputText value="#{item.telusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.extusr}" filterBy="#{item.extusr}" headerText="#{myBundle.ListUsuarioTitle_extusr}">
+                            <h:outputText value="#{item.extusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.fotusr}" filterBy="#{item.fotusr}" headerText="#{myBundle.ListUsuarioTitle_fotusr}">
+                            <h:outputText value="#{item.fotusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.notusr}" filterBy="#{item.notusr}" headerText="#{myBundle.ListUsuarioTitle_notusr}">
+                            <h:outputText value="#{item.notusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                    <ui:remove>
+                        <p:column sortBy="#{item.estusr}" filterBy="#{item.estusr}" headerText="#{myBundle.ListUsuarioTitle_estusr}">
+                            <h:outputText value="#{item.estusr}"/>
+                        </p:column>
+                    </ui:remove>>
+                </p:dataTable>
+                <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":UsuarioEditPage:UsuarioEditForm" disabled="#{empty usuarioController.selected}" actionListener="#{mobilePageController.currentPageListener}" action="#{mobilePageController.navigateWithHistory('pm:UsuarioEditPage')}"/>
+                <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{usuarioController.delete}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">
+                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
+                </p:commandButton>
+                <p:commandButton id="navigationMenuButton" style="visibility: hidden;" value="#{myBundle.Menu}" disabled="#{empty usuarioController.selected}"/>
+
+                <p:overlayPanel id="navigationMenuPanel" for="navigationMenuButton" at="right" showEffect="overlay">
+                    <h2>#{myBundle.UsuarioHeading} #{myBundle.Menu}</h2>
+                    <p:menu>
+                        <p:menuitem value="#{myBundle.UsuarioMenuItem_accesoList}" icon="ui-icon-search"  action="#{mobilePageController.navigateWithHistory}" disabled="#{empty usuarioController.selected.accesoList}" ajax="false">
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="#{usuarioController.navigateAccesoList()}"/>
+                        </p:menuitem>  
+                        <p:menuitem value="#{myBundle.UsuarioMenuItem_ideofi}" icon="ui-icon-search" update=":OficinaEditPage:OficinaEditForm" disabled="#{empty usuarioController.selected.ideofi}" actionListener="#{usuarioController.prepareIdeofi}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:OficinaEditPage"/>
+                        </p:menuitem>
+                        <p:menuitem value="#{myBundle.UsuarioMenuItem_idetdo}" icon="ui-icon-search" update=":TipoDocumentoEditPage:TipoDocumentoEditForm" disabled="#{empty usuarioController.selected.idetdo}" actionListener="#{usuarioController.prepareIdetdo}" action="#{mobilePageController.navigateWithHistory}">  
+                            <f:actionListener binding="#{currentPageActionListener}"/>
+                            <f:setPropertyActionListener target="#{mobilePageController.nextPage}" value="pm:TipoDocumentoEditPage"/>
+                        </p:menuitem>
+                    </p:menu>
+                </p:overlayPanel>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoRegimenViewDlg" widgetVar="TipoRegimenViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipoRegimenTitle}" closeOnEscape="true">
+
+            <h:form id="TipoRegimenViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoRegimenController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipoRegimenLabel_idetre}"/>
+                        <h:outputText value="#{tipoRegimenController.selected.idetre}" title="#{myBundle.ViewTipoRegimenTitle_idetre}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoRegimenLabel_rgmtre}"/>
+                        <h:outputText value="#{tipoRegimenController.selected.rgmtre}" title="#{myBundle.ViewTipoRegimenTitle_rgmtre}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoRegimenLabel_nomtre}"/>
+                        <h:outputText value="#{tipoRegimenController.selected.nomtre}" title="#{myBundle.ViewTipoRegimenTitle_nomtre}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoRegimenLabel_destre}"/>
+                        <h:outputText value="#{tipoRegimenController.selected.destre}" title="#{myBundle.ViewTipoRegimenTitle_destre}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TipoRegimenViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

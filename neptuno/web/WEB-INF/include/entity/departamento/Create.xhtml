@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartamentoCreateDlg" widgetVar="DepartamentoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDepartamentoTitle}" closeOnEscape="true">
+
+            <h:form id="DepartamentoCreateForm">
+
+                <h:panelGroup id="display" rendered="#{departamentoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDepartamentoLabel_nomdep}" for="nomdep" />
+                        <h:panelGroup>
+                            <p:inputText id="nomdep" value="#{departamentoController.selected.nomdep}" title="#{myBundle.CreateDepartamentoTitle_nomdep}" size="200" maxlength="200"/>
+                            <p:tooltip for="nomdep" value="#{departamentoController.getComponentMessages('nomdep', myBundle.CreateDepartamentoHelpText_nomdep)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateDepartamentoLabel_idereg}" for="idereg" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idereg" value="#{departamentoController.selected.idereg}"  converter="regionConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{regionController.items}"
+                                               var="ideregItem"
+                                               itemValue="#{ideregItem}"
+                                               itemLabel="#{ideregItem.idereg.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idereg" value="#{departamentoController.getComponentMessages('idereg', myBundle.CreateDepartamentoHelpText_idereg)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departamentoController.saveNew}" value="#{myBundle.Save}" update="display,:DepartamentoListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('DepartamentoCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DepartamentoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MenuCreateDlg" widgetVar="MenuCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMenuTitle}" closeOnEscape="true">
+
+            <h:form id="MenuCreateForm">
+
+                <h:panelGroup id="display" rendered="#{menuController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMenuLabel_nommen}" for="nommen" />
+                        <h:panelGroup>
+                            <p:inputText id="nommen" value="#{menuController.selected.nommen}" title="#{myBundle.CreateMenuTitle_nommen}" required="true" requiredMessage="#{myBundle.CreateMenuRequiredMessage_nommen}" size="50" maxlength="50"/>
+                            <p:tooltip for="nommen" value="#{menuController.getComponentMessages('nommen', myBundle.CreateMenuHelpText_nommen)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMenuLabel_icomen}" for="icomen" />
+                        <h:panelGroup>
+                            <p:inputText id="icomen" value="#{menuController.selected.icomen}" title="#{myBundle.CreateMenuTitle_icomen}" required="true" requiredMessage="#{myBundle.CreateMenuRequiredMessage_icomen}" size="200" maxlength="200"/>
+                            <p:tooltip for="icomen" value="#{menuController.getComponentMessages('icomen', myBundle.CreateMenuHelpText_icomen)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMenuLabel_estmen}" for="estmen" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="estmen" value="#{menuController.selected.estmen}" required="true" requiredMessage="#{myBundle.CreateMenuRequiredMessage_estmen}"/>
+                            <p:tooltip for="estmen" value="#{menuController.getComponentMessages('estmen', myBundle.CreateMenuHelpText_estmen)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMenuLabel_submenu}" for="submenu" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="submenu" value="#{menuController.selected.submenu}"  converter="submenuConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{submenuController.items}"
+                                               var="submenuItem"
+                                               itemValue="#{submenuItem}"
+                                               itemLabel="#{submenuItem.idesub.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="submenu" value="#{menuController.getComponentMessages('submenu', myBundle.CreateMenuHelpText_submenu)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{menuController.saveNew}" value="#{myBundle.Save}" update="display,:MenuListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MenuCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MenuCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

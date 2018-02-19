@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MunicipioCreateDlg" widgetVar="MunicipioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMunicipioTitle}" closeOnEscape="true">
+
+            <h:form id="MunicipioCreateForm">
+
+                <h:panelGroup id="display" rendered="#{municipioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMunicipioLabel_nommun}" for="nommun" />
+                        <h:panelGroup>
+                            <p:inputText id="nommun" value="#{municipioController.selected.nommun}" title="#{myBundle.CreateMunicipioTitle_nommun}" size="200" maxlength="200"/>
+                            <p:tooltip for="nommun" value="#{municipioController.getComponentMessages('nommun', myBundle.CreateMunicipioHelpText_nommun)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMunicipioLabel_idedep}" for="idedep" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="idedep" value="#{municipioController.selected.idedep}"  converter="departamentoConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{departamentoController.items}"
+                                               var="idedepItem"
+                                               itemValue="#{idedepItem}"
+                                               itemLabel="#{idedepItem.idedep.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="idedep" value="#{municipioController.getComponentMessages('idedep', myBundle.CreateMunicipioHelpText_idedep)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{municipioController.saveNew}" value="#{myBundle.Save}" update="display,:MunicipioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MunicipioCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MunicipioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

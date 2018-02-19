@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="TipoRegimenCreatePage" lazy="true">
+        <pm:header title="#{myBundle.CreateTipoRegimenTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:TipoRegimenListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="TipoRegimenCreateForm">
+
+                <h:panelGroup id="display" rendered="#{tipoRegimenController.selected != null}">
+                    <p:outputPanel>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateTipoRegimenLabel_rgmtre}" for="rgmtre" />
+                            <h:panelGroup>
+                                <p:inputText id="rgmtre" value="#{tipoRegimenController.selected.rgmtre}" title="#{myBundle.CreateTipoRegimenTitle_rgmtre}" size="1" maxlength="1"/>
+                                <p:tooltip for="rgmtre" value="#{tipoRegimenController.getComponentMessages('rgmtre', myBundle.CreateTipoRegimenHelpText_rgmtre)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateTipoRegimenLabel_nomtre}" for="nomtre" />
+                            <h:panelGroup>
+                                <p:inputText id="nomtre" value="#{tipoRegimenController.selected.nomtre}" title="#{myBundle.CreateTipoRegimenTitle_nomtre}" size="200" maxlength="200"/>
+                                <p:tooltip for="nomtre" value="#{tipoRegimenController.getComponentMessages('nomtre', myBundle.CreateTipoRegimenHelpText_nomtre)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.CreateTipoRegimenLabel_destre}" for="destre" />
+                            <h:panelGroup>
+                                <p:inputTextarea rows="4" cols="30" id="destre" value="#{tipoRegimenController.selected.destre}" title="#{myBundle.CreateTipoRegimenTitle_destre}" />
+                                <p:tooltip for="destre" value="#{tipoRegimenController.getComponentMessages('destre', myBundle.CreateTipoRegimenHelpText_destre)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{tipoRegimenController.saveNew}" value="#{myBundle.Save}" update="display,:TipoRegimenListPage:TipoRegimenListForm:datalist,:growl" action="#{mobilePageController.navigateWithHistory('pm:TipoRegimenListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>

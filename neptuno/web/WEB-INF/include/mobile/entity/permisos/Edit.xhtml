@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pm="http://primefaces.org/mobile">
+
+    <pm:page id="PermisosEditPage" lazy="true">
+        <pm:header title="#{myBundle.EditPermisosTitle}">
+            <h:form>
+                <p:commandButton styleClass="ui-btn-left ui-btn-inline" value="#{myBundle.Cancel}" icon="ui-icon-arrow-l" action="#{mobilePageController.navigateBackInHistory('pm:PermisosListPage')}"/>
+            </h:form>
+        </pm:header>
+
+        <pm:content>
+
+            <h:form id="PermisosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:outputPanel rendered="#{permisosController.selected != null}">
+
+                        <pm:field>
+                            <h:outputLabel value="#{myBundle.EditPermisosLabel_ideper}" for="ideper" />
+                            <h:panelGroup>
+                                <h:outputText id="ideper" value="#{permisosController.selected.ideper}" />
+                                <p:tooltip for="ideper" value="#{permisosController.getComponentMessages('ideper', myBundle.EditPermisosHelpText_ideper)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditPermisosLabel_lecper}" for="lecper" />
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox id="lecper" value="#{permisosController.selected.lecper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_lecper}"/>
+                                <p:tooltip for="lecper" value="#{permisosController.getComponentMessages('lecper', myBundle.EditPermisosHelpText_lecper)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditPermisosLabel_escper}" for="escper" />
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox id="escper" value="#{permisosController.selected.escper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_escper}"/>
+                                <p:tooltip for="escper" value="#{permisosController.getComponentMessages('escper', myBundle.EditPermisosHelpText_escper)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditPermisosLabel_modper}" for="modper" />
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox id="modper" value="#{permisosController.selected.modper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_modper}"/>
+                                <p:tooltip for="modper" value="#{permisosController.getComponentMessages('modper', myBundle.EditPermisosHelpText_modper)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel value="#{myBundle.EditPermisosLabel_eliper}" for="eliper" />
+                            <h:panelGroup>
+                                <p:selectBooleanCheckbox id="eliper" value="#{permisosController.selected.eliper}" required="true" requiredMessage="#{myBundle.EditPermisosRequiredMessage_eliper}"/>
+                                <p:tooltip for="eliper" value="#{permisosController.getComponentMessages('eliper', myBundle.EditPermisosHelpText_eliper)}"/>
+                            </h:panelGroup>
+                        </pm:field>
+                    </p:outputPanel>
+                    <p:commandButton actionListener="#{permisosController.save}" value="#{myBundle.Save}" update="#{mobilePageController.updatableWidgets(component,'display,:PermisosListPage:PermisosListForm:datalist,:growl')}" action="#{mobilePageController.navigateWithHistory('pm:PermisosListPage')}">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                </h:panelGroup>
+
+            </h:form>
+
+        </pm:content>
+
+    </pm:page>
+
+</ui:composition>
