@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -17,13 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -31,13 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "rol", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r")
-    , @NamedQuery(name = "Rol.findByIderol", query = "SELECT r FROM Rol r WHERE r.iderol = :iderol")
-    , @NamedQuery(name = "Rol.findByNomrol", query = "SELECT r FROM Rol r WHERE r.nomrol = :nomrol")
-    , @NamedQuery(name = "Rol.findByDesrol", query = "SELECT r FROM Rol r WHERE r.desrol = :desrol")})
+@Table(name = "rol")
 public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -17,14 +12,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -32,27 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "usuario", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdeusr", query = "SELECT u FROM Usuario u WHERE u.ideusr = :ideusr")
-    , @NamedQuery(name = "Usuario.findByEpsusr", query = "SELECT u FROM Usuario u WHERE u.epsusr = :epsusr")
-    , @NamedQuery(name = "Usuario.findByDocusr", query = "SELECT u FROM Usuario u WHERE u.docusr = :docusr")
-    , @NamedQuery(name = "Usuario.findByPnousr", query = "SELECT u FROM Usuario u WHERE u.pnousr = :pnousr")
-    , @NamedQuery(name = "Usuario.findBySnousr", query = "SELECT u FROM Usuario u WHERE u.snousr = :snousr")
-    , @NamedQuery(name = "Usuario.findByPapusr", query = "SELECT u FROM Usuario u WHERE u.papusr = :papusr")
-    , @NamedQuery(name = "Usuario.findBySapusr", query = "SELECT u FROM Usuario u WHERE u.sapusr = :sapusr")
-    , @NamedQuery(name = "Usuario.findByEmlusr", query = "SELECT u FROM Usuario u WHERE u.emlusr = :emlusr")
-    , @NamedQuery(name = "Usuario.findBySexusr", query = "SELECT u FROM Usuario u WHERE u.sexusr = :sexusr")
-    , @NamedQuery(name = "Usuario.findByFnausr", query = "SELECT u FROM Usuario u WHERE u.fnausr = :fnausr")
-    , @NamedQuery(name = "Usuario.findByFafusr", query = "SELECT u FROM Usuario u WHERE u.fafusr = :fafusr")
-    , @NamedQuery(name = "Usuario.findByDirusr", query = "SELECT u FROM Usuario u WHERE u.dirusr = :dirusr")
-    , @NamedQuery(name = "Usuario.findByTelusr", query = "SELECT u FROM Usuario u WHERE u.telusr = :telusr")
-    , @NamedQuery(name = "Usuario.findByExtusr", query = "SELECT u FROM Usuario u WHERE u.extusr = :extusr")
-    , @NamedQuery(name = "Usuario.findByFotusr", query = "SELECT u FROM Usuario u WHERE u.fotusr = :fotusr")
-    , @NamedQuery(name = "Usuario.findByNotusr", query = "SELECT u FROM Usuario u WHERE u.notusr = :notusr")
-    , @NamedQuery(name = "Usuario.findByEstusr", query = "SELECT u FROM Usuario u WHERE u.estusr = :estusr")})
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

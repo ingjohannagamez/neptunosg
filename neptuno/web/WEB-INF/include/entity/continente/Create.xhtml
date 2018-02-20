@@ -3,23 +3,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <ui:composition>
-
         <p:dialog id="ContinenteCreateDlg" widgetVar="ContinenteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateContinenteTitle}" closeOnEscape="true">
-
             <h:form id="ContinenteCreateForm">
-
                 <h:panelGroup id="display" rendered="#{continenteController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
-
-                        <p:outputLabel value="#{myBundle.CreateContinenteLabel_idecon}" for="idecon" />
-                        <h:panelGroup>
-                            <p:inputText id="idecon" value="#{continenteController.selected.idecon}" title="#{myBundle.CreateContinenteTitle_idecon}" required="true" requiredMessage="#{myBundle.CreateContinenteRequiredMessage_idecon}"/>
-                            <p:tooltip for="idecon" value="#{continenteController.getComponentMessages('idecon', myBundle.CreateContinenteHelpText_idecon)}"/>
-                        </h:panelGroup>
+                        <ui:remove>
+                            <p:outputLabel value="#{myBundle.CreateContinenteLabel_idecon}" for="idecon" />
+                            <h:panelGroup>
+                                <p:inputText id="idecon" value="#{continenteController.selected.idecon}" title="#{myBundle.CreateContinenteTitle_idecon}" required="true" requiredMessage="#{myBundle.CreateContinenteRequiredMessage_idecon}"/>
+                                <p:tooltip for="idecon" value="#{continenteController.getComponentMessages('idecon', myBundle.CreateContinenteHelpText_idecon)}"/>
+                            </h:panelGroup>
+                        </ui:remove>
 
                         <p:outputLabel value="#{myBundle.CreateContinenteLabel_nomcon}" for="nomcon" />
                         <h:panelGroup>
@@ -33,11 +30,7 @@
 
                     <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ContinenteCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
-
             </h:form>
-
         </p:dialog>
-
     </ui:composition>
-
 </html>

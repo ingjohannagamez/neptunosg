@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -14,12 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -27,14 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "tipo_regimen", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "TipoRegimen.findAll", query = "SELECT t FROM TipoRegimen t")
-    , @NamedQuery(name = "TipoRegimen.findByIdetre", query = "SELECT t FROM TipoRegimen t WHERE t.idetre = :idetre")
-    , @NamedQuery(name = "TipoRegimen.findByRgmtre", query = "SELECT t FROM TipoRegimen t WHERE t.rgmtre = :rgmtre")
-    , @NamedQuery(name = "TipoRegimen.findByNomtre", query = "SELECT t FROM TipoRegimen t WHERE t.nomtre = :nomtre")
-    , @NamedQuery(name = "TipoRegimen.findByDestre", query = "SELECT t FROM TipoRegimen t WHERE t.destre = :destre")})
+@Table(name = "tipo_regimen")
 public class TipoRegimen implements Serializable {
 
     private static final long serialVersionUID = 1L;

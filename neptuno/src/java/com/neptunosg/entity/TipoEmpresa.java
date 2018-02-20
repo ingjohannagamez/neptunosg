@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -14,12 +9,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -27,13 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "tipo_empresa", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "TipoEmpresa.findAll", query = "SELECT t FROM TipoEmpresa t")
-    , @NamedQuery(name = "TipoEmpresa.findByIdetem", query = "SELECT t FROM TipoEmpresa t WHERE t.idetem = :idetem")
-    , @NamedQuery(name = "TipoEmpresa.findByNomtem", query = "SELECT t FROM TipoEmpresa t WHERE t.nomtem = :nomtem")
-    , @NamedQuery(name = "TipoEmpresa.findByDestem", query = "SELECT t FROM TipoEmpresa t WHERE t.destem = :destem")})
+@Table(name = "tipo_empresa")
 public class TipoEmpresa implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -14,27 +9,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author pipo0
  */
 @Entity
-@Table(name = "menu", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Menu.findAll", query = "SELECT m FROM Menu m")
-    , @NamedQuery(name = "Menu.findByIdemen", query = "SELECT m FROM Menu m WHERE m.idemen = :idemen")
-    , @NamedQuery(name = "Menu.findByNommen", query = "SELECT m FROM Menu m WHERE m.nommen = :nommen")
-    , @NamedQuery(name = "Menu.findByIcomen", query = "SELECT m FROM Menu m WHERE m.icomen = :icomen")
-    , @NamedQuery(name = "Menu.findByEstmen", query = "SELECT m FROM Menu m WHERE m.estmen = :estmen")})
+@Table(name = "menu")
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -15,13 +10,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -29,13 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "tipo_documento", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "TipoDocumento.findAll", query = "SELECT t FROM TipoDocumento t")
-    , @NamedQuery(name = "TipoDocumento.findByIdetdo", query = "SELECT t FROM TipoDocumento t WHERE t.idetdo = :idetdo")
-    , @NamedQuery(name = "TipoDocumento.findByTiptdo", query = "SELECT t FROM TipoDocumento t WHERE t.tiptdo = :tiptdo")
-    , @NamedQuery(name = "TipoDocumento.findByRentdo", query = "SELECT t FROM TipoDocumento t WHERE t.rentdo = :rentdo")})
+@Table(name = "tipo_documento")
 public class TipoDocumento implements Serializable {
 
     private static final long serialVersionUID = 1L;

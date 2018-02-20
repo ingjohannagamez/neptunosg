@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -16,15 +11,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -32,17 +24,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "submenu", catalog = "afsolu_neptunosg", schema = "", uniqueConstraints = {
+@Table(name = "submenu", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"idemen"})})
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Submenu.findAll", query = "SELECT s FROM Submenu s")
-    , @NamedQuery(name = "Submenu.findByIdesub", query = "SELECT s FROM Submenu s WHERE s.idesub = :idesub")
-    , @NamedQuery(name = "Submenu.findByLabsub", query = "SELECT s FROM Submenu s WHERE s.labsub = :labsub")
-    , @NamedQuery(name = "Submenu.findByIcosub", query = "SELECT s FROM Submenu s WHERE s.icosub = :icosub")
-    , @NamedQuery(name = "Submenu.findByComsub", query = "SELECT s FROM Submenu s WHERE s.comsub = :comsub")
-    , @NamedQuery(name = "Submenu.findByTitsub", query = "SELECT s FROM Submenu s WHERE s.titsub = :titsub")
-    , @NamedQuery(name = "Submenu.findByRensub", query = "SELECT s FROM Submenu s WHERE s.rensub = :rensub")})
 public class Submenu implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -16,12 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -29,15 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "oficina", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Oficina.findAll", query = "SELECT o FROM Oficina o")
-    , @NamedQuery(name = "Oficina.findByIdeofi", query = "SELECT o FROM Oficina o WHERE o.ideofi = :ideofi")
-    , @NamedQuery(name = "Oficina.findByNomofi", query = "SELECT o FROM Oficina o WHERE o.nomofi = :nomofi")
-    , @NamedQuery(name = "Oficina.findByDirofi", query = "SELECT o FROM Oficina o WHERE o.dirofi = :dirofi")
-    , @NamedQuery(name = "Oficina.findByObjofi", query = "SELECT o FROM Oficina o WHERE o.objofi = :objofi")
-    , @NamedQuery(name = "Oficina.findByEstofi", query = "SELECT o FROM Oficina o WHERE o.estofi = :estofi")})
+@Table(name = "oficina")
 public class Oficina implements Serializable {
 
     private static final long serialVersionUID = 1L;

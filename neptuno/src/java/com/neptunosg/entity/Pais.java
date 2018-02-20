@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -16,12 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -29,12 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "pais", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Pais.findAll", query = "SELECT p FROM Pais p")
-    , @NamedQuery(name = "Pais.findByIdepai", query = "SELECT p FROM Pais p WHERE p.idepai = :idepai")
-    , @NamedQuery(name = "Pais.findByNompai", query = "SELECT p FROM Pais p WHERE p.nompai = :nompai")})
+@Table(name = "pais")
 public class Pais implements Serializable {
 
     private static final long serialVersionUID = 1L;

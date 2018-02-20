@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.neptunosg.entity;
 
 import java.io.Serializable;
@@ -15,12 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -28,15 +20,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "permisos", catalog = "afsolu_neptunosg", schema = "")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Permisos.findAll", query = "SELECT p FROM Permisos p")
-    , @NamedQuery(name = "Permisos.findByIdeper", query = "SELECT p FROM Permisos p WHERE p.ideper = :ideper")
-    , @NamedQuery(name = "Permisos.findByLecper", query = "SELECT p FROM Permisos p WHERE p.lecper = :lecper")
-    , @NamedQuery(name = "Permisos.findByEscper", query = "SELECT p FROM Permisos p WHERE p.escper = :escper")
-    , @NamedQuery(name = "Permisos.findByModper", query = "SELECT p FROM Permisos p WHERE p.modper = :modper")
-    , @NamedQuery(name = "Permisos.findByEliper", query = "SELECT p FROM Permisos p WHERE p.eliper = :eliper")})
+@Table(name = "permisos")
 public class Permisos implements Serializable {
 
     private static final long serialVersionUID = 1L;
