@@ -101,7 +101,7 @@ public class Departamento implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Departamento[ idedep=" + idedep + " ]";
+        return nomdep;
     }
     
 }

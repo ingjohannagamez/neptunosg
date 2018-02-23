@@ -101,7 +101,7 @@ public class Region implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Region[ idereg=" + idereg + " ]";
+        return nomreg;
     }
     
 }

@@ -101,7 +101,7 @@ public class Pais implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Pais[ idepai=" + idepai + " ]";
+        return nompai;
     }
     
 }
