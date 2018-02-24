@@ -110,7 +110,7 @@ public class TipoRegimen implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.TipoRegimen[ idetre=" + idetre + " ]";
+        return this.nomtre;
     }
     
 }

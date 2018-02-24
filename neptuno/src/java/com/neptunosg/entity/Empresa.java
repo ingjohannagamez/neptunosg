@@ -202,7 +202,7 @@ public class Empresa implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Empresa[ ideemp=" + ideemp + " ]";
+        return this.nomemp;
     }
     
 }

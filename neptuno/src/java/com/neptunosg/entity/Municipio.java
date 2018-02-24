@@ -101,7 +101,7 @@ public class Municipio implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Municipio[ idemun=" + idemun + " ]";
+        return this.nommun;
     }
     
 }

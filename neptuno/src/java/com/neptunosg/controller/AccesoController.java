@@ -1,7 +1,7 @@
 package com.neptunosg.controller;
 
+import static com.neptunosg.controller.util.JsfUtil.encriptaDato;
 import com.neptunosg.entity.Acceso;
-import com.neptunosg.facade.AccesoFacade;
 import com.neptunosg.controller.util.MobilePageController;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -56,6 +56,18 @@ public class AccesoController extends AbstractController<Acceso> {
         if (selected != null && ideusrController.getSelected() == null) {
             ideusrController.setSelected(selected.getIdeusr());
         }
+    }
+
+    @Override
+    public void saveNew(ActionEvent event) {
+        this.getSelected().setPswacc(encriptaDato(this.getSelected().getPswacc()));
+        super.saveNew(event);
+    }
+
+    @Override
+    public void save(ActionEvent event) {
+        this.getSelected().setPswacc(encriptaDato(this.getSelected().getPswacc()));
+        super.save(event);
     }
 
 }

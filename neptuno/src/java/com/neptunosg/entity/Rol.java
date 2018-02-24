@@ -135,7 +135,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Rol[ iderol=" + iderol + " ]";
+        return this.nomrol;
     }
     
 }

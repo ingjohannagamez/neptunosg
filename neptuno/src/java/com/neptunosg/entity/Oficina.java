@@ -143,7 +143,7 @@ public class Oficina implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Oficina[ ideofi=" + ideofi + " ]";
+        return this.nomofi;
     }
     
 }

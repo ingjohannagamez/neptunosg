@@ -276,7 +276,13 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Usuario[ ideusr=" + ideusr + " ]";
+        if (this.getPnousr() != null) {
+            return this.getPnousr()
+                    .concat(this.getSnousr() == null ? "" : " " + this.getSnousr())
+                    .concat(" " + this.getPapusr().concat(this.getSapusr() == null ? "" : " " + this.getSapusr()));
+        } else {
+            return null;
+        }
     }
     
 }

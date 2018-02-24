@@ -125,7 +125,7 @@ public class TipoDocumento implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.TipoDocumento[ idetdo=" + idetdo + " ]";
+        return this.tiptdo;
     }
     
 }

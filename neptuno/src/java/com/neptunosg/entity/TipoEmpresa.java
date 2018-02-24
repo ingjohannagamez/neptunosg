@@ -99,7 +99,7 @@ public class TipoEmpresa implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.TipoEmpresa[ idetem=" + idetem + " ]";
+        return this.nomtem;
     }
     
 }
