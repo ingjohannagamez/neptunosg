@@ -1,7 +1,6 @@
 package com.neptunosg.controller;
 
 import com.neptunosg.entity.MenuRol;
-import com.neptunosg.facade.MenuRolFacade;
 import com.neptunosg.controller.util.MobilePageController;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;

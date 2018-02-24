@@ -50,7 +50,20 @@
                     </f:facet>
                     <h:outputText value="#{item.idemro}"/>
                 </p:column>
-
+                
+                <p:column sortBy="#{item.iderol.toString()}" filterBy="#{item.iderol.toString()}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMenuRolTitle_idemro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.iderol.toString()}"/>
+                </p:column>
+                
+                <p:column sortBy="#{item.idesub.toString()}" filterBy="#{item.idesub.toString()}">
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListMenuRolTitle_idemro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.idesub.toString()}"/>
+                </p:column>
 
             </p:dataTable>
 

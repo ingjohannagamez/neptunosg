@@ -167,7 +167,12 @@ public class Submenu implements Serializable {
 
     @Override
     public String toString() {
-        return "com.neptunosg.entity.Submenu[ idesub=" + idesub + " ]";
+        if (this.getLabsub() != null) {
+            return this.getLabsub()
+                    .concat(this.getIdemen() == null ? "" : " - " + this.getIdemen().getNommen());
+        } else {
+            return null;
+        }
     }
-    
+
 }
