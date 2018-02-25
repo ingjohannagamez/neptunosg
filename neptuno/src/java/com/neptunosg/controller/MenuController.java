@@ -63,38 +63,34 @@ public class MenuController extends AbstractController<Menu> {
         this.menuRol = sessionNeptunoSG.getDatosAcceso().getIderol().getMenuRolList();
         List<Menu> menus = new ArrayList<>();
         List<Submenu> submenus = new ArrayList<>();
-        menuRol.stream().map((menu) -> {
+        for (MenuRol menu : menuRol) {
             if (!menus.contains(menu.getIdesub().getIdemen())) {
                 menus.add(menu.getIdesub().getIdemen());
             }
-            return menu;
-        }).filter((menu) -> (!submenus.contains(menu.getIdesub()))).forEachOrdered((menu) -> {
-            submenus.add(menu.getIdesub());
-        });
+            if (!submenus.contains(menu.getIdesub())) {
+                submenus.add(menu.getIdesub());
+            }
+        }
         this.model = new DefaultMenuModel();
-        menus.stream().map((menu) -> {
+        for (Menu menu : menus) {
             DefaultSubMenu itemMenu = new DefaultSubMenu(menu.getNommen());
             itemMenu.setIcon(menu.getIcomen());
             itemMenu.setStyleClass("classMenu");
-            submenus.stream().filter((submenu) -> (submenu.getIdemen().equals(menu))).map((submenu) -> {
-                DefaultMenuItem item = new DefaultMenuItem(submenu.getLabsub());
-                item.setIcon(submenu.getIcosub());
-                item.setCommand("#{" + submenu.getComsub() + "}");
-                //item.setUrl("/faces/jsf/".concat(submenu.getComsub()));
-                item.setTitle(submenu.getTitsub());
-                item.setStyleClass("button");
-                item.setRendered(submenu.getRensub());
-                return item;
-            }).map((item) -> {
-                item.setUpdate(":centerpanel");
-                return item;
-            }).forEachOrdered((item) -> {
-                itemMenu.addElement(item);
-            });
-            return itemMenu;
-        }).forEachOrdered((itemMenu) -> {
+            for (Submenu submenu : submenus) {
+                if (submenu.getIdemen().equals(menu)) {
+                    DefaultMenuItem item = new DefaultMenuItem(submenu.getLabsub());
+                    item.setIcon(submenu.getIcosub());
+                    item.setCommand("#{" + submenu.getComsub() + "}");
+                    //item.setUrl("/faces/jsf/".concat(submenu.getComsub()));
+                    item.setTitle(submenu.getTitsub());
+                    item.setStyleClass("button");
+                    item.setRendered(submenu.getRensub());
+                    item.setUpdate(":centerpanel");
+                    itemMenu.addElement(item);
+                }
+            }
             this.getModel().addElement(itemMenu);
-        });
+        }
     }
 
     public String navegacion(String ruta) {

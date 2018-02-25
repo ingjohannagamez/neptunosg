@@ -43,7 +43,7 @@ public class Session implements Serializable {
     
     public void cerrarSesion() {
         setDatosAcceso(null);
-        setIDSESION(null);
+        setIDSESION("");
         setMenuVisible(false);
         setBtnCrear(false);
         setBtnEditar(false);

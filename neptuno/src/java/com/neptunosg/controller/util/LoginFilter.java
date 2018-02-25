@@ -42,6 +42,7 @@ public class LoginFilter implements Filter {
             final String enlace = cleanUrl(permiso, ".xhtml");
             permiso = cleanUrl(enlace, "/index");
             if ("app/login".equals(permiso)
+                    || (permiso.contains("index") && sesion.getIDSESION() != null && !sesion.getIDSESION().equals(""))
                     || permiso.contains(".css")
                     || permiso.contains(".jpg")
                     || permiso.contains(".png")
