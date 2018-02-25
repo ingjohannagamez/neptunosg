@@ -34,9 +34,7 @@
 
             <p:layoutUnit position="west" size="20%" header="Menu" collapsible="false" effect="slide" styleClass="menuBar">
                 <nav id="menu">
-                    <ui:remove>
-                        <ui:include src="../../jsf/menu/menu.xhtml"/>
-                    </ui:remove>
+                    <ui:include src="entity/menu/menu.xhtml"/>
                 </nav>
             </p:layoutUnit>
 
@@ -48,16 +46,16 @@
                 </h:panelGroup>
             </p:layoutUnit>
 
-                <p:layoutUnit position="south" size="12%" closable="true" collapsible="true" styleClass="footer">
-                    <p:graphicImage class="escudo1" value="/resources/img/colombia.png" cache="false"/>
-                    <div class="empresa-info">
-                        <p:outputLabel id="empresa" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.nomemp} "/>
-                        <p:outputLabel id="direccion" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.diremp} "/>
-                        <p:outputLabel id="tel" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.tluemp} "/>
-                    </div>
-                    <p:graphicImage class="escudo2" value="/resources/img/escudo-valle.png" cache="false"/>
-                </p:layoutUnit>
-                <ui:include src="monitor.xhtml"/>
+            <p:layoutUnit position="south" size="12%" closable="true" collapsible="true" styleClass="footer">
+                <p:graphicImage class="escudo1" value="/resources/img/colombia.png" cache="false"/>
+                <div class="empresa-info">
+                    <p:outputLabel id="empresa" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.nomemp} "/>
+                    <p:outputLabel id="direccion" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.diremp} "/>
+                    <p:outputLabel id="tel" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.tluemp} "/>
+                </div>
+                <p:graphicImage class="escudo2" value="/resources/img/escudo-valle.png" cache="false"/>
+            </p:layoutUnit>
+            <ui:include src="monitor.xhtml"/>
         </p:layout>
     </h:body>
 </html>
