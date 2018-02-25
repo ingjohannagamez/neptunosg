@@ -28,17 +28,18 @@ public class Oficina implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "ideofi", nullable = false)
     private Integer ideofi;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nomofi", length = 200)
     private String nomofi;
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "dirofi", length = 500)
     private String dirofi;
     @Size(max = 1000)
-    @Column(length = 1000)
+    @Column(name = "objofi", length = 1000)
     private String objofi;
+    @Column(name = "estofi")
     private Short estofi;
     @JoinColumn(name = "ideemp", referencedColumnName = "ideemp")
     @ManyToOne(fetch = FetchType.LAZY)

@@ -19,7 +19,6 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
-import org.hibernate.annotations.Where;
 
 /**
  *
@@ -27,44 +26,44 @@ import org.hibernate.annotations.Where;
  */
 @Entity
 @Table(name = "empresa")
-@Where(clause = "estemp = true")
 public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "ideemp", nullable = false)
     private Integer ideemp;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nomemp", length = 200)
     private String nomemp;
     @Size(max = 80)
-    @Column(length = 80)
+    @Column(name = "rcoemp", length = 80)
     private String rcoemp;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "nitemp", length = 50)
     private String nitemp;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "codemp", length = 50)
     private String codemp;
     @Size(max = 11)
-    @Column(length = 11)
+    @Column(name = "tluemp", length = 11)
     private String tluemp;
     @Size(max = 11)
-    @Column(length = 11)
+    @Column(name = "tldemp", length = 11)
     private String tldemp;
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "diremp", length = 500)
     private String diremp;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "freemp")
     private Date freemp;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "logemp", length = 200)
     private String logemp;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "estemp", nullable = false)
     private boolean estemp;
     @OneToMany(mappedBy = "ideemp", fetch = FetchType.LAZY)
     private List<Oficina> oficinaList;

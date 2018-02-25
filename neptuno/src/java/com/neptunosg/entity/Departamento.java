@@ -28,10 +28,10 @@ public class Departamento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idedep", nullable = false)
     private Integer idedep;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nomdep", length = 200)
     private String nomdep;
     @OneToMany(mappedBy = "idedep", fetch = FetchType.LAZY)
     private List<Municipio> municipioList;

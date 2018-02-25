@@ -30,17 +30,17 @@ public class Rol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "iderol", nullable = false)
     private Integer iderol;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(nullable = false, length = 20)
+    @Column(name = "nomrol", nullable = false, length = 20)
     private String nomrol;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(nullable = false, length = 200)
+    @Column(name = "desrol", nullable = false, length = 200)
     private String desrol;
     @OneToMany(mappedBy = "iderol", fetch = FetchType.LAZY)
     private List<Acceso> accesoList;

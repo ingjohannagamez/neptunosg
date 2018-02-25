@@ -27,23 +27,23 @@ public class Permisos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "ideper", nullable = false)
     private Integer ideper;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "lecper", nullable = false)
     private boolean lecper;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "escper", nullable = false)
     private boolean escper;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "modper", nullable = false)
     private boolean modper;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "eliper", nullable = false)
     private boolean eliper;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ideper", fetch = FetchType.LAZY)
     private List<Rol> rolList;

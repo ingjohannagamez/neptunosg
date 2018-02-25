@@ -112,7 +112,7 @@ public class LoginController implements Serializable {
                     session.setAttribute("sessionNeptunoSG", sessionNeptunoSG);
                     ruta = "inicio";
                 } else {
-                    JsfUtil.showMessage("Error usuario no valido", FacesMessage.SEVERITY_ERROR, "messages");
+                    JsfUtil.showMessage("Error usuario no valido o inactivo", FacesMessage.SEVERITY_ERROR, "messages");
                     return "/app/login/index.xhtml?facesRedirect=true";
                 }
             } else {

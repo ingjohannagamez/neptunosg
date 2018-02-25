@@ -28,10 +28,10 @@ public class Municipio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idemun", nullable = false)
     private Integer idemun;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nommun", length = 200)
     private String nommun;
     @JoinColumn(name = "idedep", referencedColumnName = "idedep")
     @ManyToOne(fetch = FetchType.LAZY)

@@ -28,10 +28,10 @@ public class Pais implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idepai", nullable = false)
     private Integer idepai;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nompai", length = 200)
     private String nompai;
     @JoinColumn(name = "idecon", referencedColumnName = "idecon")
     @ManyToOne(fetch = FetchType.LAZY)

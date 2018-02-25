@@ -26,16 +26,16 @@ public class TipoRegimen implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idetre", nullable = false)
     private Integer idetre;
     @Size(max = 1)
-    @Column(length = 1)
+    @Column(name = "rgmtre", length = 1)
     private String rgmtre;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nomtre", length = 200)
     private String nomtre;
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "destre", length = 500)
     private String destre;
     @OneToMany(mappedBy = "idetre", fetch = FetchType.LAZY)
     private List<Empresa> empresaList;

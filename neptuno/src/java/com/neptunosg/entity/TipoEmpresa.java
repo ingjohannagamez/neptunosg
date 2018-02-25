@@ -26,13 +26,13 @@ public class TipoEmpresa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idetem", nullable = false)
     private Integer idetem;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nomtem", length = 200)
     private String nomtem;
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "destem", length = 500)
     private String destem;
     @OneToMany(mappedBy = "idetem", fetch = FetchType.LAZY)
     private List<Empresa> empresaList;

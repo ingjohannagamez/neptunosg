@@ -28,16 +28,18 @@ public class Acceso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "ideacc", nullable = false)
     private Integer ideacc;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "nikacc", length = 50)
     private String nikacc;
     @Size(max = 32)
-    @Column(length = 32)
+    @Column(name = "pswacc", length = 32)
     private String pswacc;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "freacc")    
     private Date freacc;
+    @Column(name = "estacc")
     private Short estacc;
     @JoinColumn(name = "iderol", referencedColumnName = "iderol")
     @ManyToOne(fetch = FetchType.LAZY)

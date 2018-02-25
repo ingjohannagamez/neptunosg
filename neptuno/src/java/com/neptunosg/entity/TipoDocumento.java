@@ -28,22 +28,22 @@ public class TipoDocumento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idetdo", nullable = false)
     private Integer idetdo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
-    @Column(nullable = false, length = 2)
+    @Column(name = "tiptdo", nullable = false, length = 2)
     private String tiptdo;
     @Basic(optional = false)
     @NotNull
     @Lob
     @Size(min = 1, max = 65535)
-    @Column(nullable = false, length = 65535)
+    @Column(name = "destdo", nullable = false, length = 65535)
     private String destdo;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "rentdo", nullable = false)
     private boolean rentdo;
     @OneToMany(mappedBy = "idetdo", fetch = FetchType.LAZY)
     private List<Usuario> usuarioList;

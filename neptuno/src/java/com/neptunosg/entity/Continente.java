@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -27,10 +26,10 @@ public class Continente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idecon", nullable = false)
     private Integer idecon;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nomcon", length = 200)
     private String nomcon;
     @OneToMany(mappedBy = "idecon", fetch = FetchType.LAZY)
     private List<Pais> paisList;

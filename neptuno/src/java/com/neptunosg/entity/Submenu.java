@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
@@ -24,39 +23,38 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author pipo0
  */
 @Entity
-@Table(name = "submenu", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"idemen"})})
+@Table(name = "submenu")
 public class Submenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idesub", nullable = false)
     private Integer idesub;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(nullable = false, length = 50)
+    @Column(name = "labsub", nullable = false, length = 50)
     private String labsub;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(nullable = false, length = 100)
+    @Column(name = "icosub", nullable = false, length = 100)
     private String icosub;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(nullable = false, length = 200)
+    @Column(name = "comsub", nullable = false, length = 200)
     private String comsub;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(nullable = false, length = 50)
+    @Column(name = "titsub", nullable = false, length = 50)
     private String titsub;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "rensub", nullable = false)
     private boolean rensub;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idesub", fetch = FetchType.LAZY)
     private List<MenuRol> menuRolList;

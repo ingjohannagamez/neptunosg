@@ -26,21 +26,21 @@ public class Menu implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idemen", nullable = false)
     private Integer idemen;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(nullable = false, length = 50)
+    @Column(name = "nommen", nullable = false, length = 50)
     private String nommen;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
-    @Column(nullable = false, length = 200)
+    @Column(name = "icomen", nullable = false, length = 200)
     private String icomen;
     @Basic(optional = false)
     @NotNull
-    @Column(nullable = false)
+    @Column(name = "estmen", nullable = false)
     private boolean estmen;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idemen", fetch = FetchType.LAZY)
     private Submenu submenu;

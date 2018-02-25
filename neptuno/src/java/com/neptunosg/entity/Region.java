@@ -28,10 +28,10 @@ public class Region implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idereg", nullable = false)
     private Integer idereg;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "nomreg", length = 200)
     private String nomreg;
     @OneToMany(mappedBy = "idereg", fetch = FetchType.LAZY)
     private List<Departamento> departamentoList;

@@ -24,7 +24,7 @@ public class MenuRol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "idemro", nullable = false)
     private Integer idemro;
     @JoinColumn(name = "iderol", referencedColumnName = "iderol", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

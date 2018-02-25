@@ -31,51 +31,54 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(nullable = false)
+    @Column(name = "ideusr", nullable = false)
     private Integer ideusr;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "epsusr", length = 50)
     private String epsusr;
     @Size(max = 11)
-    @Column(length = 11)
+    @Column(name = "docusr", length = 11)
     private String docusr;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "pnousr", length = 50)
     private String pnousr;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "snousr", length = 50)
     private String snousr;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "papusr", length = 50)
     private String papusr;
     @Size(max = 50)
-    @Column(length = 50)
+    @Column(name = "sapusr", length = 50)
     private String sapusr;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "emlusr", length = 200)
     private String emlusr;
     @Size(max = 1)
-    @Column(length = 1)
+    @Column(name = "sexusr", length = 1)
     private String sexusr;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fnausr")
     private Date fnausr;
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fafusr")
     private Date fafusr;
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "dirusr", length = 500)
     private String dirusr;
     @Size(max = 10)
-    @Column(length = 10)
+    @Column(name = "telusr", length = 10)
     private String telusr;
     @Size(max = 10)
-    @Column(length = 10)
+    @Column(name = "extusr", length = 10)
     private String extusr;
     @Size(max = 200)
-    @Column(length = 200)
+    @Column(name = "fotusr", length = 200)
     private String fotusr;
     @Size(max = 500)
-    @Column(length = 500)
+    @Column(name = "notusr", length = 500)
     private String notusr;
+    @Column(name = "estusr")
     private Short estusr;
     @OneToMany(mappedBy = "ideusr", fetch = FetchType.LAZY)
     private List<Acceso> accesoList;
