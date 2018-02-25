@@ -6,19 +6,13 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/WEB-INF/include/template.xhtml">
 
-    <ui:define name="title">
-        <h:outputText value="#{myBundle.OficinaTitle}"/>
-    </ui:define>
-
-    <ui:define name="body">
-
+    <ui:define name="content">
         <ui:include src="/WEB-INF/include/entity/oficina/List.xhtml"/>
         <ui:include src="/WEB-INF/include/entity/oficina/View.xhtml"/>
         <ui:include src="/WEB-INF/include/entity/oficina/Edit.xhtml"/>
         <ui:include src="/WEB-INF/include/entity/oficina/Create.xhtml"/>
         <ui:include src="/WEB-INF/include/entity/municipio/View.xhtml"/>
         <ui:include src="/WEB-INF/include/entity/empresa/View.xhtml"/>
-
     </ui:define>
 
 </ui:composition>
