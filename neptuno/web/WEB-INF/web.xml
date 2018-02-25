@@ -4,23 +4,28 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/sistemadegestion/*</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    
     <welcome-file-list>
         <welcome-file>sistemadegestion/app/login/index.xhtml</welcome-file>
     </welcome-file-list>
+    
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
@@ -28,16 +33,57 @@
             <form-error-page>/sistemadegestion/app/login/login.xhtml</form-error-page>
         </form-login-config>
     </login-config>
+    
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>start</param-value>
     </context-param>
+    
     <context-param>
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
+    
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
+    </context-param>
+    
+    <!--Filtros de aplicacion -->
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.neptunosg.controller.util.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>ASYNC</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
+    
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/sistemadegestion/app/login/index.xhtml?faces-redirect=true</location>
+    </error-page>
+    
+    <!--Managging session-->
+    <context-param>
+        <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    
+    <mime-mapping>
+        <extension>ico</extension>
+        <mime-type>image/x-icon</mime-type>
+    </mime-mapping>
+    
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
     </context-param>
 </web-app>

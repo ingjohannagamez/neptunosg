@@ -11,7 +11,7 @@
             <f:facet name="first">
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
                 <h:outputStylesheet name="css/cssIndex.css"/>
-                <h:outputScript library="js" name="pfcrud.js" />
+                <h:outputScript library="scripts" name="pfcrud.js" />
                 <link href="http://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,700" rel="stylesheet"/>
                 <title>Neptuno Sistema de Gestión</title>
             </f:facet>
@@ -23,19 +23,19 @@
             <p:growl id="growl" showDetail="true" sticky="false" life="9000"/>
 
             <p:layoutUnit position="north" size="12%" resizable="false" closable="true" collapsible="true" styleClass="header">
-                <p:graphicImage id="imgHOME" value="#{session.datosAcceso.ideusr.ideofi.ideemp.logemp}" cache="false" height="50" width="200"/>
+                <p:graphicImage id="imgHOME" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.logemp}" cache="false" height="50" width="200"/>
                 <div class="userInfo">
-                    <p:graphicImage id="imgFOTO" value="#{session.datosAcceso.ideusr.fotusr}" cache="false"/>
-                    <p:outputLabel id="name" value="#{session.datosAcceso.ideusr.pnousr} #{session.datosAcceso.ideusr.snousr} #{session.datosAcceso.ideusr.papusr} #{session.datosAcceso.ideusr.sapusr}"/>
-                    <p:outputLabel id="rut" value="#{session.datosAcceso.ideusr.docusr}"/>
-                    <p:outputLabel id="sede" value="#{session.datosAcceso.ideusr.ideofi.ofiofi}"/>
+                    <p:graphicImage id="imgFOTO" value="#{sessionNeptunoSG.datosAcceso.ideusr.fotusr}" cache="false"/>
+                    <p:outputLabel id="name" value="#{sessionNeptunoSG.datosAcceso.ideusr.pnousr} #{sessionNeptunoSG.datosAcceso.ideusr.snousr} #{sessionNeptunoSG.datosAcceso.ideusr.papusr} #{sessionNeptunoSG.datosAcceso.ideusr.sapusr}"/>
+                    <p:outputLabel id="rut" value="#{sessionNeptunoSG.datosAcceso.ideusr.docusr}"/>
+                    <p:outputLabel id="sede" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.nomofi}"/>
                 </div>
             </p:layoutUnit>
 
             <p:layoutUnit position="west" size="20%" header="Menu" collapsible="false" effect="slide" styleClass="menuBar">
                 <nav id="menu">
                     <ui:remove>
-                    <ui:include src="../../jsf/menu/menu.xhtml"/>
+                        <ui:include src="../../jsf/menu/menu.xhtml"/>
                     </ui:remove>
                 </nav>
             </p:layoutUnit>
@@ -48,16 +48,16 @@
                 </h:panelGroup>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="12%" closable="true" collapsible="true" styleClass="footer">
-                <p:graphicImage class="escudo1" value="/resources/img/colombia.png" cache="false"/>
-                <div class="empresa-info">
-                    <p:outputLabel id="empresa" value="#{session.datosAcceso.ideusr.ideofi.ideemp.nomemp} "/>
-                    <p:outputLabel id="direccion" value="#{session.datosAcceso.ideusr.ideofi.ideemp.diremp} "/>
-                    <p:outputLabel id="tel" value="#{session.datosAcceso.ideusr.ideofi.ideemp.tluemp} "/>
-                </div>
-                <p:graphicImage class="escudo2" value="/resources/img/escudo-valle.png" cache="false"/>
-            </p:layoutUnit>
-            <ui:include src="monitor.xhtml"/>
+                <p:layoutUnit position="south" size="12%" closable="true" collapsible="true" styleClass="footer">
+                    <p:graphicImage class="escudo1" value="/resources/img/colombia.png" cache="false"/>
+                    <div class="empresa-info">
+                        <p:outputLabel id="empresa" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.nomemp} "/>
+                        <p:outputLabel id="direccion" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.diremp} "/>
+                        <p:outputLabel id="tel" value="#{sessionNeptunoSG.datosAcceso.ideusr.ideofi.ideemp.tluemp} "/>
+                    </div>
+                    <p:graphicImage class="escudo2" value="/resources/img/escudo-valle.png" cache="false"/>
+                </p:layoutUnit>
+                <ui:include src="monitor.xhtml"/>
         </p:layout>
     </h:body>
 </html>

@@ -17,7 +17,7 @@
 
         <!-- Inicio de Barra de carga -->
         <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
-        <p:dialog modal="true" widgetVar="statusDialog" header="Software Vital" 
+        <p:dialog modal="true" widgetVar="statusDialog" header="NeptunoSG" 
                   resizable="false" draggable="false" closable="false">  
             <p:graphicImage value="/resources/img/progress_bar.gif" />
         </p:dialog>
@@ -44,7 +44,7 @@
 
                             <h:outputLabel for="empresa" value="Empresa" />
                             <p:selectOneMenu id="empresa" class="combobox" value="#{loginController.acceso.ideusr.ideofi.ideemp.ideemp}" 
-                                             filter="true" filterMatchMode="contains">  
+                                             filter="true" filterMatchMode="contains" style="width:100%;">  
                                 <f:selectItems value="#{loginController.listadoItemsCompanias}"/>
                             </p:selectOneMenu>
 
