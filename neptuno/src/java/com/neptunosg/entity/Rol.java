@@ -31,7 +31,7 @@ public class Rol implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long iderol;
+    private Integer iderol;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -53,21 +53,21 @@ public class Rol implements Serializable {
     public Rol() {
     }
 
-    public Rol(Long iderol) {
+    public Rol(Integer iderol) {
         this.iderol = iderol;
     }
 
-    public Rol(Long iderol, String nomrol, String desrol) {
+    public Rol(Integer iderol, String nomrol, String desrol) {
         this.iderol = iderol;
         this.nomrol = nomrol;
         this.desrol = desrol;
     }
 
-    public Long getIderol() {
+    public Integer getIderol() {
         return iderol;
     }
 
-    public void setIderol(Long iderol) {
+    public void setIderol(Integer iderol) {
         this.iderol = iderol;
     }
 

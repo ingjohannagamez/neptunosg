@@ -29,7 +29,7 @@ public class TipoDocumento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idetdo;
+    private Integer idetdo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2)
@@ -51,22 +51,22 @@ public class TipoDocumento implements Serializable {
     public TipoDocumento() {
     }
 
-    public TipoDocumento(Long idetdo) {
+    public TipoDocumento(Integer idetdo) {
         this.idetdo = idetdo;
     }
 
-    public TipoDocumento(Long idetdo, String tiptdo, String destdo, boolean rentdo) {
+    public TipoDocumento(Integer idetdo, String tiptdo, String destdo, boolean rentdo) {
         this.idetdo = idetdo;
         this.tiptdo = tiptdo;
         this.destdo = destdo;
         this.rentdo = rentdo;
     }
 
-    public Long getIdetdo() {
+    public Integer getIdetdo() {
         return idetdo;
     }
 
-    public void setIdetdo(Long idetdo) {
+    public void setIdetdo(Integer idetdo) {
         this.idetdo = idetdo;
     }
 

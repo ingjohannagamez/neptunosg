@@ -28,7 +28,7 @@ public class Continente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idecon;
+    private Integer idecon;
     @Size(max = 200)
     @Column(length = 200)
     private String nomcon;
@@ -38,15 +38,15 @@ public class Continente implements Serializable {
     public Continente() {
     }
 
-    public Continente(Long idecon) {
+    public Continente(Integer idecon) {
         this.idecon = idecon;
     }
 
-    public Long getIdecon() {
+    public Integer getIdecon() {
         return idecon;
     }
 
-    public void setIdecon(Long idecon) {
+    public void setIdecon(Integer idecon) {
         this.idecon = idecon;
     }
 

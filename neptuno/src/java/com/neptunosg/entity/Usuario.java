@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long ideusr;
+    private Integer ideusr;
     @Size(max = 50)
     @Column(length = 50)
     private String epsusr;
@@ -89,15 +89,15 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(Long ideusr) {
+    public Usuario(Integer ideusr) {
         this.ideusr = ideusr;
     }
 
-    public Long getIdeusr() {
+    public Integer getIdeusr() {
         return ideusr;
     }
 
-    public void setIdeusr(Long ideusr) {
+    public void setIdeusr(Integer ideusr) {
         this.ideusr = ideusr;
     }
 

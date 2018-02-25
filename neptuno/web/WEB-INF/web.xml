@@ -19,6 +19,25 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>sistemadegestion/index.xhtml</welcome-file>
+        <welcome-file>sistemadegestion/app/login/index.xhtml</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/sistemadegestion/app/login/login.xhtml</form-login-page>
+            <form-error-page>/sistemadegestion/app/login/login.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>start</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Production</param-value>
+    </context-param>
 </web-app>

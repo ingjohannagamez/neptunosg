@@ -29,7 +29,7 @@ public class Acceso implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long ideacc;
+    private Integer ideacc;
     @Size(max = 50)
     @Column(length = 50)
     private String nikacc;
@@ -49,15 +49,15 @@ public class Acceso implements Serializable {
     public Acceso() {
     }
 
-    public Acceso(Long ideacc) {
+    public Acceso(Integer ideacc) {
         this.ideacc = ideacc;
     }
 
-    public Long getIdeacc() {
+    public Integer getIdeacc() {
         return ideacc;
     }
 
-    public void setIdeacc(Long ideacc) {
+    public void setIdeacc(Integer ideacc) {
         this.ideacc = ideacc;
     }
 

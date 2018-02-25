@@ -27,7 +27,7 @@ public class TipoRegimen implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idetre;
+    private Integer idetre;
     @Size(max = 1)
     @Column(length = 1)
     private String rgmtre;
@@ -43,15 +43,15 @@ public class TipoRegimen implements Serializable {
     public TipoRegimen() {
     }
 
-    public TipoRegimen(Long idetre) {
+    public TipoRegimen(Integer idetre) {
         this.idetre = idetre;
     }
 
-    public Long getIdetre() {
+    public Integer getIdetre() {
         return idetre;
     }
 
-    public void setIdetre(Long idetre) {
+    public void setIdetre(Integer idetre) {
         this.idetre = idetre;
     }
 

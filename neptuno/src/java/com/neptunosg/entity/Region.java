@@ -29,7 +29,7 @@ public class Region implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idereg;
+    private Integer idereg;
     @Size(max = 200)
     @Column(length = 200)
     private String nomreg;
@@ -42,15 +42,15 @@ public class Region implements Serializable {
     public Region() {
     }
 
-    public Region(Long idereg) {
+    public Region(Integer idereg) {
         this.idereg = idereg;
     }
 
-    public Long getIdereg() {
+    public Integer getIdereg() {
         return idereg;
     }
 
-    public void setIdereg(Long idereg) {
+    public void setIdereg(Integer idereg) {
         this.idereg = idereg;
     }
 

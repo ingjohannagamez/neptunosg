@@ -25,7 +25,7 @@ public class MenuRol implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idemro;
+    private Integer idemro;
     @JoinColumn(name = "iderol", referencedColumnName = "iderol", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Rol iderol;
@@ -36,15 +36,15 @@ public class MenuRol implements Serializable {
     public MenuRol() {
     }
 
-    public MenuRol(Long idemro) {
+    public MenuRol(Integer idemro) {
         this.idemro = idemro;
     }
 
-    public Long getIdemro() {
+    public Integer getIdemro() {
         return idemro;
     }
 
-    public void setIdemro(Long idemro) {
+    public void setIdemro(Integer idemro) {
         this.idemro = idemro;
     }
 

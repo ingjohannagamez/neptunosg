@@ -28,7 +28,7 @@ public class Permisos implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long ideper;
+    private Integer ideper;
     @Basic(optional = false)
     @NotNull
     @Column(nullable = false)
@@ -51,11 +51,11 @@ public class Permisos implements Serializable {
     public Permisos() {
     }
 
-    public Permisos(Long ideper) {
+    public Permisos(Integer ideper) {
         this.ideper = ideper;
     }
 
-    public Permisos(Long ideper, boolean lecper, boolean escper, boolean modper, boolean eliper) {
+    public Permisos(Integer ideper, boolean lecper, boolean escper, boolean modper, boolean eliper) {
         this.ideper = ideper;
         this.lecper = lecper;
         this.escper = escper;
@@ -63,11 +63,11 @@ public class Permisos implements Serializable {
         this.eliper = eliper;
     }
 
-    public Long getIdeper() {
+    public Integer getIdeper() {
         return ideper;
     }
 
-    public void setIdeper(Long ideper) {
+    public void setIdeper(Integer ideper) {
         this.ideper = ideper;
     }
 

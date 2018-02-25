@@ -1,36 +1,63 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
-        <h:outputStylesheet library="css" name="pfcrud.css"/>
-        <h:outputScript library="scripts" name="pfcrud.js"/>
+        <h:head>
+            <f:facet name="first">
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <h:outputStylesheet name="css/cssIndex.css"/>
+                <h:outputScript library="js" name="pfcrud.js" />
+                <link href="http://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,700" rel="stylesheet"/>
+                <title>Neptuno Sistema de Gestión</title>
+            </f:facet>
+        </h:head>
     </h:head>
 
     <h:body>
-
-        <p:growl id="growl" life="3000" globalOnly="true"/>
-
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="100" header="#{myBundle.AppName}">
-                <!-- Menu here. Also a layout and a way to log a user out -->
-                <ui:include src="/WEB-INF/include/appmenu.xhtml"/>
+            <p:growl id="growl" showDetail="true" sticky="false" life="9000"/>
+
+            <p:layoutUnit position="north" size="12%" resizable="false" closable="true" collapsible="true" styleClass="header">
+                <p:graphicImage id="imgHOME" value="#{session.datosAcceso.ideusr.ideofi.ideemp.logemp}" cache="false" height="50" width="200"/>
+                <div class="userInfo">
+                    <p:graphicImage id="imgFOTO" value="#{session.datosAcceso.ideusr.fotusr}" cache="false"/>
+                    <p:outputLabel id="name" value="#{session.datosAcceso.ideusr.pnousr} #{session.datosAcceso.ideusr.snousr} #{session.datosAcceso.ideusr.papusr} #{session.datosAcceso.ideusr.sapusr}"/>
+                    <p:outputLabel id="rut" value="#{session.datosAcceso.ideusr.docusr}"/>
+                    <p:outputLabel id="sede" value="#{session.datosAcceso.ideusr.ideofi.ofiofi}"/>
+                </div>
             </p:layoutUnit>
 
-            <p:layoutUnit position="south" size="60">
-                <ui:insert name="footer"/>
+            <p:layoutUnit position="west" size="20%" header="Menu" collapsible="false" effect="slide" styleClass="menuBar">
+                <nav id="menu">
+                    <ui:remove>
+                    <ui:include src="../../jsf/menu/menu.xhtml"/>
+                    </ui:remove>
+                </nav>
             </p:layoutUnit>
 
-            <p:layoutUnit position="center">
-                <ui:insert name="body"/>
+            <p:layoutUnit position="center" size="80%" styleClass="content-wrapper">
+                <h:panelGroup id="centerpanel" layout="block">
+                    <ui:insert name="content">
+                        Content
+                    </ui:insert>
+                </h:panelGroup>
             </p:layoutUnit>
 
+            <p:layoutUnit position="south" size="12%" closable="true" collapsible="true" styleClass="footer">
+                <p:graphicImage class="escudo1" value="/resources/img/colombia.png" cache="false"/>
+                <div class="empresa-info">
+                    <p:outputLabel id="empresa" value="#{session.datosAcceso.ideusr.ideofi.ideemp.nomemp} "/>
+                    <p:outputLabel id="direccion" value="#{session.datosAcceso.ideusr.ideofi.ideemp.diremp} "/>
+                    <p:outputLabel id="tel" value="#{session.datosAcceso.ideusr.ideofi.ideemp.tluemp} "/>
+                </div>
+                <p:graphicImage class="escudo2" value="/resources/img/escudo-valle.png" cache="false"/>
+            </p:layoutUnit>
+            <ui:include src="monitor.xhtml"/>
         </p:layout>
-
     </h:body>
-
 </html>

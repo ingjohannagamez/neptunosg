@@ -29,7 +29,7 @@ public class Municipio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idemun;
+    private Integer idemun;
     @Size(max = 200)
     @Column(length = 200)
     private String nommun;
@@ -42,15 +42,15 @@ public class Municipio implements Serializable {
     public Municipio() {
     }
 
-    public Municipio(Long idemun) {
+    public Municipio(Integer idemun) {
         this.idemun = idemun;
     }
 
-    public Long getIdemun() {
+    public Integer getIdemun() {
         return idemun;
     }
 
-    public void setIdemun(Long idemun) {
+    public void setIdemun(Integer idemun) {
         this.idemun = idemun;
     }
 

@@ -1,0 +1,186 @@
+body{
+    background: #547ca6;
+}
+
+*{
+    font-size: 12px !important;
+}
+
+.header{
+    background: #eee;
+    border: none;
+    border-bottom: 1px solid #000;
+    font-family: "Open Sans", sans-serif;
+    height: auto !important;
+}
+
+.header.ui-corner-all, .footer.ui-corner-all {
+    background: #EEEEEE;
+    border-radius: 0;
+}
+
+.header>div{
+    background: #eee;
+    height: auto !important;
+    overflow: hidden !important;
+    padding: 0 20px !important;
+}
+
+#imgFOTO{
+    border-radius: 100%;
+    float: right;
+    width: 50px;
+    height: 50px;
+    margin-top: 5px;
+}
+
+.userInfo{
+    float: right;
+    width: 300px;
+}
+.userInfo label{
+    display: block;
+    width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: inherit;
+    font-size: 14px !important;
+}
+
+.menuBar{
+    font-family: "Open Sans", sans-serif !important;
+}
+
+.menuBar.ui-widget-content{
+    border: none !important;
+}
+
+.menuBar .ui-widget-header{
+    background: #547ca6;
+    color: #fff;
+    font-family: inherit;
+}
+
+.menuBar .ui-widget-header.ui-corner-all{
+    border-radius: 0;
+}
+
+#menu h3.ui-widget{
+    background: #c3d2e1 !important;
+    border: none;
+    border-radius: 0;
+}
+
+#menu h3.ui-widget a{
+    color: #000;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+}
+
+#menu .ui-panelmenu .ui-menuitem-text{
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+}
+
+a.ui-menuitem-link.ui-state-hover{
+    background: none;
+    color: #324962;
+}
+a.ui-menuitem-link.ui-state-hover span{
+    text-decoration: underline;
+}
+
+a.ui-menuitem-link:focus{
+    background: #6FB8D6;
+    font-weight: 700;
+}
+
+iframe {
+    min-height:466px;
+    width:100%;
+    display:block;
+    border-width: 0px; 
+    overflow: auto;
+}
+
+.content-wrapper.ui-widget-content{
+    background: #eee;
+    border: none;
+}
+
+.ui-layout-unit-content.ui-widget-content{
+    background: #eee !important;
+}
+
+.footer{
+    background: #eee;
+    border: none;
+    border-top: 1px solid #000;
+    font-family: "Open Sans", sans-serif;
+    padding: 0 490px !important;
+}
+.footer>div{
+    background: #eee;
+    overflow: hidden !important;
+}
+
+.footer label{
+    display: block;
+    font-family: inherit;
+    font-size: 14px !important;
+    /*width: 200px;*/
+    text-align: center;
+}
+
+.footer .escudo1{
+    float: left;
+}
+
+.footer .escudo2{
+    float: right;
+}
+
+.footer .empresa-info{
+    width: 400px;
+    position: absolute;
+    top: 6px;
+    left: 25%;
+    margin-left: -100px;
+}
+
+.fixedTable{
+    table-layout: fixed;
+}
+
+.fixedTable td, .fixedTable th {
+    padding: 1px 1px 1px 1px !important;
+}
+
+.fixedTable .nombres{
+    text-align: center !important;
+}
+
+.fixedTable th{
+    text-align: center !important;
+    vertical-align: text-top;
+    text-transform: uppercase !important;
+}
+
+.fixedTable .ui-column-filter {
+    margin-left: 2px !important;
+    width: 65% !important;
+    margin-bottom: 2px !important;
+}
+
+.fixedTable tbody {
+    text-align: center !important;
+    alignment-adjust: central !important;
+}
+
+.fixedTable .ptext{
+    text-align: left !important;
+    text-transform: uppercase !important;
+    padding-left: 3px !important;
+    padding-right: 3px !important;    
+}

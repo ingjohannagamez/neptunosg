@@ -29,7 +29,7 @@ public class Pais implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idepai;
+    private Integer idepai;
     @Size(max = 200)
     @Column(length = 200)
     private String nompai;
@@ -42,15 +42,15 @@ public class Pais implements Serializable {
     public Pais() {
     }
 
-    public Pais(Long idepai) {
+    public Pais(Integer idepai) {
         this.idepai = idepai;
     }
 
-    public Long getIdepai() {
+    public Integer getIdepai() {
         return idepai;
     }
 
-    public void setIdepai(Long idepai) {
+    public void setIdepai(Integer idepai) {
         this.idepai = idepai;
     }
 

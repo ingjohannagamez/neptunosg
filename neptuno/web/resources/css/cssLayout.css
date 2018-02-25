@@ -1,0 +1,207 @@
+.contenedorbox{
+    margin: 0 auto;
+    height: 100%;
+    position: relative;
+    width: 960px;
+}
+
+.contenedor{
+    width: 320px;
+    margin: 0 auto;
+    box-shadow: 0 4px 14px 1px rgba(0,0,0,.8);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -160px;
+    margin-top: -94px;
+    z-index: 1;
+}
+
+.ui-corner-all {
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+}
+
+.ui-menu {
+    padding: 0em !important;
+}
+
+.ui-widget-content {
+    border: 0px solid #a6c9e2 !important;
+}
+
+.ui-selectonemenu-label.ui-inputfield{
+    box-shadow: none;
+    border: 1px solid #333;
+    color: #333;
+}
+
+.ui-widget-content .ui-state-default{
+    /*background: #CCC;*/
+    border: 1px solid #a9a9a9;
+}
+
+.combobox{
+    width: 176px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ui-panel-titlebar{
+    background: none;
+    border: none;
+    color: #333;
+    font-family: "Open Sans", sans-serif;
+    text-align: center;
+}
+
+.ui-panel-content label{
+    color: #333;
+    font-weight: bold;
+    font-family: "Open Sans", sans-serif;
+}
+
+.ui-panel-content input[type="text"],.ui-panel-content input[type="password"]{
+    border: none;
+    border-bottom: 1px solid #a9a9a9;
+    box-shadow: none;
+    color: #333;
+}
+    .ui-panel-content input[type="text"]:focus,.ui-panel-content input[type="password"]:focus{
+        border-bottom: 1px solid #333;
+        box-shadow: none;
+    }
+
+.dialogForm {
+    top: 5px !important;
+}
+
+iframe {
+    height:100%;
+    width:100%;
+    display:block;
+    border-width: 0px; 
+    overflow: hidden;
+} 
+
+.value {
+    min-width: 500px !important;
+    width: 100% !important;
+}
+
+#imgFOTO {
+    float: right;
+    margin-right: 5px;
+    height: 100%; 
+    width: 5%;
+}
+
+.news{
+    background: #FFF;
+    box-shadow: 0 4px 14px 1px rgba(0,0,0,.8);
+    width: 320px;
+    font-family: "Open Sans", sans-serif;
+    margin-right: 80px;
+    padding: 20px;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    bottom: 140px;
+    overflow-y: auto;
+}
+
+    .news h2{
+        margin-bottom: 20px;
+    }
+
+    .news ul{
+       list-style-image:url('../img/icon/bullet2.png');
+    }
+        .news li{
+            margin-bottom: 5px;
+            
+        }
+
+        .news a{
+            vertical-align: super;
+        }
+
+.mainFooter{
+    overflow: hidden;   
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    bottom: 0;
+    padding: 0;
+    width: 100%;
+}
+    .mainFooter .features{
+        padding: 0;
+        float: right;
+        padding-right: 80px;
+    }
+        .mainFooter .features li{
+            display: inline-block;
+            margin-left: 20px;
+        }
+            .mainFooter .features img{
+                float: left;
+                margin-right: 5px;
+            }
+            .mainFooter .features p{
+                font-family: "Open Sans", sans-serif;
+                font-weight: bold;
+                float: left;
+                color: #FFF;
+                margin: 0;
+                text-transform: capitalize;
+                width: 258px;
+            }
+                .mainFooter .features span{
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+
+            .mainFooter .features li:first-child{
+                display: none;
+            }
+
+/* iPads (portrait & landscape) ----------- */
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
+   
+    .news{
+        display: none;
+    }
+
+    .mainFooter .features li{
+        display: none;
+    }
+
+    .mainFooter .features li:first-child{
+        display: block;
+    }
+}
+
+/* iPads (landscape) ----------- */
+@media only screen and (min-width : 768px) and (max-width : 1024px) and (orientation : landscape) {
+    .contenedorbox{
+        margin: 0 auto;
+        height: 100%;
+        position: relative;
+        width: 960px;
+    }
+
+    .contenedor{
+        left: 56%;
+    }
+}
+
+/* iPads (portrait) ----------- */
+@media only screen and (min-width : 768px) and (max-width : 1024px) and (orientation : portrait) {
+    .contenedorbox{
+        width: 704px;
+    }   
+    .contenedor{
+        left: 56%;   
+    }
+}

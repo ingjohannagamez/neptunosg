@@ -27,7 +27,7 @@ public class TipoEmpresa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idetem;
+    private Integer idetem;
     @Size(max = 200)
     @Column(length = 200)
     private String nomtem;
@@ -40,15 +40,15 @@ public class TipoEmpresa implements Serializable {
     public TipoEmpresa() {
     }
 
-    public TipoEmpresa(Long idetem) {
+    public TipoEmpresa(Integer idetem) {
         this.idetem = idetem;
     }
 
-    public Long getIdetem() {
+    public Integer getIdetem() {
         return idetem;
     }
 
-    public void setIdetem(Long idetem) {
+    public void setIdetem(Integer idetem) {
         this.idetem = idetem;
     }
 

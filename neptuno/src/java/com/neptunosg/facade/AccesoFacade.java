@@ -5,6 +5,7 @@
  */
 package com.neptunosg.facade;
 
+import static com.neptunosg.controller.util.JsfUtil.encriptaDato;
 import com.neptunosg.entity.Acceso;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,6 +17,10 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
 import com.neptunosg.entity.Rol;
 import com.neptunosg.entity.Usuario;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -26,6 +31,8 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
 
     @PersistenceContext(unitName = "neptunoPU")
     private EntityManager em;
+    
+    private static final Logger LOG = Logger.getLogger(AccesoFacade.class.getName());
 
     @Override
     protected EntityManager getEntityManager() {
@@ -73,6 +80,27 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
         } catch (Exception e) {
             return entity;
         }
+    }
+    
+    public Acceso validarAcceso(Acceso objeto) {
+        try {
+            Integer emp = objeto.getIdeusr().getIdeofi().getIdeemp().getIdeemp();
+            objeto = (Acceso) this.getEntityManager().createQuery("SELECT a FROM Acceso a WHERE a.nikacc = :nik AND a.pswacc = :psw AND a.estacc = :est")
+                    .setParameter("nik", objeto.getNikacc())
+                    .setParameter("psw", encriptaDato(objeto.getPswacc()))
+                    .setParameter("est", 1)
+                    .getSingleResult();
+            if (objeto != null) {
+                if (!Objects.equals(objeto.getIdeusr().getIdeofi().getIdeemp().getIdeemp(), emp)) {
+                    objeto = null;
+                }
+            }
+        } catch (HibernateException e) {
+            LOG.log(Level.SEVERE, null, e);
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, null, e);
+        }
+        return objeto;
     }
     
 }

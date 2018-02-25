@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <h:outputStylesheet name="css/default.css"/>
+        <link href="http://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,700" rel="stylesheet"/>
+        <title>NeptunoSG</title>
+    </h:head>
+    <h:body>
+        <p:growl id="messages" showDetail="true" sticky="false" life="9000"/>
+
+        <!-- Inicio de Barra de carga -->
+        <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>  
+        <p:dialog modal="true" widgetVar="statusDialog" header="Software Vital" 
+                  resizable="false" draggable="false" closable="false">  
+            <p:graphicImage value="/resources/img/progress_bar.gif" />
+        </p:dialog>
+        <!-- Fin de Barra de carga -->
+
+        <div class="contenedorbox">
+            <div class="contenedor">
+                <h:form>
+                    <p:panel header="Acceso a NeptunoSG">  
+                        <h:panelGrid columns="2" cellpadding="3">  
+                            <h:outputLabel for="usuario" value="Usuario" />  
+                            <p:inputText value="#{loginController.acceso.nikacc}" 
+                                         requiredMessage="El usuario es requerido"   
+                                         id="usuario" required="true" 
+                                         placeholder="Ingrese su Usuario" 
+                                         maxlength="20" />  
+
+                            <h:outputLabel for="contrasena" value="Contraseña" />  
+                            <p:password value="#{loginController.acceso.pswacc}" 
+                                        requiredMessage="La contraseña es requerida"   
+                                        id="contrasena" required="true" 
+                                        placeholder="Ingrese su Contraseña" 
+                                        maxlength="32" />
+
+                            <h:outputLabel for="empresa" value="Empresa" />
+                            <p:selectOneMenu id="empresa" class="combobox" value="#{loginController.acceso.ideusr.ideofi.ideemp.ideemp}" 
+                                             filter="true" filterMatchMode="contains">  
+                                <f:selectItems value="#{loginController.listadoItemsCompanias}"/>
+                            </p:selectOneMenu>
+
+                            <f:facet name="footer">
+                                <div style="text-align: center; width: 100%;">
+                                    <p:commandButton id="loginButton" value="Aceptar" 
+                                                     update=":messages" 
+                                                     action="#{loginController.validarAcceso()}" />
+                                </div>  
+                            </f:facet>
+                        </h:panelGrid> 
+                    </p:panel>  
+                </h:form>
+            </div>
+
+        </div>
+        <ui:remove>
+            <div class="news">
+                <h2>Noticias de interés</h2>
+                <ul>
+                    <li><a href="#">Da Vinci, Cambiando la Experiencia de la Cirugía.</a></li>
+                    <li><a href="#">Amarey Nova Medical y Centogene Promueven Liderazgo Genético en Colombia.</a></li>
+                    <li><a href="#">Amarey Nova Medical, el Mejor Distribuidor de Latinoamérica.</a></li>
+                    <li><a href="#">Automatización de Farmacia Hospitalaria, una Solución Enfocada al Paciente.</a></li>
+                    <!-- <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></li> -->
+                </ul>
+            </div>
+        </ui:remove>
+        <footer class="mainFooter">
+            <ul class="features">
+                <li>
+                    <p><p:graphicImage value="/resources/img/icon/tablet.png" cache="false"/>Optimizado para tabletas<br/> <span>Lleva el servicio donde estés</span></p>
+                </li>
+                <li>
+                    <p><p:graphicImage value="/resources/img/icon/phone.png" cache="false"/>Comunícate con nosotros<br/> <span>300 690 3863</span></p>
+                </li>
+                <li>
+                    <p><p:graphicImage value="/resources/img/icon/clock.png" cache="false"/>Horario de atención<br/> <span>Lun - Vie de 8am a 6pm</span></p>
+                </li>
+                <li>
+                    <p><p:graphicImage value="/resources/img/icon/check.png" cache="false"/>Soporte 100% garantizado<br/> <span>De nuestro servicio</span></p>
+                </li>
+            </ul>
+        </footer>
+    </h:body>
+</html>
+

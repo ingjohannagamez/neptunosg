@@ -33,7 +33,7 @@ public class Submenu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idesub;
+    private Integer idesub;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -67,11 +67,11 @@ public class Submenu implements Serializable {
     public Submenu() {
     }
 
-    public Submenu(Long idesub) {
+    public Submenu(Integer idesub) {
         this.idesub = idesub;
     }
 
-    public Submenu(Long idesub, String labsub, String icosub, String comsub, String titsub, boolean rensub) {
+    public Submenu(Integer idesub, String labsub, String icosub, String comsub, String titsub, boolean rensub) {
         this.idesub = idesub;
         this.labsub = labsub;
         this.icosub = icosub;
@@ -80,11 +80,11 @@ public class Submenu implements Serializable {
         this.rensub = rensub;
     }
 
-    public Long getIdesub() {
+    public Integer getIdesub() {
         return idesub;
     }
 
-    public void setIdesub(Long idesub) {
+    public void setIdesub(Integer idesub) {
         this.idesub = idesub;
     }
 

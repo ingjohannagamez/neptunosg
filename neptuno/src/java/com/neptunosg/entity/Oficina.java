@@ -29,7 +29,7 @@ public class Oficina implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long ideofi;
+    private Integer ideofi;
     @Size(max = 200)
     @Column(length = 200)
     private String nomofi;
@@ -52,15 +52,15 @@ public class Oficina implements Serializable {
     public Oficina() {
     }
 
-    public Oficina(Long ideofi) {
+    public Oficina(Integer ideofi) {
         this.ideofi = ideofi;
     }
 
-    public Long getIdeofi() {
+    public Integer getIdeofi() {
         return ideofi;
     }
 
-    public void setIdeofi(Long ideofi) {
+    public void setIdeofi(Integer ideofi) {
         this.ideofi = ideofi;
     }
 

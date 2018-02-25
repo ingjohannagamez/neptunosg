@@ -29,7 +29,7 @@ public class Departamento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idedep;
+    private Integer idedep;
     @Size(max = 200)
     @Column(length = 200)
     private String nomdep;
@@ -42,15 +42,15 @@ public class Departamento implements Serializable {
     public Departamento() {
     }
 
-    public Departamento(Long idedep) {
+    public Departamento(Integer idedep) {
         this.idedep = idedep;
     }
 
-    public Long getIdedep() {
+    public Integer getIdedep() {
         return idedep;
     }
 
-    public void setIdedep(Long idedep) {
+    public void setIdedep(Integer idedep) {
         this.idedep = idedep;
     }
 

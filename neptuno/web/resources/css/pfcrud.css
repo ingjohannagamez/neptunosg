@@ -20,3 +20,8 @@
     font-weight: bold;
     background-color: menu;
 }
+
+.center_content{
+    height: 460px;
+    overflow: auto;
+}

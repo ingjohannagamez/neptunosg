@@ -27,7 +27,7 @@ public class Menu implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long idemen;
+    private Integer idemen;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -48,22 +48,22 @@ public class Menu implements Serializable {
     public Menu() {
     }
 
-    public Menu(Long idemen) {
+    public Menu(Integer idemen) {
         this.idemen = idemen;
     }
 
-    public Menu(Long idemen, String nommen, String icomen, boolean estmen) {
+    public Menu(Integer idemen, String nommen, String icomen, boolean estmen) {
         this.idemen = idemen;
         this.nommen = nommen;
         this.icomen = icomen;
         this.estmen = estmen;
     }
 
-    public Long getIdemen() {
+    public Integer getIdemen() {
         return idemen;
     }
 
-    public void setIdemen(Long idemen) {
+    public void setIdemen(Integer idemen) {
         this.idemen = idemen;
     }
 

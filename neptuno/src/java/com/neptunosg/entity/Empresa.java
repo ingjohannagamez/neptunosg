@@ -16,8 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlTransient;
+import org.hibernate.annotations.Where;
 
 /**
  *
@@ -25,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "empresa")
+@Where(clause = "estemp = true")
 public class Empresa implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +35,7 @@ public class Empresa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(nullable = false)
-    private Long ideemp;
+    private Integer ideemp;
     @Size(max = 200)
     @Column(length = 200)
     private String nomemp;
@@ -59,6 +62,10 @@ public class Empresa implements Serializable {
     @Size(max = 200)
     @Column(length = 200)
     private String logemp;
+    @Basic(optional = false)
+    @NotNull
+    @Column(nullable = false)
+    private boolean estemp;
     @OneToMany(mappedBy = "ideemp", fetch = FetchType.LAZY)
     private List<Oficina> oficinaList;
     @JoinColumn(name = "idetem", referencedColumnName = "idetem")
@@ -71,15 +78,15 @@ public class Empresa implements Serializable {
     public Empresa() {
     }
 
-    public Empresa(Long ideemp) {
+    public Empresa(Integer ideemp) {
         this.ideemp = ideemp;
     }
 
-    public Long getIdeemp() {
+    public Integer getIdeemp() {
         return ideemp;
     }
 
-    public void setIdeemp(Long ideemp) {
+    public void setIdeemp(Integer ideemp) {
         this.ideemp = ideemp;
     }
 
@@ -178,6 +185,14 @@ public class Empresa implements Serializable {
 
     public void setIdetre(TipoRegimen idetre) {
         this.idetre = idetre;
+    }
+
+    public boolean isEstemp() {
+        return estemp;
+    }
+
+    public void setEstemp(boolean estemp) {
+        this.estemp = estemp;
     }
 
     @Override
