@@ -9,7 +9,6 @@ import com.neptunosg.entity.Submenu;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Submenu_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -40,7 +39,7 @@ public class SubmenuFacade extends AbstractFacade<Submenu> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Submenu> submenu = cq.from(Submenu.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(submenu, entity), cb.isNotEmpty(submenu.get(Submenu_.menuRolList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(submenu, entity), cb.isNotEmpty(submenu.get("menuRolList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -55,7 +54,7 @@ public class SubmenuFacade extends AbstractFacade<Submenu> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Submenu> submenu = cq.from(Submenu.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(submenu, entity), cb.isNotNull(submenu.get(Submenu_.idemen)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(submenu, entity), cb.isNotNull(submenu.get("idemen")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

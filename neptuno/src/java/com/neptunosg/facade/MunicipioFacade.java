@@ -9,7 +9,6 @@ import com.neptunosg.entity.Municipio;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Municipio_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -41,7 +40,7 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Municipio> municipio = cq.from(Municipio.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(municipio, entity), cb.isNotNull(municipio.get(Municipio_.idedep)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(municipio, entity), cb.isNotNull(municipio.get("idedep")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -53,7 +52,7 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Municipio> municipio = cq.from(Municipio.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(municipio, entity), cb.isNotEmpty(municipio.get(Municipio_.oficinaList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(municipio, entity), cb.isNotEmpty(municipio.get("oficinaList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -69,7 +68,7 @@ public class MunicipioFacade extends AbstractFacade<Municipio> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Municipio> cq = cb.createQuery(Municipio.class);
         Root<Municipio> municipio = cq.from(Municipio.class);
-        municipio.fetch(Municipio_.idedep, JoinType.LEFT);
+        municipio.fetch("idedep", JoinType.LEFT);
         cq.select(municipio).where(cb.equal(municipio, entity));
         try {
             return em.createQuery(cq).getSingleResult();

@@ -9,7 +9,6 @@ import com.neptunosg.entity.Continente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Continente_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -39,7 +38,7 @@ public class ContinenteFacade extends AbstractFacade<Continente> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Continente> continente = cq.from(Continente.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(continente, entity), cb.isNotEmpty(continente.get(Continente_.paisList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(continente, entity), cb.isNotEmpty(continente.get("paisList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

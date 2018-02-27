@@ -9,7 +9,6 @@ import com.neptunosg.entity.Menu;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Menu_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -38,7 +37,7 @@ public class MenuFacade extends AbstractFacade<Menu> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Menu> menu = cq.from(Menu.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(menu, entity), cb.isNotNull(menu.get(Menu_.submenu)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(menu, entity), cb.isNotNull(menu.get("submenu")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

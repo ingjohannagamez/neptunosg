@@ -10,7 +10,6 @@ import com.neptunosg.entity.Acceso;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Acceso_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -47,7 +46,7 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Acceso> acceso = cq.from(Acceso.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(acceso, entity), cb.isNotNull(acceso.get(Acceso_.iderol)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(acceso, entity), cb.isNotNull(acceso.get("iderol")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -59,7 +58,7 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Acceso> acceso = cq.from(Acceso.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(acceso, entity), cb.isNotNull(acceso.get(Acceso_.ideusr)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(acceso, entity), cb.isNotNull(acceso.get("ideusr")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -72,8 +71,8 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Acceso> cq = cb.createQuery(Acceso.class);
         Root<Acceso> acceso = cq.from(Acceso.class);
-        acceso.fetch(Acceso_.iderol, JoinType.LEFT);
-        acceso.fetch(Acceso_.ideusr, JoinType.LEFT);
+        acceso.fetch("iderol", JoinType.LEFT);
+        acceso.fetch("ideusr", JoinType.LEFT);
         cq.select(acceso).where(cb.equal(acceso, entity));
         try {
             return em.createQuery(cq).getSingleResult();

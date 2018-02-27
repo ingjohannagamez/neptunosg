@@ -9,7 +9,6 @@ import com.neptunosg.entity.Permisos;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Permisos_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -39,7 +38,7 @@ public class PermisosFacade extends AbstractFacade<Permisos> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Permisos> permisos = cq.from(Permisos.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(permisos, entity), cb.isNotEmpty(permisos.get(Permisos_.rolList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(permisos, entity), cb.isNotEmpty(permisos.get("rolList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

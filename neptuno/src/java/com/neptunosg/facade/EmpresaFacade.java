@@ -9,7 +9,6 @@ import com.neptunosg.entity.Empresa;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Empresa_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -42,7 +41,7 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Empresa> empresa = cq.from(Empresa.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(empresa, entity), cb.isNotEmpty(empresa.get(Empresa_.oficinaList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(empresa, entity), cb.isNotEmpty(empresa.get("oficinaList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -57,7 +56,7 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Empresa> empresa = cq.from(Empresa.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(empresa, entity), cb.isNotNull(empresa.get(Empresa_.idetem)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(empresa, entity), cb.isNotNull(empresa.get("idetem")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -69,7 +68,7 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Empresa> empresa = cq.from(Empresa.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(empresa, entity), cb.isNotNull(empresa.get(Empresa_.idetre)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(empresa, entity), cb.isNotNull(empresa.get("idetre")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -82,8 +81,8 @@ public class EmpresaFacade extends AbstractFacade<Empresa> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Empresa> cq = cb.createQuery(Empresa.class);
         Root<Empresa> empresa = cq.from(Empresa.class);
-        empresa.fetch(Empresa_.idetem, JoinType.LEFT);
-        empresa.fetch(Empresa_.idetre, JoinType.LEFT);
+        empresa.fetch("idetem", JoinType.LEFT);
+        empresa.fetch("idetre", JoinType.LEFT);
         cq.select(empresa).where(cb.equal(empresa, entity));
         try {
             return em.createQuery(cq).getSingleResult();

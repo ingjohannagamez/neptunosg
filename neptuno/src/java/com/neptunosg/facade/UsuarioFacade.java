@@ -9,7 +9,6 @@ import com.neptunosg.entity.Usuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Usuario_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -42,7 +41,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Usuario> usuario = cq.from(Usuario.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(usuario, entity), cb.isNotEmpty(usuario.get(Usuario_.accesoList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(usuario, entity), cb.isNotEmpty(usuario.get("accesoList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -57,7 +56,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Usuario> usuario = cq.from(Usuario.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(usuario, entity), cb.isNotNull(usuario.get(Usuario_.ideofi)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(usuario, entity), cb.isNotNull(usuario.get("ideofi")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -69,7 +68,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Usuario> usuario = cq.from(Usuario.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(usuario, entity), cb.isNotNull(usuario.get(Usuario_.idetdo)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(usuario, entity), cb.isNotNull(usuario.get("idetdo")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -82,8 +81,8 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Usuario> cq = cb.createQuery(Usuario.class);
         Root<Usuario> usuario = cq.from(Usuario.class);
-        usuario.fetch(Usuario_.ideofi, JoinType.LEFT);
-        usuario.fetch(Usuario_.idetdo, JoinType.LEFT);
+        usuario.fetch("ideofi", JoinType.LEFT);
+        usuario.fetch("idetdo", JoinType.LEFT);
         cq.select(usuario).where(cb.equal(usuario, entity));
         try {
             return em.createQuery(cq).getSingleResult();

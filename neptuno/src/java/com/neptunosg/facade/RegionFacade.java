@@ -9,7 +9,6 @@ import com.neptunosg.entity.Region;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Region_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -41,7 +40,7 @@ public class RegionFacade extends AbstractFacade<Region> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Region> region = cq.from(Region.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(region, entity), cb.isNotEmpty(region.get(Region_.departamentoList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(region, entity), cb.isNotEmpty(region.get("departamentoList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -56,7 +55,7 @@ public class RegionFacade extends AbstractFacade<Region> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Region> region = cq.from(Region.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(region, entity), cb.isNotNull(region.get(Region_.idepai)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(region, entity), cb.isNotNull(region.get("idepai")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -69,7 +68,7 @@ public class RegionFacade extends AbstractFacade<Region> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Region> cq = cb.createQuery(Region.class);
         Root<Region> region = cq.from(Region.class);
-        region.fetch(Region_.idepai, JoinType.LEFT);
+        region.fetch("idepai", JoinType.LEFT);
         cq.select(region).where(cb.equal(region, entity));
         try {
             return em.createQuery(cq).getSingleResult();

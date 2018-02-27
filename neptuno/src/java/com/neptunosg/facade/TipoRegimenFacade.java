@@ -9,7 +9,6 @@ import com.neptunosg.entity.TipoRegimen;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.TipoRegimen_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -39,7 +38,7 @@ public class TipoRegimenFacade extends AbstractFacade<TipoRegimen> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<TipoRegimen> tipoRegimen = cq.from(TipoRegimen.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(tipoRegimen, entity), cb.isNotEmpty(tipoRegimen.get(TipoRegimen_.empresaList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(tipoRegimen, entity), cb.isNotEmpty(tipoRegimen.get("empresaList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 

@@ -9,7 +9,6 @@ import com.neptunosg.entity.Departamento;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.neptunosg.entity.Departamento_;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
@@ -41,7 +40,7 @@ public class DepartamentoFacade extends AbstractFacade<Departamento> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Departamento> departamento = cq.from(Departamento.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(departamento, entity), cb.isNotEmpty(departamento.get(Departamento_.municipioList)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(departamento, entity), cb.isNotEmpty(departamento.get("municipioList")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -56,7 +55,7 @@ public class DepartamentoFacade extends AbstractFacade<Departamento> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Long> cq = cb.createQuery(Long.class);
         Root<Departamento> departamento = cq.from(Departamento.class);
-        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(departamento, entity), cb.isNotNull(departamento.get(Departamento_.idereg)));
+        cq.select(cb.literal(1L)).distinct(true).where(cb.equal(departamento, entity), cb.isNotNull(departamento.get("idereg")));
         return em.createQuery(cq).getResultList().isEmpty();
     }
 
@@ -69,7 +68,7 @@ public class DepartamentoFacade extends AbstractFacade<Departamento> {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Departamento> cq = cb.createQuery(Departamento.class);
         Root<Departamento> departamento = cq.from(Departamento.class);
-        departamento.fetch(Departamento_.idereg, JoinType.LEFT);
+        departamento.fetch("idereg", JoinType.LEFT);
         cq.select(departamento).where(cb.equal(departamento, entity));
         try {
             return em.createQuery(cq).getSingleResult();
