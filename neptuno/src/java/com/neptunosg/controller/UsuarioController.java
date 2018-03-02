@@ -1,19 +1,29 @@
 package com.neptunosg.controller;
 
+import com.neptunosg.controller.util.JasperControllerCDIJDBC;
+import com.neptunosg.controller.util.JsfUtil;
 import com.neptunosg.entity.Usuario;
 import com.neptunosg.entity.Acceso;
 import java.util.List;
 import com.neptunosg.facade.UsuarioFacade;
 import com.neptunosg.controller.util.MobilePageController;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+import net.sf.jasperreports.engine.JRException;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @Named(value = "usuarioController")
 @ViewScoped
 public class UsuarioController extends AbstractController<Usuario> {
+
+    private static final Logger LOG = Logger.getLogger(UsuarioController.class.getName());
 
     @Inject
     private OficinaController ideofiController;
@@ -21,6 +31,8 @@ public class UsuarioController extends AbstractController<Usuario> {
     private TipoDocumentoController idetdoController;
     @Inject
     private MobilePageController mobilePageController;
+    @Inject
+    private transient JasperControllerCDIJDBC reporte;
 
     // Flags to indicate if child collections are empty
     private boolean isAccesoListEmpty;
@@ -99,6 +111,23 @@ public class UsuarioController extends AbstractController<Usuario> {
         Usuario selected = this.getSelected();
         if (selected != null && idetdoController.getSelected() == null) {
             idetdoController.setSelected(selected.getIdetdo());
+        }
+    }
+
+    public StreamedContent getPdf() {
+        try {
+            reporte.setNombreReporte("prueba");
+            InputStream is = reporte.PDFb();
+            if (is != null) {
+                DefaultStreamedContent dsc = new DefaultStreamedContent(is, "application/pdf", "prueba.pdf");
+                return dsc;
+            } else {
+                JsfUtil.addErrorMessage("No se pudo generar el reporte");
+                return null;
+            }
+        } catch (JRException ex) {
+            LOG.log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 

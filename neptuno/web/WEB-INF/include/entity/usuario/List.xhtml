@@ -193,6 +193,9 @@
             <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{usuarioController.delete}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">
                 <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
             </p:commandButton>
+            <p:commandButton id="reporteButton" icon="ui-icon-print" value="Imprimir PDF" ajax="false">
+                <p:fileDownload value="#{usuarioController.pdf}"/>
+            </p:commandButton>
 
         </p:panel>
         <ui:include src="/WEB-INF/include/confirmation.xhtml"/>
