@@ -39,9 +39,9 @@ public class JsfUtil {
     }
 
     public static void addErrorMessages(List<String> messages) {
-        for (String message : messages) {
+        messages.forEach((message) -> {
             addErrorMessage(message);
-        }
+        });
     }
 
     public static void addErrorMessage(String msg) {

@@ -50,7 +50,7 @@
     </context-param>
     
     <!--Filtros de aplicacion -->
-<!--    <filter>
+    <filter>
         <filter-name>LoginFilter</filter-name>
         <filter-class>com.neptunosg.controller.util.LoginFilter</filter-class>
     </filter>
@@ -59,7 +59,7 @@
         <url-pattern>/*</url-pattern>
         <dispatcher>ASYNC</dispatcher>
         <dispatcher>REQUEST</dispatcher>
-    </filter-mapping>-->
+    </filter-mapping>
     
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
