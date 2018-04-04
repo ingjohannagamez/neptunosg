@@ -6,14 +6,18 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition>
         <h:form id="sesionexpirada">
-            <p:idleMonitor onidle="sessionTimeOutDialog.show();" onactive="sessionTimeOutDialog.show();" timeout="5000"/>
+            <p:idleMonitor timeout="#{initParam[clientSideIdleThreshold]}"> 
+                <p:ajax event="idle" oncomplete="sessionTimeOutDialog.show();" /> 
+                <p:ajax event="active" oncomplete="sessionTimeOutDialog.show();" /> 
+            </p:idleMonitor> 
+            
             <p:dialog resizable="false" header="Monitor de Actividad" hideEffect="explode" showEffect="explode" widgetVar="sessionTimeOutDialog" modal="true" closable="false" width="50%" visible="false">
                 <h:panelGrid columns="2" cellpadding="5">
                     <p:outputLabel value="Hemos detectado inactividad por un 
                                    tiempo mayor a 1 minutos por lo 
                                    tanto hemos cerrado su sesión."/>
-                    <input id="confirmBackToLogin" type="button" value="Aceptar" class="btn btn-default"
-                           onclick="window.location = '#{facesContext.externalContext.requestContextPath}/sistemadegestion/app/login/login.xhtml';"/>   
+                    <p:button id="confirmBackToLogin" value="Aceptar" class="btn btn-default"
+                              onclick="window.location = '#{facesContext.externalContext.requestContextPath}/sistemadegestion/app/login/login.xhtml';"/>   
                 </h:panelGrid>
             </p:dialog>
         </h:form>
