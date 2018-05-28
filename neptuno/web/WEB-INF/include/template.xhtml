@@ -55,7 +55,10 @@
                 </div>
                 <p:graphicImage class="escudo2" value="/resources/img/escudo-valle.png" cache="false"/>
             </p:layoutUnit>
-            <ui:include src="monitor.xhtml"/>
+            
+            <ui:remove>
+                <ui:include src="monitor.xhtml"/>
+            </ui:remove>
         </p:layout>
     </h:body>
 </html>
