@@ -80,7 +80,7 @@ public class MenuController extends AbstractController<Menu> {
                 DefaultMenuItem item = new DefaultMenuItem(submenu.getLabsub());
                 item.setIcon(submenu.getIcosub());
                 item.setCommand("#{" + submenu.getComsub() + "}");
-                //item.setUrl("/faces/jsf/".concat(submenu.getComsub()));
+                //item.setUrl("/sistemadegestion/".concat(submenu.getComsub()));
                 item.setTitle(submenu.getTitsub());
                 item.setStyleClass("button");
                 item.setRendered(submenu.getRensub());
