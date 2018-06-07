@@ -3,6 +3,12 @@ package com.neptunosg.controller;
 import com.neptunosg.facade.AbstractFacade;
 import com.neptunosg.facade.LazyEntityDataModel;
 import com.neptunosg.controller.util.JsfUtil;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,8 +22,12 @@ import java.util.ResourceBundle;
 import javax.ejb.EJBException;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.primefaces.event.FlowEvent;
+import org.primefaces.model.UploadedFile;
+
 
 /**
  * Represents an abstract shell of to be used as JSF Controller to be used in
@@ -37,6 +47,8 @@ public abstract class AbstractController<T> implements Serializable {
     private Collection<T> items;
     private LazyEntityDataModel<T> lazyItems;
     private List<T> filteredItems;
+    private UploadedFile file;
+    private boolean skip;
 
     private enum PersistAction {
         CREATE,
@@ -346,4 +358,72 @@ public abstract class AbstractController<T> implements Serializable {
         }
         return itemList;
     }
+    
+    /**
+     * HandleFileUpload Método sube una imagen al
+     * directorio definido
+     *
+     * @param fileName
+     * @param in
+     * @param carpeta
+     * @param nombre
+     * @throws java.io.FileNotFoundException
+     * @throws java.lang.Exception
+     * @autor Johann Agamez Ferres 
+     * Fecha creación    : 17/06/2015 
+     * Fecha Modificación: 17/06/2015
+     */
+    public void copyFile(String fileName, InputStream in, String carpeta, String nombre) throws FileNotFoundException, Exception {
+        try {
+            String imagen;
+            imagen = nombre + "." + fileName.split("\\.")[1];
+            FacesContext context = FacesContext.getCurrentInstance();
+            ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+            String ruta = servletContext.getRealPath("./resources/img/".concat(carpeta + "/"));
+            ruta = ruta != null ? ruta : "./resources/img/otros/";
+            File fichero = new File(ruta);
+            if (!fichero.exists()) {
+                fichero.mkdirs();
+            }
+            try (OutputStream out = new FileOutputStream(new File(ruta + "/" + imagen))) {
+                int read = 0;
+                byte[] bytes = new byte[4194304];
+
+                while ((read = in.read(bytes)) != -1) {
+                    out.write(bytes, 0, read);
+                }
+                in.close();
+                out.flush();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(AbstractController.class.getSimpleName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public String onFlowProcess(FlowEvent event) {
+        if(skip) {
+            skip = false; //reset in case user goes back
+            return "confirm";
+        }
+        else {
+            return event.getNewStep();
+        }
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+    
+    public boolean isSkip() {
+        return skip;
+    }
+ 
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+    
 }
