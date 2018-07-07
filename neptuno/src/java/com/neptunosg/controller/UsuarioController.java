@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import net.sf.jasperreports.engine.JRException;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 @Named(value = "usuarioController")
 @ViewScoped
@@ -137,11 +136,12 @@ public class UsuarioController extends AbstractController<Usuario> {
         try {
             if (this.getFile() != null && !this.getFile().getFileName().equals("")) {
                 this.copyFile(this.getFile().getFileName(), this.getFile().getInputstream(), "img_user", this.getSelected().getDocusr());
+                this.getSelected().setFotusr("/resources/img/img_user/".concat(this.getSelected().getDocusr() + "." + this.getFile().getFileName().split("\\.")[1]));
             }
-            //super.saveNew(event);
+            super.saveNew(event);
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

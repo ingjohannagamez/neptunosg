@@ -25,9 +25,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.FlowEvent;
 import org.primefaces.model.UploadedFile;
-
 
 /**
  * Represents an abstract shell of to be used as JSF Controller to be used in
@@ -358,10 +358,9 @@ public abstract class AbstractController<T> implements Serializable {
         }
         return itemList;
     }
-    
+
     /**
-     * HandleFileUpload Método sube una imagen al
-     * directorio definido
+     * HandleFileUpload Método sube una imagen al directorio definido
      *
      * @param fileName
      * @param in
@@ -369,9 +368,8 @@ public abstract class AbstractController<T> implements Serializable {
      * @param nombre
      * @throws java.io.FileNotFoundException
      * @throws java.lang.Exception
-     * @autor Johann Agamez Ferres 
-     * Fecha creación    : 17/06/2015 
-     * Fecha Modificación: 17/06/2015
+     * @autor Johann Agamez Ferres Fecha creación : 17/06/2015 Fecha
+     * Modificación: 17/06/2015
      */
     public void copyFile(String fileName, InputStream in, String carpeta, String nombre) throws FileNotFoundException, Exception {
         try {
@@ -399,15 +397,19 @@ public abstract class AbstractController<T> implements Serializable {
             Logger.getLogger(AbstractController.class.getSimpleName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String onFlowProcess(FlowEvent event) {
-        if(skip) {
+        if (skip) {
             skip = false; //reset in case user goes back
             return "confirm";
-        }
-        else {
+        } else {
             return event.getNewStep();
         }
+    }
+
+    public void handleFileUpload(FileUploadEvent event) {
+        setFile(event.getFile());
+        JsfUtil.addSuccessMessage(event.getFile().getFileName() + " se subio.");
     }
 
     public UploadedFile getFile() {
@@ -417,13 +419,13 @@ public abstract class AbstractController<T> implements Serializable {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-    
+
     public boolean isSkip() {
         return skip;
     }
- 
+
     public void setSkip(boolean skip) {
         this.skip = skip;
     }
-    
+
 }

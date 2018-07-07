@@ -8,153 +8,167 @@
 
     <ui:composition>
         <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUsuarioTitle}" closeOnEscape="true">
+            <h:form id="UsuarioEditForm" enctype="multipart/form-data">
+                <h:panelGroup id="display" rendered="#{usuarioController.selected != null}">
+                    <p:tabView>
+                        <p:tab id="personal1" title="Datos Personales">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_idetdo}" for="idetdo" />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="idetdo" value="#{usuarioController.selected.idetdo}" 
+                                                     converter="tipoDocumentoConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{tipoDocumentoController.items}"
+                                                       var="idetdoItem"
+                                                       itemValue="#{idetdoItem}"
+                                                       itemLabel="#{idetdoItem.toString()}"/>
+                                        <p:ajax process="@this" partialSubmit="true"/>
+                                    </p:selectOneMenu>
+                                    <p:tooltip for="idetdo" value="#{usuarioController.getComponentMessages('idetdo', myBundle.CreateUsuarioHelpText_idetdo)}"/>
+                                </h:panelGroup>
 
-            <h:form id="UsuarioEditForm">
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_docusr}" for="docusr" />
+                                <h:panelGroup>
+                                    <p:inputNumber id="docusr" value="#{usuarioController.selected.docusr}" 
+                                                   title="#{myBundle.CreateUsuarioTitle_docusr}" 
+                                                   size="11" maxlength="11" decimalPlaces="0">
+                                        <p:ajax update="filefotusr UsuarioCreateForm"/>
+                                    </p:inputNumber>
+                                    <p:tooltip for="docusr" value="#{usuarioController.getComponentMessages('docusr', myBundle.CreateUsuarioHelpText_docusr)}"/>
+                                </h:panelGroup>
 
-                <h:panelGroup id="display">
-                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_pnousr}" for="pnousr" />
+                                <h:panelGroup>
+                                    <p:inputText id="pnousr" value="#{usuarioController.selected.pnousr}" title="#{myBundle.CreateUsuarioTitle_pnousr}" size="50" maxlength="50"/>
+                                    <p:tooltip for="pnousr" value="#{usuarioController.getComponentMessages('pnousr', myBundle.CreateUsuarioHelpText_pnousr)}"/>
+                                </h:panelGroup>
 
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_snousr}" for="snousr" />
+                                <h:panelGroup>
+                                    <p:inputText id="snousr" value="#{usuarioController.selected.snousr}" title="#{myBundle.CreateUsuarioTitle_snousr}" size="50" maxlength="50"/>
+                                    <p:tooltip for="snousr" value="#{usuarioController.getComponentMessages('snousr', myBundle.CreateUsuarioHelpText_snousr)}"/>
+                                </h:panelGroup>
 
-                        <h:outputLabel value="#{myBundle.EditUsuarioLabel_ideusr}" for="ideusr" />
-                        <h:panelGroup>
-                            <h:outputText id="ideusr" value="#{usuarioController.selected.ideusr}" />
-                            <p:tooltip for="ideusr" value="#{usuarioController.getComponentMessages('ideusr', myBundle.EditUsuarioHelpText_ideusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_papusr}" for="papusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="papusr" value="#{usuarioController.selected.papusr}" title="#{myBundle.CreateUsuarioTitle_papusr}" size="50" maxlength="50"/>
+                                    <p:tooltip for="papusr" value="#{usuarioController.getComponentMessages('papusr', myBundle.CreateUsuarioHelpText_papusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_epsusr}" for="epsusr" />
-                        <h:panelGroup>
-                            <p:inputText id="epsusr" value="#{usuarioController.selected.epsusr}" title="#{myBundle.EditUsuarioTitle_epsusr}" size="50" maxlength="50"/>
-                            <p:tooltip for="epsusr" value="#{usuarioController.getComponentMessages('epsusr', myBundle.EditUsuarioHelpText_epsusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_sapusr}" for="sapusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="sapusr" value="#{usuarioController.selected.sapusr}" title="#{myBundle.CreateUsuarioTitle_sapusr}" size="50" maxlength="50"/>
+                                    <p:tooltip for="sapusr" value="#{usuarioController.getComponentMessages('sapusr', myBundle.CreateUsuarioHelpText_sapusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_docusr}" for="docusr" />
-                        <h:panelGroup>
-                            <p:inputText id="docusr" value="#{usuarioController.selected.docusr}" title="#{myBundle.EditUsuarioTitle_docusr}" size="11" maxlength="11"/>
-                            <p:tooltip for="docusr" value="#{usuarioController.getComponentMessages('docusr', myBundle.EditUsuarioHelpText_docusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_sexusr}" for="sexusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="sexusr" value="#{usuarioController.selected.sexusr}" title="#{myBundle.CreateUsuarioTitle_sexusr}" size="1" maxlength="1"/>
+                                    <p:tooltip for="sexusr" value="#{usuarioController.getComponentMessages('sexusr', myBundle.CreateUsuarioHelpText_sexusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_pnousr}" for="pnousr" />
-                        <h:panelGroup>
-                            <p:inputText id="pnousr" value="#{usuarioController.selected.pnousr}" title="#{myBundle.EditUsuarioTitle_pnousr}" size="50" maxlength="50"/>
-                            <p:tooltip for="pnousr" value="#{usuarioController.getComponentMessages('pnousr', myBundle.EditUsuarioHelpText_pnousr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_fotusr}" for="fotusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="fotusr" rendered="false" value="#{usuarioController.selected.fotusr}" title="#{myBundle.CreateUsuarioTitle_fotusr}" 
+                                                 size="50" maxlength="200" disabled="true"/>
+                                    <p:fileUpload id="filefotusr" fileUploadListener="#{usuarioController.handleFileUpload}" 
+                                                  mode="advanced" dragDropSupport="true" fileLimit="1" fileLimitMessage="Maximo una foto por usuario"
+                                                  invalidFileMessage="Archivo no valido" invalidSizeMessage="El tamaño del archivo supera el permitido"
+                                                  sizeLimit="400000" update="filefotusr" required="true" requiredMessage="La foto del usuario es requerida"
+                                                  cancelLabel="Cancelar" label="Cargar archivo" uploadLabel="Subir archivo"
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" disabled="#{usuarioController.selected.docusr eq null}"/>
+                                    <p:tooltip for="fotusr" value="#{usuarioController.getComponentMessages('fotusr', myBundle.CreateUsuarioHelpText_fotusr)}"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:tab>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_snousr}" for="snousr" />
-                        <h:panelGroup>
-                            <p:inputText id="snousr" value="#{usuarioController.selected.snousr}" title="#{myBundle.EditUsuarioTitle_snousr}" size="50" maxlength="50"/>
-                            <p:tooltip for="snousr" value="#{usuarioController.getComponentMessages('snousr', myBundle.EditUsuarioHelpText_snousr)}"/>
-                        </h:panelGroup>
+                        <p:tab id="personal2" title="Datos de Localización">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_dirusr}" for="dirusr" />
+                                <h:panelGroup>
+                                    <p:inputTextarea rows="4" cols="30" id="dirusr" value="#{usuarioController.selected.dirusr}" title="#{myBundle.CreateUsuarioTitle_dirusr}" />
+                                    <p:tooltip for="dirusr" value="#{usuarioController.getComponentMessages('dirusr', myBundle.CreateUsuarioHelpText_dirusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_papusr}" for="papusr" />
-                        <h:panelGroup>
-                            <p:inputText id="papusr" value="#{usuarioController.selected.papusr}" title="#{myBundle.EditUsuarioTitle_papusr}" size="50" maxlength="50"/>
-                            <p:tooltip for="papusr" value="#{usuarioController.getComponentMessages('papusr', myBundle.EditUsuarioHelpText_papusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_emlusr}" for="emlusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="emlusr" value="#{usuarioController.selected.emlusr}" title="#{myBundle.CreateUsuarioTitle_emlusr}" size="50" maxlength="200"/>
+                                    <p:tooltip for="emlusr" value="#{usuarioController.getComponentMessages('emlusr', myBundle.CreateUsuarioHelpText_emlusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_sapusr}" for="sapusr" />
-                        <h:panelGroup>
-                            <p:inputText id="sapusr" value="#{usuarioController.selected.sapusr}" title="#{myBundle.EditUsuarioTitle_sapusr}" size="50" maxlength="50"/>
-                            <p:tooltip for="sapusr" value="#{usuarioController.getComponentMessages('sapusr', myBundle.EditUsuarioHelpText_sapusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_extusr}" for="extusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="extusr" value="#{usuarioController.selected.extusr}" title="#{myBundle.CreateUsuarioTitle_extusr}" size="10" maxlength="10"/>
+                                    <p:tooltip for="extusr" value="#{usuarioController.getComponentMessages('extusr', myBundle.CreateUsuarioHelpText_extusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_emlusr}" for="emlusr" />
-                        <h:panelGroup>
-                            <p:inputText id="emlusr" value="#{usuarioController.selected.emlusr}" title="#{myBundle.EditUsuarioTitle_emlusr}" size="200" maxlength="200"/>
-                            <p:tooltip for="emlusr" value="#{usuarioController.getComponentMessages('emlusr', myBundle.EditUsuarioHelpText_emlusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_telusr}" for="telusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="telusr" value="#{usuarioController.selected.telusr}" title="#{myBundle.CreateUsuarioTitle_telusr}" size="10" maxlength="10"/>
+                                    <p:tooltip for="telusr" value="#{usuarioController.getComponentMessages('telusr', myBundle.CreateUsuarioHelpText_telusr)}"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:tab>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_sexusr}" for="sexusr" />
-                        <h:panelGroup>
-                            <p:inputText id="sexusr" value="#{usuarioController.selected.sexusr}" title="#{myBundle.EditUsuarioTitle_sexusr}" size="1" maxlength="1"/>
-                            <p:tooltip for="sexusr" value="#{usuarioController.getComponentMessages('sexusr', myBundle.EditUsuarioHelpText_sexusr)}"/>
-                        </h:panelGroup>
+                        <p:tab id="personal3" title="Datos de Salud">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_epsusr}" for="epsusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="epsusr" value="#{usuarioController.selected.epsusr}" title="#{myBundle.CreateUsuarioTitle_epsusr}" size="50" maxlength="50"/>
+                                    <p:tooltip for="epsusr" value="#{usuarioController.getComponentMessages('epsusr', myBundle.CreateUsuarioHelpText_epsusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_fnausr}" for="fnausr" />
-                        <h:panelGroup>
-                            <p:calendar id="fnausr" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuarioController.selected.fnausr}" title="#{myBundle.EditUsuarioTitle_fnausr}"  showOn="button"/>
-                            <p:tooltip for="fnausr" value="#{usuarioController.getComponentMessages('fnausr', myBundle.EditUsuarioHelpText_fnausr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_fnausr}" for="fnausr" />
+                                <h:panelGroup>
+                                    <p:calendar id="fnausr" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuarioController.selected.fnausr}" title="#{myBundle.CreateUsuarioTitle_fnausr}"  showOn="button"/>
+                                    <p:tooltip for="fnausr" value="#{usuarioController.getComponentMessages('fnausr', myBundle.CreateUsuarioHelpText_fnausr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_fafusr}" for="fafusr" />
-                        <h:panelGroup>
-                            <p:calendar id="fafusr" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuarioController.selected.fafusr}" title="#{myBundle.EditUsuarioTitle_fafusr}"  showOn="button"/>
-                            <p:tooltip for="fafusr" value="#{usuarioController.getComponentMessages('fafusr', myBundle.EditUsuarioHelpText_fafusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_fafusr}" for="fafusr" />
+                                <h:panelGroup>
+                                    <p:calendar id="fafusr" pattern="MM/dd/yyyy HH:mm:ss" value="#{usuarioController.selected.fafusr}" title="#{myBundle.CreateUsuarioTitle_fafusr}"  showOn="button"/>
+                                    <p:tooltip for="fafusr" value="#{usuarioController.getComponentMessages('fafusr', myBundle.CreateUsuarioHelpText_fafusr)}"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:tab>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_dirusr}" for="dirusr" />
-                        <h:panelGroup>
-                            <p:inputTextarea rows="4" cols="30" id="dirusr" value="#{usuarioController.selected.dirusr}" title="#{myBundle.EditUsuarioTitle_dirusr}" />
-                            <p:tooltip for="dirusr" value="#{usuarioController.getComponentMessages('dirusr', myBundle.EditUsuarioHelpText_dirusr)}"/>
-                        </h:panelGroup>
+                        <p:tab id="personal4" title="Otros Datos">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_notusr}" for="notusr" />
+                                <h:panelGroup>
+                                    <p:inputTextarea rows="4" cols="30" id="notusr" value="#{usuarioController.selected.notusr}" title="#{myBundle.CreateUsuarioTitle_notusr}" />
+                                    <p:tooltip for="notusr" value="#{usuarioController.getComponentMessages('notusr', myBundle.CreateUsuarioHelpText_notusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_telusr}" for="telusr" />
-                        <h:panelGroup>
-                            <p:inputText id="telusr" value="#{usuarioController.selected.telusr}" title="#{myBundle.EditUsuarioTitle_telusr}" size="10" maxlength="10"/>
-                            <p:tooltip for="telusr" value="#{usuarioController.getComponentMessages('telusr', myBundle.EditUsuarioHelpText_telusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_estusr}" for="estusr" />
+                                <h:panelGroup>
+                                    <p:inputText id="estusr" value="#{usuarioController.selected.estusr}" title="#{myBundle.CreateUsuarioTitle_estusr}"/>
+                                    <p:tooltip for="estusr" value="#{usuarioController.getComponentMessages('estusr', myBundle.CreateUsuarioHelpText_estusr)}"/>
+                                </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_extusr}" for="extusr" />
-                        <h:panelGroup>
-                            <p:inputText id="extusr" value="#{usuarioController.selected.extusr}" title="#{myBundle.EditUsuarioTitle_extusr}" size="10" maxlength="10"/>
-                            <p:tooltip for="extusr" value="#{usuarioController.getComponentMessages('extusr', myBundle.EditUsuarioHelpText_extusr)}"/>
-                        </h:panelGroup>
+                                <p:outputLabel value="#{myBundle.CreateUsuarioLabel_ideofi}" for="ideofi" />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="ideofi" value="#{usuarioController.selected.ideofi}"  converter="oficinaConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{oficinaController.items}"
+                                                       var="ideofiItem"
+                                                       itemValue="#{ideofiItem}"
+                                                       itemLabel="#{ideofiItem.toString()}"
+                                                       />
 
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_fotusr}" for="fotusr" />
-                        <h:panelGroup>
-                            <p:inputText id="fotusr" value="#{usuarioController.selected.fotusr}" title="#{myBundle.EditUsuarioTitle_fotusr}" size="200" maxlength="200"/>
-                            <p:tooltip for="fotusr" value="#{usuarioController.getComponentMessages('fotusr', myBundle.EditUsuarioHelpText_fotusr)}"/>
-                        </h:panelGroup>
-
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_notusr}" for="notusr" />
-                        <h:panelGroup>
-                            <p:inputTextarea rows="4" cols="30" id="notusr" value="#{usuarioController.selected.notusr}" title="#{myBundle.EditUsuarioTitle_notusr}" />
-                            <p:tooltip for="notusr" value="#{usuarioController.getComponentMessages('notusr', myBundle.EditUsuarioHelpText_notusr)}"/>
-                        </h:panelGroup>
-
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_estusr}" for="estusr" />
-                        <h:panelGroup>
-                            <p:inputText id="estusr" value="#{usuarioController.selected.estusr}" title="#{myBundle.EditUsuarioTitle_estusr}"/>
-                            <p:tooltip for="estusr" value="#{usuarioController.getComponentMessages('estusr', myBundle.EditUsuarioHelpText_estusr)}"/>
-                        </h:panelGroup>
-
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_ideofi}" for="ideofi" />
-                        <h:panelGroup>
-                            <p:selectOneMenu id="ideofi" value="#{usuarioController.selected.ideofi}"  converter="oficinaConverter">
-                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                                <f:selectItems value="#{oficinaController.items}"
-                                               var="ideofiItem"
-                                               itemValue="#{ideofiItem}"
-                                               itemLabel="#{ideofiItem.toString()}"
-                                               />
-
-                            </p:selectOneMenu>
-                            <p:tooltip for="ideofi" value="#{usuarioController.getComponentMessages('ideofi', myBundle.EditUsuarioHelpText_ideofi)}"/>
-                        </h:panelGroup>
-
-                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_idetdo}" for="idetdo" />
-                        <h:panelGroup>
-                            <p:selectOneMenu id="idetdo" value="#{usuarioController.selected.idetdo}"  converter="tipoDocumentoConverter">
-                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                                <f:selectItems value="#{tipoDocumentoController.items}"
-                                               var="idetdoItem"
-                                               itemValue="#{idetdoItem}"
-                                               itemLabel="#{idetdoItem.toString()}"
-                                               />
-
-                            </p:selectOneMenu>
-                            <p:tooltip for="idetdo" value="#{usuarioController.getComponentMessages('idetdo', myBundle.EditUsuarioHelpText_idetdo)}"/>
-                        </h:panelGroup>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.save}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:UsuarioListForm:UsuarioDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioEditDialog'));">
+                                    </p:selectOneMenu>
+                                    <p:tooltip for="ideofi" value="#{usuarioController.getComponentMessages('ideofi', myBundle.CreateUsuarioHelpText_ideofi)}"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{usuarioController.save}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioCreateDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
+
                     <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuarioEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
                 </h:panelGroup>
-
             </h:form>
-
         </p:dialog>
-
     </ui:composition>
-
 </html>

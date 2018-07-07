@@ -10,19 +10,19 @@
         <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUsuarioTitle}" closeOnEscape="true">
             <h:form id="UsuarioCreateForm" enctype="multipart/form-data">
                 <h:panelGroup id="display" rendered="#{usuarioController.selected != null}">
-                    <p:wizard flowListener="#{usuarioController.onFlowProcess}" backLabel="Atras" nextLabel="Siguiente">
+                    <p:tabView>
                         <p:tab id="personal1" title="Datos Personales">
                             <p:panelGrid columns="2" columnClasses="column">
                                 <p:outputLabel value="#{myBundle.CreateUsuarioLabel_idetdo}" for="idetdo" />
                                 <h:panelGroup>
-                                    <p:selectOneMenu id="idetdo" value="#{usuarioController.selected.idetdo}"  converter="tipoDocumentoConverter">
+                                    <p:selectOneMenu id="idetdo" value="#{usuarioController.selected.idetdo}" 
+                                                     converter="tipoDocumentoConverter">
                                         <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
                                         <f:selectItems value="#{tipoDocumentoController.items}"
                                                        var="idetdoItem"
                                                        itemValue="#{idetdoItem}"
-                                                       itemLabel="#{idetdoItem.toString()}"
-                                                       />
-
+                                                       itemLabel="#{idetdoItem.toString()}"/>
+                                        <p:ajax process="@this" partialSubmit="true"/>
                                     </p:selectOneMenu>
                                     <p:tooltip for="idetdo" value="#{usuarioController.getComponentMessages('idetdo', myBundle.CreateUsuarioHelpText_idetdo)}"/>
                                 </h:panelGroup>
@@ -30,9 +30,9 @@
                                 <p:outputLabel value="#{myBundle.CreateUsuarioLabel_docusr}" for="docusr" />
                                 <h:panelGroup>
                                     <p:inputNumber id="docusr" value="#{usuarioController.selected.docusr}" 
-                                                 title="#{myBundle.CreateUsuarioTitle_docusr}" 
-                                                 size="11" maxlength="11" decimalPlaces="0">
-                                        <p:ajax update="filefotusr"/>
+                                                   title="#{myBundle.CreateUsuarioTitle_docusr}" 
+                                                   size="11" maxlength="11" decimalPlaces="0">
+                                        <p:ajax update="filefotusr UsuarioCreateForm"/>
                                     </p:inputNumber>
                                     <p:tooltip for="docusr" value="#{usuarioController.getComponentMessages('docusr', myBundle.CreateUsuarioHelpText_docusr)}"/>
                                 </h:panelGroup>
@@ -69,12 +69,16 @@
 
                                 <p:outputLabel value="#{myBundle.CreateUsuarioLabel_fotusr}" for="fotusr" />
                                 <h:panelGroup>
-                                    <p:inputText id="fotusr" rendered="false" value="#{usuarioController.selected.fotusr}" title="#{myBundle.CreateUsuarioTitle_fotusr}" size="50" maxlength="200" disabled="true"/>
-                                    <p:fileUpload id="filefotusr" value="#{usuarioController.file}" mode="simple" sizeLimit="40000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" disabled="#{usuarioController.selected.docusr eq null}"/>
+                                    <p:inputText id="fotusr" rendered="false" value="#{usuarioController.selected.fotusr}" title="#{myBundle.CreateUsuarioTitle_fotusr}" 
+                                                 size="50" maxlength="200" disabled="true"/>
+                                    <p:fileUpload id="filefotusr" fileUploadListener="#{usuarioController.handleFileUpload}" 
+                                                  mode="advanced" dragDropSupport="true" fileLimit="1" fileLimitMessage="Maximo una foto por usuario"
+                                                  invalidFileMessage="Archivo no valido" invalidSizeMessage="El tamaño del archivo supera el permitido"
+                                                  sizeLimit="400000" update="filefotusr" required="true" requiredMessage="La foto del usuario es requerida"
+                                                  cancelLabel="Cancelar" label="Cargar archivo" uploadLabel="Subir archivo"
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" disabled="#{usuarioController.selected.docusr eq null}"/>
                                     <p:tooltip for="fotusr" value="#{usuarioController.getComponentMessages('fotusr', myBundle.CreateUsuarioHelpText_fotusr)}"/>
                                 </h:panelGroup>
-                                
-                                <p:commandButton actionListener="#{usuarioController.saveNew}" ajax="false" value="#{myBundle.Save}"/>
                             </p:panelGrid>
                         </p:tab>
 
@@ -155,17 +159,16 @@
                                     </p:selectOneMenu>
                                     <p:tooltip for="ideofi" value="#{usuarioController.getComponentMessages('ideofi', myBundle.CreateUsuarioHelpText_ideofi)}"/>
                                 </h:panelGroup>
-
-                                <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioCreateDialog'));">
-                                    <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
-                                </p:commandButton>
-
-                                <ui:remove>
-                                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuarioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
-                                </ui:remove>
                             </p:panelGrid>
                         </p:tab>
-                    </p:wizard>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <ui:remove>
+                        <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuarioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                    </ui:remove>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
