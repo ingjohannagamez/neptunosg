@@ -143,5 +143,18 @@ public class UsuarioController extends AbstractController<Usuario> {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    @Override
+    public void save(ActionEvent event) {
+        try {
+            if (this.getFile() != null && !this.getFile().getFileName().equals("")) {
+                this.copyFile(this.getFile().getFileName(), this.getFile().getInputstream(), "img_user", this.getSelected().getDocusr());
+                this.getSelected().setFotusr("/resources/img/img_user/".concat(this.getSelected().getDocusr() + "." + this.getFile().getFileName().split("\\.")[1]));
+            }
+            super.save(event);
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }

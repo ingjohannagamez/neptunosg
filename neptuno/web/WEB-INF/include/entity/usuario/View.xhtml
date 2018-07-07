@@ -13,10 +13,16 @@
             <h:form id="UsuarioViewForm">
 
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="4" styleClass="ui-noborder" columnClasses="column" 
+                                 rendered="#{usuarioController.selected != null}">
 
-                        <h:outputText value="#{myBundle.ViewUsuarioLabel_ideusr}"/>
-                        <h:outputText value="#{usuarioController.selected.ideusr}" title="#{myBundle.ViewUsuarioTitle_ideusr}"/>
+                        <h:outputText value="#{myBundle.ViewUsuarioLabel_fotusr}"/>
+                        <p:graphicImage id="imgFOTO" value="#{usuarioController.selected.fotusr}" cache="false" height="100" width="150"/>
+
+                        <ui:remove>
+                            <h:outputText value="#{myBundle.ViewUsuarioLabel_ideusr}"/>
+                            <h:outputText value="#{usuarioController.selected.ideusr}" title="#{myBundle.ViewUsuarioTitle_ideusr}"/>
+                        </ui:remove>
 
                         <h:outputText value="#{myBundle.ViewUsuarioLabel_epsusr}"/>
                         <h:outputText value="#{usuarioController.selected.epsusr}" title="#{myBundle.ViewUsuarioTitle_epsusr}"/>
@@ -61,28 +67,29 @@
                         <h:outputText value="#{myBundle.ViewUsuarioLabel_extusr}"/>
                         <h:outputText value="#{usuarioController.selected.extusr}" title="#{myBundle.ViewUsuarioTitle_extusr}"/>
 
-                        <h:outputText value="#{myBundle.ViewUsuarioLabel_fotusr}"/>
-                        <h:outputText value="#{usuarioController.selected.fotusr}" title="#{myBundle.ViewUsuarioTitle_fotusr}"/>
+                        <ui:remove>
+                            <h:outputText value="#{myBundle.ViewUsuarioLabel_fotusr}"/>
+                            <h:outputText value="#{usuarioController.selected.fotusr}" title="#{myBundle.ViewUsuarioTitle_fotusr}"/>
+                        </ui:remove>
 
                         <h:outputText value="#{myBundle.ViewUsuarioLabel_notusr}"/>
                         <h:outputText value="#{usuarioController.selected.notusr}" title="#{myBundle.ViewUsuarioTitle_notusr}"/>
 
                         <h:outputText value="#{myBundle.ViewUsuarioLabel_estusr}"/>
-                        <h:outputText value="#{usuarioController.selected.estusr}" title="#{myBundle.ViewUsuarioTitle_estusr}"/>
+                        <h:outputText value="#{usuarioController.selected.estusr eq 1 ? 'ACTIVO':'INACTIVO'}" title="#{myBundle.ViewUsuarioTitle_estusr}"/>
 
                         <h:outputText value="#{myBundle.ViewUsuarioLabel_ideofi}"/>
-                        <h:outputText value="#{usuarioController.selected.ideofi.ideofi}"/>
+                        <h:outputText value="#{usuarioController.selected.ideofi.toString()}"/>
 
                         <h:outputText value="#{myBundle.ViewUsuarioLabel_idetdo}"/>
-                        <h:outputText value="#{usuarioController.selected.idetdo.idetdo}"/>
+                        <h:outputText value="#{usuarioController.selected.idetdo.destdo}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{myBundle.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
+                    
+                    <ui:remove>
+                        <p:commandButton value="#{myBundle.Close}" onclick="PF('UsuarioViewDialog').hide()"/>
+                    </ui:remove>
                 </h:panelGroup>
-
             </h:form>
-
         </p:dialog>
-
     </ui:composition>
-
 </html>
