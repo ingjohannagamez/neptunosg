@@ -123,7 +123,7 @@ public class UsuarioController extends AbstractController<Usuario> {
                 ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
 
                 reporte.setNombreReporte("prueba");
-                reporte.addParametro("edad", "30");
+                reporte.addParametro("edad", this.calcularEdad(this.getSelected().getFnausr()));
                 reporte.addParametro("foto", servletContext.getRealPath("").concat(this.getSelected().getFotusr()));
                 reporte.addParametro("ideusr", this.getSelected().getIdeusr());
                 InputStream is = reporte.PDFb();

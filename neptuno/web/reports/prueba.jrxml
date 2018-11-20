@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prueba" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1b70c50d-b6f1-446e-9bc6-27e173a343ca">
-	<property name="ireport.zoom" value="6.0"/>
-	<property name="ireport.x" value="1376"/>
-	<property name="ireport.y" value="939"/>
-	<parameter name="edad" class="java.lang.String">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="edad" class="java.lang.Integer">
 		<parameterDescription><![CDATA[edad del usuario]]></parameterDescription>
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
 	</parameter>

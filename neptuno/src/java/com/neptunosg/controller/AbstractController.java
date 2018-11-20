@@ -11,7 +11,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -410,6 +412,21 @@ public abstract class AbstractController<T> implements Serializable {
     public void handleFileUpload(FileUploadEvent event) {
         setFile(event.getFile());
         JsfUtil.addSuccessMessage(event.getFile().getFileName() + " se subio.");
+    }
+
+    public int calcularEdad(Date fecha) {
+        Calendar fechaNac = Calendar.getInstance();
+        fechaNac.setTime(fecha);
+
+        Calendar today = Calendar.getInstance();
+        int diffYear = today.get(Calendar.YEAR) - fechaNac.get(Calendar.YEAR);
+        int diffMonth = today.get(Calendar.MONTH) - fechaNac.get(Calendar.MONTH);
+        int diffDay = today.get(Calendar.DAY_OF_MONTH) - fechaNac.get(Calendar.DAY_OF_MONTH);
+        // Si está en ese año pero todavía no los ha cumplido
+        if (diffMonth < 0 || (diffMonth == 0 && diffDay < 0)) {
+            diffYear = diffYear - 1;
+        }
+        return diffYear;
     }
 
     public UploadedFile getFile() {
