@@ -15,6 +15,7 @@ import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import net.sf.jasperreports.engine.JRException;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -116,13 +117,25 @@ public class UsuarioController extends AbstractController<Usuario> {
 
     public StreamedContent getPdf() {
         try {
-            reporte.setNombreReporte("prueba");
-            InputStream is = reporte.PDFb();
-            if (is != null) {
-                DefaultStreamedContent dsc = new DefaultStreamedContent(is, "application/pdf", "prueba.pdf");
-                return dsc;
+            if (this.getSelected() != null) {
+
+                FacesContext context = FacesContext.getCurrentInstance();
+                ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
+
+                reporte.setNombreReporte("prueba");
+                reporte.addParametro("edad", "30");
+                reporte.addParametro("foto", servletContext.getRealPath("").concat(this.getSelected().getFotusr()));
+                reporte.addParametro("ideusr", this.getSelected().getIdeusr());
+                InputStream is = reporte.PDFb();
+                if (is != null) {
+                    DefaultStreamedContent dsc = new DefaultStreamedContent(is, "application/pdf", "Usuario.pdf");
+                    return dsc;
+                } else {
+                    JsfUtil.addErrorMessage("No se pudo generar el reporte");
+                    return null;
+                }
             } else {
-                JsfUtil.addErrorMessage("No se pudo generar el reporte");
+                JsfUtil.addErrorMessage("No se pudo generar el reporte no se a seleccionado ningún registro");
                 return null;
             }
         } catch (JRException ex) {
@@ -143,7 +156,7 @@ public class UsuarioController extends AbstractController<Usuario> {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void save(ActionEvent event) {
         try {

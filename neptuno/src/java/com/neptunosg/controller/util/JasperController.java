@@ -54,7 +54,7 @@ public abstract class JasperController implements java.io.Serializable {
     public Map<String, Object> configParametros(String rutaReporte) {
         parametros.put("SUBREPORT_DIR", rutaReporte);
         parametros.put(JRParameter.REPORT_LOCALE, JasperController.SPANISH);
-        parametros.put("IMAGES_FOLDER", servletContext.getRealPath("/resources/img/"));
+        parametros.put("IMAGES_FOLDER", servletContext);//servletContext.getRealPath("/resources/img/")
 //        parametros.put("enumValues", java.util.ResourceBundle.getBundle("/EnumValues"));
         parametros.put("IP_BASE", this.getIpUsuario());
         return parametros;
