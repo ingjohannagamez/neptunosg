@@ -47,6 +47,7 @@ public class LoginFilter implements Filter {
                     || permiso.contains(".jpg")
                     || permiso.contains(".png")
                     || permiso.contains(".gif")
+                    || permiso.contains(".pdf")
                     || permiso.startsWith("javax.faces.resource/")
                     || permiso.startsWith("javax.sistemadegestion.resource/")
                     || permiso.startsWith("login.xhtml;jsessionid=")

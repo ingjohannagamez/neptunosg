@@ -7,7 +7,13 @@ import com.neptunosg.entity.Acceso;
 import java.util.List;
 import com.neptunosg.facade.UsuarioFacade;
 import com.neptunosg.controller.util.MobilePageController;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Named;
@@ -22,7 +28,7 @@ import org.primefaces.model.StreamedContent;
 
 @Named(value = "usuarioController")
 @ViewScoped
-public class UsuarioController extends AbstractController<Usuario> {
+public class UsuarioController extends AbstractController<Usuario> implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(UsuarioController.class.getName());
 
@@ -37,6 +43,7 @@ public class UsuarioController extends AbstractController<Usuario> {
 
     // Flags to indicate if child collections are empty
     private boolean isAccesoListEmpty;
+    private InputStream tempPdfFile;
 
     public UsuarioController() {
         // Inform the Abstract parent controller of the concrete Usuario Entity
@@ -115,7 +122,7 @@ public class UsuarioController extends AbstractController<Usuario> {
         }
     }
 
-    public StreamedContent getPdf() {
+    public void getPdf() {
         try {
             if (this.getSelected() != null) {
 
@@ -128,19 +135,18 @@ public class UsuarioController extends AbstractController<Usuario> {
                 reporte.addParametro("ideusr", this.getSelected().getIdeusr());
                 InputStream is = reporte.PDFb();
                 if (is != null) {
-                    DefaultStreamedContent dsc = new DefaultStreamedContent(is, "application/pdf", "Usuario.pdf");
-                    return dsc;
+                    this.creaArchivo(servletContext.getRealPath("").concat("\\resources\\documentos\\".concat(this.getSelected().getDocusr().concat("_HV.pdf"))), is);
+                    this.tempPdfFile = is;
                 } else {
                     JsfUtil.addErrorMessage("No se pudo generar el reporte");
-                    return null;
                 }
             } else {
                 JsfUtil.addErrorMessage("No se pudo generar el reporte no se a seleccionado ningún registro");
-                return null;
             }
         } catch (JRException ex) {
             LOG.log(Level.SEVERE, null, ex);
-            return null;
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, null, ex);
         }
     }
 
@@ -168,6 +174,23 @@ public class UsuarioController extends AbstractController<Usuario> {
         } catch (Exception ex) {
             Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public String getGuardarMostrarTempPdfFile() throws IOException {
+        String respuesta = "";
+        if (this.tempPdfFile != null) {
+            DefaultStreamedContent dsc = new DefaultStreamedContent(this.tempPdfFile, "application/pdf", "Usuario.pdf");
+            //File file = dsc.;
+        }
+        return respuesta;
+    }
+
+    public StreamedContent getTempPdfFile() throws IOException {
+        DefaultStreamedContent dsc = null;
+        if (this.tempPdfFile != null) {
+            dsc = new DefaultStreamedContent(this.tempPdfFile, "application/pdf", "Usuario.pdf");
+        }
+        return dsc;
     }
 
 }

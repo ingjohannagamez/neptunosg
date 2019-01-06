@@ -68,10 +68,10 @@
     box-shadow: none;
     color: #333;
 }
-    .ui-panel-content input[type="text"]:focus,.ui-panel-content input[type="password"]:focus{
-        border-bottom: 1px solid #333;
-        box-shadow: none;
-    }
+.ui-panel-content input[type="text"]:focus,.ui-panel-content input[type="password"]:focus{
+    border-bottom: 1px solid #333;
+    box-shadow: none;
+}
 
 .dialogForm {
     top: 5px !important;
@@ -111,21 +111,21 @@ iframe {
     overflow-y: auto;
 }
 
-    .news h2{
-        margin-bottom: 20px;
-    }
+.news h2{
+    margin-bottom: 20px;
+}
 
-    .news ul{
-       list-style-image:url('../img/icon/bullet2.png');
-    }
-        .news li{
-            margin-bottom: 5px;
-            
-        }
+.news ul{
+    list-style-image:url('../img/icon/bullet2.png');
+}
+.news li{
+    margin-bottom: 5px;
 
-        .news a{
-            vertical-align: super;
-        }
+}
+
+.news a{
+    vertical-align: super;
+}
 
 .mainFooter{
     overflow: hidden;   
@@ -135,40 +135,40 @@ iframe {
     padding: 0;
     width: 100%;
 }
-    .mainFooter .features{
-        padding: 0;
-        float: right;
-        padding-right: 80px;
-    }
-        .mainFooter .features li{
-            display: inline-block;
-            margin-left: 20px;
-        }
-            .mainFooter .features img{
-                float: left;
-                margin-right: 5px;
-            }
-            .mainFooter .features p{
-                font-family: "Open Sans", sans-serif;
-                font-weight: bold;
-                float: left;
-                color: #FFF;
-                margin: 0;
-                text-transform: capitalize;
-                width: 258px;
-            }
-                .mainFooter .features span{
-                    font-size: 16px;
-                    font-weight: bold;
-                }
+.mainFooter .features{
+    padding: 0;
+    float: right;
+    padding-right: 80px;
+}
+.mainFooter .features li{
+    display: inline-block;
+    margin-left: 20px;
+}
+.mainFooter .features img{
+    float: left;
+    margin-right: 5px;
+}
+.mainFooter .features p{
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    float: left;
+    color: #FFF;
+    margin: 0;
+    text-transform: capitalize;
+    width: 258px;
+}
+.mainFooter .features span{
+    font-size: 16px;
+    font-weight: bold;
+}
 
-            .mainFooter .features li:first-child{
-                display: none;
-            }
+.mainFooter .features li:first-child{
+    display: none;
+}
 
 /* iPads (portrait & landscape) ----------- */
 @media only screen and (min-width : 768px) and (max-width : 1024px) {
-   
+
     .news{
         display: none;
     }
@@ -204,4 +204,8 @@ iframe {
     .contenedor{
         left: 56%;   
     }
+}
+
+.ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell {
+    text-align: center;
 }

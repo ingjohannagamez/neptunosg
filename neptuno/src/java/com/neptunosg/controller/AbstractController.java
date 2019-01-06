@@ -3,6 +3,7 @@ package com.neptunosg.controller;
 import com.neptunosg.facade.AbstractFacade;
 import com.neptunosg.facade.LazyEntityDataModel;
 import com.neptunosg.controller.util.JsfUtil;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -51,6 +52,7 @@ public abstract class AbstractController<T> implements Serializable {
     private List<T> filteredItems;
     private UploadedFile file;
     private boolean skip;
+    private static final int CHUNK_SIZE = 4194304;
 
     private enum PersistAction {
         CREATE,
@@ -387,7 +389,7 @@ public abstract class AbstractController<T> implements Serializable {
             }
             try (OutputStream out = new FileOutputStream(new File(ruta + "/" + imagen))) {
                 int read = 0;
-                byte[] bytes = new byte[4194304];
+                byte[] bytes = new byte[CHUNK_SIZE];
 
                 while ((read = in.read(bytes)) != -1) {
                     out.write(bytes, 0, read);
@@ -427,6 +429,25 @@ public abstract class AbstractController<T> implements Serializable {
             diffYear = diffYear - 1;
         }
         return diffYear;
+    }
+    
+    public void creaArchivo(String ruta, InputStream is) throws Exception {
+        //BufferedOutputStream es para escribir el contenido del stream
+        //por partes para no llenar la memoria y porque es más rápido
+        //FileOutputStream es para indicar que vamos a escribir el
+        //contenido en un archivo
+        OutputStream os = new BufferedOutputStream(new FileOutputStream(new File(ruta)));
+        byte[] chunk = new byte[CHUNK_SIZE];
+        int bytesLeidos = 0;
+        //mientras que podamos leer bytes del stream de entrada
+        //en bloques de tamaño CHUNK_SIZE
+        while ((bytesLeidos = is.read(chunk)) > 0) {
+            //escribir los bytes leidos en el arreglo
+            //desde la posición 0 hasta la posición marcada por
+            //el valor de la variable bytesLeidos
+            os.write(chunk, 0, bytesLeidos);
+        }
+        os.close();
     }
 
     public UploadedFile getFile() {
