@@ -7,12 +7,12 @@ import com.neptunosg.entity.Acceso;
 import java.util.List;
 import com.neptunosg.facade.UsuarioFacade;
 import com.neptunosg.controller.util.MobilePageController;
-import java.io.BufferedOutputStream;
+import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +43,7 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
 
     // Flags to indicate if child collections are empty
     private boolean isAccesoListEmpty;
-    private InputStream tempPdfFile;
+    private String documento;
 
     public UsuarioController() {
         // Inform the Abstract parent controller of the concrete Usuario Entity
@@ -125,7 +125,6 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
     public void getPdf() {
         try {
             if (this.getSelected() != null) {
-
                 FacesContext context = FacesContext.getCurrentInstance();
                 ServletContext servletContext = (ServletContext) context.getExternalContext().getContext();
 
@@ -135,8 +134,8 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
                 reporte.addParametro("ideusr", this.getSelected().getIdeusr());
                 InputStream is = reporte.PDFb();
                 if (is != null) {
-                    this.creaArchivo(servletContext.getRealPath("").concat("\\resources\\documentos\\".concat(this.getSelected().getDocusr().concat("_HV.pdf"))), is);
-                    this.tempPdfFile = is;
+                    this.documento = servletContext.getRealPath("").concat("\\resources\\documentos\\".concat(this.getSelected().getDocusr().concat("_HV.pdf")));
+                    this.creaArchivo(documento, is);
                 } else {
                     JsfUtil.addErrorMessage("No se pudo generar el reporte");
                 }
@@ -176,21 +175,22 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
         }
     }
 
-    public String getGuardarMostrarTempPdfFile() throws IOException {
-        String respuesta = "";
-        if (this.tempPdfFile != null) {
-            DefaultStreamedContent dsc = new DefaultStreamedContent(this.tempPdfFile, "application/pdf", "Usuario.pdf");
-            //File file = dsc.;
-        }
-        return respuesta;
-    }
-
     public StreamedContent getTempPdfFile() throws IOException {
         DefaultStreamedContent dsc = null;
-        if (this.tempPdfFile != null) {
-            dsc = new DefaultStreamedContent(this.tempPdfFile, "application/pdf", "Usuario.pdf");
+        try {
+            if (this.documento != null && !this.documento.equals("")) {
+                File file = new File(this.documento);
+                InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+                dsc = new DefaultStreamedContent(inputStream, "application/pdf", this.getSelected().getDocusr().concat("_HV.pdf"));
+            }
+        } catch (FileNotFoundException e) {
+            JsfUtil.addErrorMessage("No se pudo descargar el documento.");
         }
         return dsc;
+    }
+
+    public String getDocumento() {
+        return documento;
     }
 
 }
