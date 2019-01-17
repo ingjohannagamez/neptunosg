@@ -43,7 +43,7 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://172.30.159.126:3306/afsolu_neptunosg?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://neptuno-db-route-neptuno-db.1d35.starter-us-east-1.openshiftapps.com:3306/afsolu_neptunosg?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">afsolu_johannagamez</property>
     <property name="hibernate.connection.password">Administrador01#</property>
   </session-factory>
