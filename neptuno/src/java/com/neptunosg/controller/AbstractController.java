@@ -436,18 +436,18 @@ public abstract class AbstractController<T> implements Serializable {
         //por partes para no llenar la memoria y porque es más rápido
         //FileOutputStream es para indicar que vamos a escribir el
         //contenido en un archivo
-        OutputStream os = new BufferedOutputStream(new FileOutputStream(new File(ruta)));
-        byte[] chunk = new byte[CHUNK_SIZE];
-        int bytesLeidos = 0;
-        //mientras que podamos leer bytes del stream de entrada
-        //en bloques de tamaño CHUNK_SIZE
-        while ((bytesLeidos = is.read(chunk)) > 0) {
-            //escribir los bytes leidos en el arreglo
-            //desde la posición 0 hasta la posición marcada por
-            //el valor de la variable bytesLeidos
-            os.write(chunk, 0, bytesLeidos);
+        try (OutputStream os = new BufferedOutputStream(new FileOutputStream(new File(ruta)))) {
+            byte[] chunk = new byte[CHUNK_SIZE];
+            int bytesLeidos = 0;
+            //mientras que podamos leer bytes del stream de entrada
+            //en bloques de tamaño CHUNK_SIZE
+            while ((bytesLeidos = is.read(chunk)) > 0) {
+                //escribir los bytes leidos en el arreglo
+                //desde la posición 0 hasta la posición marcada por
+                //el valor de la variable bytesLeidos
+                os.write(chunk, 0, bytesLeidos);
+            }
         }
-        os.close();
     }
 
     public UploadedFile getFile() {

@@ -195,12 +195,12 @@
                     <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{usuarioController.delete}" update=":growl,datalist" disabled="#{empty usuarioController.selected}">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmDeleteMessage}" icon="ui-icon-alert"/>
                     </p:commandButton>
-                    <p:commandButton actionListener="#{usuarioController.getPdf()}" 
+                    <p:commandButton actionListener="#{usuarioController.getPdf()}"
                                      id="reporteButton" icon="ui-icon-document" 
                                      value="Generar PDF"
                                      update="UsuarioListForm">
                         <ui:remove>
-                            <p:fileDownload value="#{usuarioController.pdf}"/>
+                            <p:fileDownload value="#{usuarioController.tempPdfFile}"/>
                         </ui:remove>
                     </p:commandButton>
                 </p:row>

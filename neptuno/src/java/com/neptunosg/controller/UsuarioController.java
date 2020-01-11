@@ -143,8 +143,10 @@ public class UsuarioController extends AbstractController<Usuario> implements Se
                 JsfUtil.addErrorMessage("No se pudo generar el reporte no se a seleccionado ningún registro");
             }
         } catch (JRException ex) {
+            JsfUtil.addErrorMessage("No se pudo generar el reporte");
             LOG.log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
+            JsfUtil.addErrorMessage("No se pudo generar el reporte");
             LOG.log(Level.SEVERE, null, ex);
         }
     }

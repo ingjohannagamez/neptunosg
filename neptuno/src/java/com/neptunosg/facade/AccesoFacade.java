@@ -95,8 +95,10 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
                 }
             }
         } catch (HibernateException e) {
+            objeto = null;
             LOG.log(Level.SEVERE, null, e);
         } catch (Exception e) {
+            objeto = null;
             LOG.log(Level.SEVERE, null, e);
         }
         return objeto;
