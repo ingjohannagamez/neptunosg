@@ -1,7 +1,9 @@
 package com.neptunosg.controller;
 
+import com.google.gson.Gson;
 import com.neptunosg.controller.util.JsfUtil;
 import com.neptunosg.controller.util.Session;
+import com.neptunosg.dto.UsuarioDTO;
 import com.neptunosg.entity.Acceso;
 import com.neptunosg.entity.Empresa;
 import com.neptunosg.entity.Oficina;
@@ -161,6 +163,36 @@ public class LoginController implements Serializable {
             Logger.getLogger(LoginController.class.getSimpleName()).log(Level.SEVERE, null, e);
         }
         return ruta;
+    }
+    
+    /**
+     * @param acceso
+     * @Descripcion Metodo de autenticacioón del ususario en el sistema por WS
+     * @autor Johann Agamez
+     * @Fecha Creacion 25/01/2020
+     * @Fecha Modificacion 25/01/2020
+     * @return JSON
+     */
+    public String validarAccesoWS(Acceso acceso) {
+        String respuesta = "";
+        try {
+            Gson gson = new Gson();
+            final AccesoFacade accesoFacadeWS = new AccesoFacade();
+            if (!acceso.getNikacc().equals("") && !acceso.getPswacc().equals("")) {
+                acceso = accesoFacadeWS.validarAcceso(acceso);
+                if (acceso != null && acceso.getIdeusr().getEstusr() == 1) {
+                    respuesta = gson.toJson(new UsuarioDTO(acceso.getIdeusr()));
+                } else {
+                    respuesta ="Error usuario no valido o inactivo";
+                }
+            } else {
+                respuesta ="Todos los datos son obligatorios";
+            }
+        } catch (Exception e) {
+            respuesta ="Error del sistema por favor comunicade con el administrador";
+            Logger.getLogger(LoginController.class.getSimpleName()).log(Level.SEVERE, null, e);
+        }
+        return respuesta;
     }
 
     /**

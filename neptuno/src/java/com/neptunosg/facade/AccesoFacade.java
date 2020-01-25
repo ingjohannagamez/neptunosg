@@ -19,6 +19,8 @@ import com.neptunosg.entity.Usuario;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.hibernate.HibernateException;
 
 /**
@@ -30,13 +32,8 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
 
     @PersistenceContext(unitName = "neptunoPU")
     private EntityManager em;
-    
-    private static final Logger LOG = Logger.getLogger(AccesoFacade.class.getName());
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+    private static final Logger LOG = Logger.getLogger(AccesoFacade.class.getName());
 
     public AccesoFacade() {
         super(Acceso.class);
@@ -80,9 +77,15 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
             return entity;
         }
     }
-    
+
     public Acceso validarAcceso(Acceso objeto) {
         try {
+            if (this.getEntityManager() == null) {
+                EntityManagerFactory emf;
+                emf = Persistence.createEntityManagerFactory("neptunoPU");
+                this.setEm(emf.createEntityManager());
+            }
+
             Integer emp = objeto.getIdeusr().getIdeofi().getIdeemp().getIdeemp();
             objeto = (Acceso) this.getEntityManager().createQuery("SELECT a FROM Acceso a WHERE a.nikacc = :nik AND a.pswacc = :psw AND a.estacc = :est")
                     .setParameter("nik", objeto.getNikacc())
@@ -103,5 +106,14 @@ public class AccesoFacade extends AbstractFacade<Acceso> {
         }
         return objeto;
     }
-    
+
+    @Override
+    protected EntityManager getEntityManager() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
 }
